@@ -1,11 +1,15 @@
 import React, { ReactNode } from 'react'
+import { Link, useLocation } from "react-router-dom"
 
 // static
 import Logo from "../assets/ecs-logo.png"
-import { Link, useLocation } from "react-router-dom"
 
 // icons
-import { HomeIcon, BookOpenIcon, QuestionMarkCircleIcon, UserCircleIcon } from "@heroicons/react/24/outline";
+import {
+    HomeIcon,
+    BookOpenIcon,
+    UserCircleIcon
+} from "@heroicons/react/24/outline";
 
 export const Sidebar = () => {
     return (
@@ -16,23 +20,31 @@ export const Sidebar = () => {
             </Link>
 
             {/** Sidebar elements */}
-            <SidebarElement path="/" icon={<HomeIcon/>}/>
-            <SidebarElement path="/about" icon={<QuestionMarkCircleIcon/>}/>
-            <SidebarElement path="/courses" icon={<BookOpenIcon/>}/>
-            <SidebarElement path="/profile" icon={<UserCircleIcon/>}/>
+            <SidebarElement path="/" icon={<HomeIcon />} />
+            <SidebarElement path="/courses" icon={<BookOpenIcon />} />
+            <SidebarElement path="/profile" icon={<UserCircleIcon />} />
         </div>
     )
 }
 
 
-const SidebarElement = ({path, icon}: {path:string, icon: JSX.Element})  => {
+const SidebarElement = ({ path, icon }: { path: string, icon: JSX.Element }) => {
+    // get the current location
     const location = useLocation();
+
+    // matching the current path
+    if (location.pathname == path) {
+        return (
+            <Link to={path} className="flex items-center justify-center flex-shrink-0 w-10 h-10 mt-4 rounded" >
+                <span className='w-5 h-5 text-green-500'>{icon}</span>
+            </Link>
+        )
+    }
+
+    // not matching the current path
     return (
         <Link to={path} className="flex items-center justify-center flex-shrink-0 w-10 h-10 mt-4 rounded hover:bg-gray-300" >
-            {location.pathname == path ?
-                <span className='w-5 h-5 text-blue-500'>{icon}</span> :
-                <span className='w-5 h-5'>{icon}</span>
-            }
+            <span className='w-5 h-5'>{icon}</span>
         </Link>
     )
 }
