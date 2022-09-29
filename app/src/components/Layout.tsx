@@ -5,25 +5,23 @@ import { OptionsBar } from './OptionsBar'
 import { Sidebar } from './Sidebar'
 import { TopNavBar } from './TopNavBar'
 
-const Layout = ({children}: {children: Array<ReactNode> | ReactNode}) => {
+const Layout = ({ children }: { children: Array<ReactNode> | ReactNode }) => {
     return (
         <div className="flex w-screen h-screen text-gray-700">
             {/** Sidebar */}
-            <Sidebar/>
+            <Sidebar />
 
             {/** Extra sidebar */}
-            <OptionsBar/>
+            {/* <OptionsBar /> TODO: make it work*/}
 
             <div className="flex flex-col flex-grow">
 
                 {/** Top Nav bar */}
-                <TopNavBar/>
+                <TopNavBar />
 
                 {/** Content */}
-                <main className="flex-grow p-6 overflow-auto bg-gray-200">
-                    <div className="grid grid-cols-3 gap-6">
+                <main className="flex-grow p-6 overflow-hidden bg-gray-100">
                         {children}
-                    </div>
                 </main>
             </div>
         </div>

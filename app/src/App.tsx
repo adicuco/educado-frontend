@@ -1,13 +1,16 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
 
-// Pages
+// Auth Pages
 import Home from "./pages/Home";
-
-import NotFound from "./pages/NotFound";
-import Courses from "./pages/Courses";
 import Profile from "./pages/Profile";
+import Courses from "./pages/Courses";
+import CourseCreate from "./pages/CourseCreate";
+import CourseEdit from "./pages/CourseEdit";
+
+// Non-auth pages
 import Login from "./pages/Login";
-import { Children } from "react";
+import Signup from "./pages/Signup";
+import NotFound from "./pages/NotFound";
 
 function App() {
 
@@ -15,27 +18,25 @@ function App() {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <Home/>,
-      errorElement: <NotFound/>
+      element: <Home />,
+      errorElement: <NotFound />
     },
     {
       path: "/courses",
-      element: <Courses/>,
-      errorElement: <NotFound/>,
-      children: [
-        {
-          path: "create",
-          element: <p>Create new course</p>
-        },
-        {
-          path: "/courses/:id/edit/course",
-          element: <p>Edit a course</p>
-        },
-        {
-          path: "/courses/:id/edit/section",
-          element: <p>Edit a section</p>
-        }
-      ]
+      element: <Courses />,
+      errorElement: <NotFound />,
+    },
+    {
+      path: "/courses/create",
+      element: <CourseCreate />
+    },
+    {
+      path: "/courses/edit/:id",
+      element: <CourseEdit />
+    },
+    {
+      path: "/courses/edit/:id/section/:id",
+      element: <CourseCreate />
     },
     {
       path: "/settings",
@@ -43,13 +44,17 @@ function App() {
     },
     {
       path: "/profile",
-      element: <Profile/>,
-      errorElement: <NotFound/>
+      element: <Profile />,
+      errorElement: <NotFound />
     },
     {
       path: "/login",
-      element: <Login/>,
-      errorElement: <NotFound/>
+      element: <Login />,
+      errorElement: <NotFound />
+    }, {
+      path: "/signup",
+      element: <Signup />,
+      errorElement: <NotFound />
     }
   ])
 
