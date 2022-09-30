@@ -8,7 +8,7 @@ const Login = () => {
             <div className="bg-white rounded p-12 shadow-lg mt-12">
                 <div className='flex flex-col divide text-gray-700'>
                     <form className="flex flex-col" action="">
-                        <label className="font-semibold text-xs" htmlFor="usernameField">Username or Email</label>
+                        <label className="font-semibold text-xs" htmlFor="usernameField">Email</label>
                         <input className="flex items-center h-12 px-4 w-64 bg-gray-200 mt-2 rounded focus:outline-none focus:ring-2" type="text" />
                         <label className="font-semibold text-xs mt-3" htmlFor="passwordField">Password</label>
                         <input className="flex items-center h-12 px-4 w-64 bg-gray-200 mt-2 rounded focus:outline-none focus:ring-2" type="password" />

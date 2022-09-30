@@ -1,6 +1,5 @@
 import React from 'react'
 
-import { EllipsisVerticalIcon } from "@heroicons/react/24/outline"
 import { Link } from 'react-router-dom'
 
 export const TopNavBar = () => {
@@ -19,9 +18,9 @@ export const TopNavBar = () => {
                     </div>
                 </div>
                 <div className="absolute right-0 flex-col items-start hidden w-40 bg-white border border-gray-300 shadow-lg group-focus:flex">
-                    <a className="w-full px-4 py-2 text-left hover:bg-gray-300" href="#">Edit Profile</a>
+                    <Link to="/profile" className="w-full px-4 py-2 text-left hover:bg-gray-300">Profile</Link>
                     <a className="w-full px-4 py-2 text-left hover:bg-gray-300" href="#">Menu Item 1</a>
-                    <a className="w-full px-4 py-2 text-left hover:bg-gray-300" href="#">Menu Item 1</a>
+                    <Link to="/login" className="w-full px-4 py-2 text-left hover:bg-gray-300">Sign out</Link>
                 </div>
             </button>
         </div>

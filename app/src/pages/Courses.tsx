@@ -1,21 +1,32 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
+// hooks
+import useToggle from "../hooks/useToggle";
+
 // Components
 import Layout from '../components/Layout'
 import { CourseListCard } from '../components/CourseListCard'
+import { CourseCreateModal } from "../components/CourseCreateModal"
+
+// icons
+import { 
+  ListBulletIcon, 
+  PencilSquareIcon,
+  Square2StackIcon
+ } from '@heroicons/react/24/outline';
 
 // Demo data
 const courses = [{
   id: "6335993db89fa3077a35ce82",
-  title: "Basic JavaScript",
-  description: "Javascript - Learn math while you commute, develop the skills you need, conquer tomorrow's job market, begin your journey today",
+  title: "Basic Python",
+  description: "Python - Learn math while you commute, develop the skills you need, conquer tomorrow's job market, begin your journey today",
   cover_image: "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=80",
   created_at: "26 sept 2022",
   creator: {
     name: "Frederik Bode",
     image: "https://www.tailwind-kit.com/images/person/7.jpg",
-    institution: "AAU"
+    institutions: ["AAU"]
   }
 }, {
   id: "6335994ac12de5eea79eefab",
@@ -26,23 +37,33 @@ const courses = [{
   creator: {
     name: "Sture Svensson",
     image: "https://www.tailwind-kit.com/images/person/6.jpg",
-    institution: "AAU"
+    institutions: ["AAU", "Google"]
   }
 }]
 
 const Courses = () => {
+  // states and hooks
+  const [modalVisible, setModalVisible] = useToggle();
+  // const [toggleLayout, setToggleLayout] = useToggle();
+
+  const toggleCallback = () => {
+    setModalVisible();
+  }
+
   return (
     <Layout>
-      {/** Page Descriptor */}
-      <div className="header flex items-end justify-between mb-12">
-        <div className="title">
-          <p className="text-4xl font-bold text-gray-800 mb-4">
-            My Courses
-          </p>
-          <p className="text-2xl font-light text-gray-500">
-            All courses are verified by 2 experts and valdiate by an Educado Admin
-          </p>
+      <div className='flex flex-row justify-between mb-8'>
+        <div className='flex flex-row space-x-2'>
+          <button onClick={setModalVisible} className="std-button">
+            <PencilSquareIcon className='w-5 h-5'/>
+            <p className='font-normal'>Create new course</p>
+          </button>
+          {/* <button onClick={setToggleLayout} className="std-button">
+            {toggleLayout ? <ListBulletIcon className='w-6 h-6'/> : <Square2StackIcon className='w-6 h-6'/>}
+            {toggleLayout ? <p className='font-mono font-thin'>List View</p> : <p className='font-mono font-thin'>Grid View</p>}
+          </button> */}
         </div>
+
         <div className="text-end">
           <form className="flex flex-col md:flex-row w-3/4 md:w-full max-w-sm md:space-x-3 space-y-3 md:space-y-0 justify-center">
             <div className=" relative ">
@@ -66,7 +87,8 @@ const Courses = () => {
         })}
       </div>
 
-
+      {/** Modal Component */}
+      {modalVisible && <CourseCreateModal toggler={toggleCallback} />}
     </Layout>
   )
 }

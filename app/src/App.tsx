@@ -4,7 +4,6 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 import Courses from "./pages/Courses";
-import CourseCreate from "./pages/CourseCreate";
 import CourseEdit from "./pages/CourseEdit";
 
 // Non-auth pages
@@ -27,16 +26,12 @@ function App() {
       errorElement: <NotFound />,
     },
     {
-      path: "/courses/create",
-      element: <CourseCreate />
-    },
-    {
       path: "/courses/edit/:id",
       element: <CourseEdit />
     },
     {
       path: "/courses/edit/:id/section/:id",
-      element: <CourseCreate />
+      element: <CourseEdit />
     },
     {
       path: "/settings",
