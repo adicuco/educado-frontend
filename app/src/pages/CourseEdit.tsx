@@ -2,7 +2,7 @@ import React from 'react'
 import { useForm, SubmitHandler } from "react-hook-form";
 
 // Icons
-import { XMarkIcon } from "@heroicons/react/24/outline"
+import { PlusIcon, XMarkIcon } from "@heroicons/react/24/outline"
 
 // components
 import Layout from '../components/Layout'
@@ -76,7 +76,6 @@ const CourseEdit = () => {
                             {errors.title && <span>This field is required</span>}
                         </div>
 
-
                         <div className="flex flex-col space-y-2">
                             <label htmlFor='description'>Description</label>
                             <textarea rows={4} defaultValue={course.description} placeholder={course.description}
@@ -90,10 +89,18 @@ const CourseEdit = () => {
                             <label htmlFor='categories'>Categories</label>
                             <div className='flex flex-row space-x-2'>
                                 {course.categories.map((category, key) => <Pill category={category} key={key} />)}
+
+                                {/** Add new pill */}
+                                <span className="px-3 py-1 flex items-center text-base rounded-full border border-blue-500 hover:bg-blue-700 text-blue-500 shadow cursor-pointer">
+                                    <span>Add</span>
+                                    <button className="bg-transparent">
+                                        <PlusIcon className='w-4 h-4 ml-2' />
+                                    </button>
+                                </span>
                             </div>
                         </div>
 
-                        <button type="submit" className='w-48 bg-gray-800 text-white rounded-lg py-2 px-4 ml-auto'>Update Course</button>
+                        <button type="submit" className='std-button ml-auto'>Update Course</button>
                     </form>
 
 
