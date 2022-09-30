@@ -20,8 +20,8 @@ const Layout = ({ children }: { children: Array<ReactNode> | ReactNode }) => {
                 <TopNavBar />
 
                 {/** Content */}
-                <main className="flex-grow p-6 overflow-hidden bg-gray-100">
-                        {children}
+                <main className="flex-grow p-6 overflow-x-hidden bg-gray-100">
+                    {children}
                 </main>
             </div>
         </div>
