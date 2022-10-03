@@ -22,21 +22,19 @@ export const createCourse = (props: CourseInterface) => {
         published: false,
     };
 
-    return async (dispatch: Function) => {
-        const res = await axios.post(`${backend_url}/api/course/create`, course);
-        dispatch({ type: CREATE_COURSE, payload: res.data });
-    };
+    return async () => await axios.post(`${backend_url}/api/course/create`, course);
 };
 
 
 // GET ALL COURSES
 export const GET_ALL_COURSES = "GET_ALL_COURSES";
 
-export const getAllCourses = () => {
-  return async (dispatch: Function) => {
-    const res = await axios.get(`${backend_url}/api/course/getall`);
-    dispatch({ type: GET_ALL_COURSES, payload: res.data });
-  };
+export const getAllCourses = (url: string) => {
+    let data = axios.get(url);
+
+    console.log(data);
+
+    return axios.get(url).then(res => res.data)
 };
 
 

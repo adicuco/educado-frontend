@@ -1,4 +1,5 @@
 import React from 'react'
+import useSWR from 'swr'; // next.js fetching package
 import { Link } from 'react-router-dom'
 
 // hooks
@@ -10,11 +11,12 @@ import { CourseListCard } from '../components/CourseListCard'
 import { CourseCreateModal } from "../components/CourseCreateModal"
 
 // icons
-import { 
-  ListBulletIcon, 
+import {
+  ListBulletIcon,
   PencilSquareIcon,
   Square2StackIcon
- } from '@heroicons/react/24/outline';
+} from '@heroicons/react/24/outline';
+import CourseServices from '../services/course.services';
 
 // Demo data
 const courses = [{
@@ -42,20 +44,33 @@ const courses = [{
 }]
 
 const Courses = () => {
+  // Fetch all courses
+  const { data, error } = useSWR(
+    "http://127.0.0.1:8888/api/course/eml/getall",
+    CourseServices.getAllCourses
+  );
+
+
   // states and hooks
   const [modalVisible, setModalVisible] = useToggle();
   // const [toggleLayout, setToggleLayout] = useToggle();
 
+  // 
   const toggleCallback = () => {
     setModalVisible();
   }
+
+  if (error) return <>"An error has occurred."</>;
+  if (!data) return <>"Loading..."</>;
+
+  console.log(data);
 
   return (
     <Layout>
       <div className='flex flex-row justify-between mb-8'>
         <div className='flex flex-row space-x-2'>
           <button onClick={setModalVisible} className="std-button">
-            <PencilSquareIcon className='w-5 h-5'/>
+            <PencilSquareIcon className='w-5 h-5' />
             <p className='font-normal'>Create new course</p>
           </button>
           {/* <button onClick={setToggleLayout} className="std-button">
