@@ -1,6 +1,9 @@
 import React from 'react'
 import { useForm, SubmitHandler } from "react-hook-form";
 
+// Services
+import CourseServices, { CourseInterface } from '../services/course.services';
+
 type Inputs = {
   title: string,
   description: string,
@@ -12,7 +15,12 @@ export const CourseCreateModal = ({ toggler }: { toggler: Function }) => {
 
   // success on submit handler
   const onSubmit: SubmitHandler<Inputs> = data => {
-    console.log(data);
+    CourseServices.createCourse({
+      title: data.title,
+      description: data.description,
+      category: [],
+      published: false
+    });
     toggler(); // Close modal after successfull submit
   };
 
