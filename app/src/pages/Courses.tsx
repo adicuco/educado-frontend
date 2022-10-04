@@ -1,7 +1,6 @@
 import React from 'react'
 import useSWR from 'swr'; // next.js fetching package
 import { Link } from 'react-router-dom'
-
 // hooks
 import useToggle from "../hooks/useToggle";
 
@@ -21,6 +20,7 @@ import CourseServices from '../services/course.services';
 // Demo data
 const courses = [{
   id: "6335993db89fa3077a35ce82",
+  category: "Programming",
   title: "Basic Python",
   description: "Python - Learn math while you commute, develop the skills you need, conquer tomorrow's job market, begin your journey today",
   cover_image: "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=80",
@@ -32,6 +32,7 @@ const courses = [{
   }
 }, {
   id: "6335994ac12de5eea79eefab",
+  category: "Finance",
   title: "Personal Finance",
   description: "Finance - Learn math while you commute, develop the skills you need, conquer tomorrow's job market, begin your journey today",
   cover_image: "https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
@@ -97,10 +98,18 @@ const Courses = () => {
 
       {/** Page content */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        {courses.map((course, key) => {
+        {courses.map((course: any, key: number) => {
           return <CourseListCard course={course} key={key} />
         })}
       </div>
+
+      {/** Page content real data from backend */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        {data.map((course: any, key: number) => {
+          return <CourseListCard course={course} key={key} />
+        })}
+      </div>
+
 
       {/** Modal Component */}
       {modalVisible && <CourseCreateModal toggler={toggleCallback} />}
