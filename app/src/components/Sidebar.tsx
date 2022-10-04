@@ -1,6 +1,9 @@
 import React, { ReactNode } from 'react'
 import { Link, useLocation } from "react-router-dom"
 
+import Tippy from '@tippyjs/react';
+import 'tippy.js/dist/tippy.css'; // optional
+
 // static
 import Logo from "../assets/ecs-logo.png"
 
@@ -20,31 +23,35 @@ export const Sidebar = () => {
             </Link>
 
             {/** Sidebar elements */}
-            <SidebarElement path="/" icon={<HomeIcon />} />
-            <SidebarElement path="/courses" icon={<BookOpenIcon />} />
-            <SidebarElement path="/profile" icon={<UserCircleIcon />} />
+            <SidebarElement path="/" icon={<HomeIcon />} tooltip="Home" />
+            <SidebarElement path="/courses" icon={<BookOpenIcon />} tooltip="Courses"/>
+            <SidebarElement path="/profile" icon={<UserCircleIcon />} tooltip="Profile" />
         </div>
     )
 }
 
 
-const SidebarElement = ({ path, icon }: { path: string, icon: JSX.Element }) => {
+const SidebarElement = ({ path, icon, tooltip }: { path: string, icon: JSX.Element, tooltip: string }) => {
     // get the current location
     const location = useLocation();
 
     // matching the current path
     if (location.pathname == path) {
         return (
-            <Link to={path} className="flex items-center justify-center flex-shrink-0 w-10 h-10 mt-4 rounded" >
-                <span className='w-5 h-5 text-blue-500'>{icon}</span>
-            </Link>
+            <Tippy content={tooltip} placement="right">
+                <Link to={path} className="flex items-center justify-center flex-shrink-0 w-10 h-10 mt-4 rounded" >
+                    <span className='w-5 h-5 text-blue-500'>{icon}</span>
+                </Link>
+            </Tippy>
         )
     }
 
     // not matching the current path
     return (
-        <Link to={path} className="flex items-center justify-center flex-shrink-0 w-10 h-10 mt-4 rounded hover:bg-gray-300" >
-            <span className='w-5 h-5'>{icon}</span>
-        </Link>
+        <Tippy content={tooltip} placement="right">
+            <Link to={path} className="flex items-center justify-center flex-shrink-0 w-10 h-10 mt-4 rounded hover:bg-gray-300" >
+                <span className='w-5 h-5'>{icon}</span>
+            </Link>
+        </Tippy>
     )
 }

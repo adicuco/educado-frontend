@@ -9,7 +9,7 @@ const Home = () => {
       <div className="header flex items-end justify-between mb-12">
         <div className="title">
           <p className="text-4xl font-bold text-gray-800 mb-4">
-            Welcome to the Educardo Creator
+            Welcome to the Educado Creator
           </p>
           <p className="text-2xl font-light text-gray-500">
             All courses are verified by 2 experts and valdiate by an Educado Admin
