@@ -13,7 +13,7 @@ export interface CourseInterface {
 // CREATE NEW COURSE
 export const CREATE_COURSE = "CREATE_COURSE"; // FIXME: wth is this?
 
-export const createCourse = (props: CourseInterface) => {
+const createCourse = (props: CourseInterface) => {
     console.log(import.meta.env.VITE_BACKEND_URL);
     const course = {
         title: props.title,
@@ -25,11 +25,10 @@ export const createCourse = (props: CourseInterface) => {
     return async () => await axios.post(`${backend_url}/api/course/create`, course);
 };
 
-
 // GET ALL COURSES
 export const GET_ALL_COURSES = "GET_ALL_COURSES";
 
-export const getAllCourses = (url: string) => {
+const getAllCourses = (url: string) => {
     let data = axios.get(url);
 
     console.log(data);
@@ -37,10 +36,14 @@ export const getAllCourses = (url: string) => {
     return axios.get(url).then(res => res.data)
 };
 
+const getCourseDetail = (url: string) => {
+    return axios.get(url).then(res => res.data)
+}
 
 const CourseServices = {
     createCourse,
-    getAllCourses
+    getAllCourses,
+    getCourseDetail
 };
 
 export default CourseServices;
