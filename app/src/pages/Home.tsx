@@ -1,9 +1,24 @@
+import axios from 'axios'
 import React from 'react'
+import useSWR from 'swr'
+
+// Stores
+import useAuthStore from '../contexts/useAuthStore'
 
 // Components
 import Layout from '../components/Layout'
+import NarniaServices from '../services/narnia.services'
 
 const Home = () => {
+  // zustand store
+  const token = useAuthStore(state => state.token);
+
+  // SWR fetcher function
+  const { data, error } = useSWR(["http://127.0.0.1:8888/api/jwt/narnia", token], NarniaServices.getNarnia);
+
+  if (!data && !error) { return <>Loading...</> }
+  if (error) { return <>Error: {error.message}...</> }
+
   return (
     <Layout>
       <div className="header flex items-end justify-between mb-12">

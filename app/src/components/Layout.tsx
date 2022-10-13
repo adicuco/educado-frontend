@@ -1,4 +1,6 @@
 import React, { ReactNode } from 'react'
+import { useNavigate } from 'react-router-dom'
+import useAuthStore from '../contexts/useAuthStore'
 import { OptionsBar } from './OptionsBar'
 
 // Components
@@ -6,6 +8,12 @@ import { Sidebar } from './Sidebar'
 import { TopNavBar } from './TopNavBar'
 
 const Layout = ({ children }: { children: Array<ReactNode> | ReactNode }) => {
+
+    // Check for existing token
+    //const token = useAuthStore(state => state.token);
+    // const navigate = useNavigate();
+    // if (!token) { return navigate("/login"); }
+
     return (
         <div className="flex w-screen h-screen text-gray-700">
             {/** Sidebar */}
