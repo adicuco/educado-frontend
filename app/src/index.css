@@ -9,4 +9,8 @@
     .std-button {
         @apply flex space-x-2 flex-shrink-0 px-4 py-2 text-base font-semibold text-white bg-blue-500 rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-blue-200
     }
+
+    .auth-form-field {
+        @apply flex items-center h-12 px-4 w-64 bg-gray-100 mt-2 rounded focus:outline-none focus:ring-2
+    }
 }
