@@ -36,7 +36,7 @@ const Courses = () => {
   //if (!data) return <p>"Loading..."</p>;
 
   return (
-    <Layout>
+    <Layout meta="Course overview">
       <div className='flex flex-row justify-between mb-8'>
         <div className='flex flex-row space-x-2'>
           <button onClick={setModalVisible} className="std-button">

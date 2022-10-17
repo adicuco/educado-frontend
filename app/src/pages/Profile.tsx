@@ -5,7 +5,7 @@ let currentemail = "short@email.com";
 
 const Profile = () => {
   return (
-    <Layout>
+    <Layout meta="Profile">
       <div className='flex flex-col'>
         <div className='flex flex-row '>Welcome to your Profile</div>
 

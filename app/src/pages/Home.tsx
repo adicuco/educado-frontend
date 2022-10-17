@@ -20,7 +20,7 @@ const Home = () => {
   if (error) { return <>Error: {error.message}...</> }
 
   return (
-    <Layout>
+    <Layout meta="Educado Creator">
       <div className="header flex items-end justify-between mb-12">
         <div className="title">
           <p className="text-4xl font-bold text-gray-800 mb-4">

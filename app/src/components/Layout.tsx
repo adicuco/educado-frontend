@@ -7,7 +7,7 @@ import { OptionsBar } from './OptionsBar'
 import { Sidebar } from './Sidebar'
 import { TopNavBar } from './TopNavBar'
 
-const Layout = ({ children }: { children: Array<ReactNode> | ReactNode }) => {
+const Layout = ({ children, meta }: { children: Array<ReactNode> | ReactNode, meta: string }) => {
 
     // Check for existing token
     //const token = useAuthStore(state => state.token);
@@ -34,7 +34,7 @@ const Layout = ({ children }: { children: Array<ReactNode> | ReactNode }) => {
                     <div className="header flex items-end justify-between p-6 border-b bg-white">
                         <div className="title">
                             <p className="text-3xl font-bold text-gray-800 mb-4">
-                                My Courses
+                                {meta ? <>{meta}</> : <>Educado</>}
                             </p>
                             <p className="text-xl font-light text-gray-500">
                                 All courses are verified by 2 experts and valdiate by an Educado Admin

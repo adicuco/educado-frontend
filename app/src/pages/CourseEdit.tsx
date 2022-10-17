@@ -57,22 +57,10 @@ const CourseEdit = () => {
 
     if (!data) { return <>Loading...</> }
     if (error) { return <>Error...</> }
-    console.log(data);
 
     return (
-        <Layout>
+        <Layout meta={`Course: ${data.title.slice(0,15)}`}>
             <div className="w-full">
-                {/** Page Descriptor */}
-                <div className="header flex items-end justify-between mb-12">
-                    <div className="title">
-                        <p className="text-4xl font-bold text-gray-800 mb-4">
-                            Editting <span className='text-blue-500'>{data.title}</span>
-                        </p>
-                        <p className="text-2xl font-light text-gray-500">
-                            All courses are verified by 2 experts and valdiate by an Educado Admin
-                        </p>
-                    </div>
-                </div>
 
                 {/** Course details edit */}
                 <div className='max-w-3xl mx-auto bg-white p-4 rounded-xl'>
