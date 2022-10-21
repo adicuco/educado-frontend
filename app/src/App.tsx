@@ -11,6 +11,11 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import NotFound from "./pages/NotFound";
 
+
+//Educado Admin tables for reviewing the Content Creator Applicants
+import EducadoAdmin from "./pages/EducadoAdmin";
+import SingleApplicantView from "./pages/SingleApplicantView";
+
 function App() {
 
   // router
@@ -46,11 +51,23 @@ function App() {
       path: "/login",
       element: <Login />,
       errorElement: <NotFound />
-    }, {
+    },
+    {
       path: "/signup",
       element: <Signup />,
       errorElement: <NotFound />
+    },
+    {
+      path: "/EducadoAdmin",
+      element: <EducadoAdmin />
+    },
+    {
+      path: "/singleapplicantview/:id",
+      element: <SingleApplicantView />,
+
     }
+
+
   ])
 
   return <RouterProvider router={router} />;
