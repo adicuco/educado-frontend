@@ -29,10 +29,6 @@ const createCourse = (props: CourseInterface) => {
 export const GET_ALL_COURSES = "GET_ALL_COURSES";
 
 const getAllCourses = (url: string) => {
-    let data = axios.get(url);
-
-    console.log(data);
-
     return axios.get(url).then(res => res.data)
 };
 

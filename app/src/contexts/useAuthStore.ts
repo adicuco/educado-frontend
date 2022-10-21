@@ -1,13 +1,15 @@
 import create from 'zustand'
 
 interface AuthState {
-    token: string | undefined,
+    token: string | null,
     setToken: (input: string) => void,
+    clearToken: () => void,
 }
 
 const useAuthStore = create<AuthState>((set) => ({
-    token: undefined,
-    setToken: (input: string) => set((state) => ({ token: state.token = input}))
+    token: null,
+    setToken: (input: string | undefined) => set((state) => ({ token: state.token = input })),
+    clearToken: () => set((state) => ({ token: state.token = null}))
 }))
 
 export default useAuthStore;

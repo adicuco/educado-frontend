@@ -26,7 +26,7 @@ const CourseEdit = () => {
 
     // Fetch data with useSWR
     const { data, error } = useSWR(
-        `http://127.0.0.1:8888/api/course/${id}`,
+        `http://127.0.0.1:8888/api/courses/${id}`,
         CourseServices.getCourseDetail
     )
 
@@ -57,6 +57,8 @@ const CourseEdit = () => {
 
     if (!data) { return <>Loading...</> }
     if (error) { return <>Error...</> }
+
+    console.log(data);
 
     return (
         <Layout meta={`Course: ${data.title.slice(0,15)}`}>

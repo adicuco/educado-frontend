@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link, useNavigate } from "react-router-dom"
+import { Link, useLocation, useNavigate } from "react-router-dom"
 import { useForm, SubmitHandler } from "react-hook-form";
 
 
@@ -17,6 +17,9 @@ type Inputs = {
 };
 
 const Login = () => {
+    // Location
+    const location = useLocation();
+
     // states
     const [error, setError] = useState<LoginReponseError.RootObject | null>(null); // store http error objects
     const setToken = useAuthStore(state => state.setToken); // zustand store for key storage
@@ -28,7 +31,10 @@ const Login = () => {
     // success on submit handler
     const onSubmit: SubmitHandler<Inputs> = async (data) => {
         AuthServices.postUserLogin(data)
-            .then((res) => { setToken(res.data.token); navigate("/"); })
+            .then((res) => {
+                setToken(res.data.token);
+                navigate("/");
+            })
             .catch(err => { setError(err); console.log(err) });
     };
 

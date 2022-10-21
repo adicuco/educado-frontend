@@ -36,7 +36,7 @@ export const CourseListCard = ({ course }: { course: Course }) => {
 
           <div className="flex items-center border-t border-gray-100 p-2">
             <span className="block relative">
-              <img src="https://www.tailwind-kit.com/images/person/6.jpg" alt="profil" className="mx-auto object-cover rounded-full h-10 w-10 " />
+              <img src="https://www.tailwind-kit.com/images/person/6.jpg" alt="profil" className="mx-auto object-cover rounded-md h-8 w-8" />
             </span>
             <div className="flex flex-col justify-between ml-4 text-sm">
               <p className="text-gray-800">{"hello"}</p>
