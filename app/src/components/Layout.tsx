@@ -1,4 +1,6 @@
 import React, { ReactNode } from 'react'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 // Components
 import RequireAuth from './RequireAuth'
@@ -7,6 +9,7 @@ import { TopNavBar } from './TopNavBar'
 // import { OptionsBar } from './OptionsBar'
 
 const Layout = ({ children, meta }: { children: Array<ReactNode> | ReactNode, meta: string }) => {
+    const notify = () => toast("First toast");
     return (
         <RequireAuth>
             <div className="flex w-screen h-screen text-gray-700">
@@ -33,6 +36,7 @@ const Layout = ({ children, meta }: { children: Array<ReactNode> | ReactNode, me
                                 <p className="text-xl font-light text-gray-500">
                                     All courses are verified by 2 experts and valdiate by an Educado Admin
                                 </p>
+                                <button className='' onClick={notify}>Click here</button>
                             </div>
                         </div>
 
@@ -43,6 +47,18 @@ const Layout = ({ children, meta }: { children: Array<ReactNode> | ReactNode, me
                     </main>
                 </div>
             </div>
+            <ToastContainer
+                position="bottom-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover={false}
+                theme="light"
+            />
         </RequireAuth>
     )
 }

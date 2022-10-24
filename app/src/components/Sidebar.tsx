@@ -11,7 +11,8 @@ import Logo from "../assets/ecs-logo.png"
 import {
     HomeIcon,
     BookOpenIcon,
-    UserCircleIcon
+    UserCircleIcon,
+    ShieldCheckIcon
 } from "@heroicons/react/24/outline";
 
 export const Sidebar = () => {
@@ -24,8 +25,9 @@ export const Sidebar = () => {
 
             {/** Sidebar elements */}
             <SidebarElement path="/" icon={<HomeIcon />} tooltip="Home" />
-            <SidebarElement path="/courses" icon={<BookOpenIcon />} tooltip="Courses"/>
+            <SidebarElement path="/courses" icon={<BookOpenIcon />} tooltip="Courses" />
             <SidebarElement path="/profile" icon={<UserCircleIcon />} tooltip="Profile" />
+            <SidebarElement path="/educado_admin/applications" icon={<ShieldCheckIcon />} tooltip="Admin" />
         </div>
     )
 }

@@ -8,8 +8,6 @@ const RequireAuth = ({ children }: { children: Array<ReactNode> | ReactNode }) =
     const auth = useAuthStore(state => state.token);
     const location = useLocation();
 
-    console.log(auth);
-
     if (!auth) {
         return <Navigate to="/login" state={{ from: location }} replace={true} />
     }

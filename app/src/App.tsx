@@ -58,16 +58,17 @@ function App() {
       errorElement: <NotFound />
     },
     {
-      path: "/EducadoAdmin",
+      path: "/educado_admin",
+      element: <EducadoAdmin />,
+    },
+    {
+      path: "/educado_admin/applications",
       element: <EducadoAdmin />
     },
     {
-      path: "/singleapplicantview/:id",
+      path: "/educado_admin/applications/:id",
       element: <SingleApplicantView />,
-
     }
-
-
   ])
 
   return <RouterProvider router={router} />;

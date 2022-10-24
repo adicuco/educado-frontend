@@ -1,18 +1,22 @@
 export declare module CCApp {
+
   export interface Datum {
-    createdAt: Date;
+    approved: boolean;
     _id: string;
     firstName: string;
     lastName: string;
     email: string;
     motivation: string;
+    createdAt: Date;
+    modifiedAt: string;
     __v: number;
-    approved: boolean;
+    rejectReason: string;
   }
 
-  export interface Headers {
-    contentLength: string;
-    contentType: string;
+  export interface Data {
+    success: boolean;
+    status: number;
+    data: Datum[];
   }
 
   export interface Transitional {
@@ -25,9 +29,6 @@ export declare module CCApp {
     FormData?: any;
   }
 
-  export interface Headers2 {
-    Accept: string;
-  }
 
   export interface Config {
     transitional: Transitional;
@@ -39,19 +40,21 @@ export declare module CCApp {
     maxContentLength: number;
     maxBodyLength: number;
     env: Env;
-    headers: Headers2;
     method: string;
     url: string;
   }
 
-  export interface Request {}
+  export interface Request {
+  }
 
   export interface RootObject {
-    data: Datum[];
+    data: Data;
     status: number;
     statusText: string;
     headers: Headers;
-    config: Config;
+    config: Partial<Config>;
     request: Request;
   }
 }
+
+

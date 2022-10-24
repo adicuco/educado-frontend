@@ -1,20 +1,21 @@
-
-
 import useSWR from "swr";
+import { useNavigate, Link, useLocation } from 'react-router-dom';
 
-// services
+// Services
 import AuthServices from "../services/auth.services";
 
+// Interfaces
 import { CCApp } from '../interfaces/CCApp'
 
-import { useNavigate, Link } from 'react-router-dom';
+// Components
+import Layout from "../components/Layout";
 
-function EducadoAdmin() {
-
-
+const EducadoAdmin = () => {
     // Used to navigate to the detailed view for the single applicant
     let navigate = useNavigate();
-    function handleClick() {
+    let location = useLocation();
+
+    const handleClick = () => {
         navigate('/singleapplicantview')
     }
 
@@ -23,20 +24,14 @@ function EducadoAdmin() {
         AuthServices.GetCCApplications
     );
 
-    if (!data) {
-        <>Loading...</>;
-    }
-    if (error) {
-        <>Error...</>;
-    }
-
-    console.log(data);
-
-
+    if (!data) { <>Loading...</>; }
+    if (error) { <>Error...</>; }
 
     return (
-        <div className="container mx-auto px-4 sm:px-8 max-w-3xl">
+        <Layout meta="Educado Admin">
             <div className="py-8">
+
+                {/** Component Header bar */}
                 <div className="flex flex-row mb-1 sm:mb-0 justify-between w-full">
                     <h2 className="text-2xl leading-tight">
                         Content Creator Application
@@ -60,37 +55,32 @@ function EducadoAdmin() {
                         </form>
                     </div>
                 </div>
+
+                {/** Component Main */}
                 <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
                     <div className="inline-block min-w-full shadow rounded-lg overflow-hidden">
                         <table className="min-w-full leading-normal">
+                            {/** Table Header */}
                             <thead>
                                 <tr>
-                                    <th
-                                        scope="col"
-                                        className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
-                                    >
+                                    <th scope="col" className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal">
                                         Name
                                     </th>
-                                    <th
-                                        scope="col"
-                                        className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
-                                    >
+                                    <th scope="col" className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal">
                                         email
                                     </th>
-                                    <th
-                                        scope="col"
-                                        className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
-                                    >
+                                    <th scope="col" className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal">
                                         Applied at
                                     </th>
-                                    <th
-                                        scope="col"
-                                        className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
-                                    ></th>
+                                    <th scope="col" className="px-5 py-3 bg-white  border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"></th>
                                 </tr>
                             </thead>
+
+                            {/** Table Body */}
                             <tbody>
                                 {data?.data.data.map((application: CCApp.Datum, key: number) => {
+                                    let date = new Date(application.createdAt); // TODO: Format Time
+                                    // let dateString = new Intl.DateTimeFormat('en-US').format(date);
                                     return (
                                         <tr key={key}>
                                             <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
@@ -108,23 +98,18 @@ function EducadoAdmin() {
                                                 </p>
                                             </td>
                                             <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                                <a
-                                                    href="#"
-                                                    className="text-indigo-600 hover:text-indigo-900"
-                                                >
-                                                    {application.createdAt}
-                                                </a>
+                                                <p className="text-indigo-600 hover:text-indigo-900">
+                                                    {date.toString()}
+                                                </p>
                                             </td>
                                             <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                                <Link to={`/singleapplicantview/${application._id}`}>
-
-
-                                                    <button onClick={handleClick}
-
+                                                <Link to={`${location.pathname}/${application._id}`}>
+                                                    <button
+                                                        onClick={handleClick}
                                                         className="flex items-center justify-center h-12 px-6 w-full bg-blue-600 mt-8 rounded font-semibold text-sm text-blue-100 hover:bg-blue-700"
                                                         type='submit'
                                                     >
-                                                        View
+                                                        See Details
                                                     </button>
                                                 </Link>
                                             </td>
@@ -133,6 +118,8 @@ function EducadoAdmin() {
                                 })}
                             </tbody>
                         </table>
+
+                        {/** Navbar */}
                         <div className="px-5 bg-white py-5 flex flex-col xs:flex-row items-center xs:justify-between">
                             <div className="flex items-center">
                                 <button
@@ -194,7 +181,7 @@ function EducadoAdmin() {
                     </div>
                 </div>
             </div>
-        </div >
+        </Layout>
     );
 }
 export default EducadoAdmin;
