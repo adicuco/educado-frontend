@@ -46,7 +46,7 @@ function SingleApplicantView() {
                 <div className="bg-white max-w-2xl shadow overflow-hidden sm:rounded-lg">
                     <div className=" px-4 py-5 sm:px-6">
                         <h3 className="text-lg leading-6 font-medium text-gray-900">
-                            Applicant: <span className="text-blue-500">{data?.data.data.email}</span>
+                            Applicant: <span className="text-blue-500">{data?.email}</span>
                         </h3>
                         <p className="mt-1 max-w-2xl text-sm text-gray-500">
                             Details and informations about the applicant.
@@ -61,7 +61,7 @@ function SingleApplicantView() {
                                     Full name
                                 </dt>
                                 <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                    {data?.data.data.firstName}{data?.data.data.lastName}
+                                    {data?.firstName}{data?.lastName}
                                 </dd>
                             </div>
                             <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -69,7 +69,7 @@ function SingleApplicantView() {
                                     Email address
                                 </dt>
                                 <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                    {data?.data.data.email}
+                                    {data?.email}
                                 </dd>
                             </div>
                             <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -77,7 +77,7 @@ function SingleApplicantView() {
                                     Motivation
                                 </dt>
                                 <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                    {data?.data.data.motivation}
+                                    {data?.motivation}
                                 </dd>
                             </div>
                             <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -85,7 +85,7 @@ function SingleApplicantView() {
                                     Applied at:
                                 </dt>
                                 <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                    {data?.data.data.createdAt}
+                                    {data?.createdAt ? data?.createdAt.toDateString() : "Unspecified"}
                                 </dd>
                             </div>
                         </dl>
