@@ -31,7 +31,7 @@ const GetSingleUserApplication = async (url: string): Promise<CCApp.Datum> => {
 };
 
 const PostDelcineContentCreator = async (id: string): Promise<unknown> => {
-  return await axios.post(`http://127.0.0.1:8888/api/applications/${id}?action=reject`, {
+  return await axios.put(`http://127.0.0.1:8888/api/applications/${id}?action=reject`, {
     data: {
       reason: "No",
     },
@@ -39,7 +39,7 @@ const PostDelcineContentCreator = async (id: string): Promise<unknown> => {
 };
 
 const PostAcceptContentCreator = async (id: string): Promise<unknown> => {
-  return await axios.post(`http://127.0.0.1:8888/api/applications/${id}?action=approve`, {
+  return await axios.put(`http://127.0.0.1:8888/api/applications/${id}?action=approve`, {
     data: {
       reason: "Yes",
     },
