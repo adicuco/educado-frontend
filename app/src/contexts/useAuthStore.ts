@@ -1,7 +1,7 @@
 import create from 'zustand'
 
 interface AuthState {
-    token: string | null,
+    token: string | null | undefined,
     setToken: (input: string) => void,
     clearToken: () => void,
 }

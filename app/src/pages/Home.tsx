@@ -14,7 +14,7 @@ const Home = () => {
   const token = useAuthStore(state => state.token);
 
   // SWR fetcher function
-  const { data, error } = useSWR(["http://127.0.0.1:8888/api/jwt/narnia", token], NarniaServices.getNarnia);
+  const { data, error } = useSWR(["http://127.0.0.1:8888/api/auth/jwt/test", token], NarniaServices.getNarnia);
 
   if (!data && !error) { return <>Loading...</> }
   if (error) { return <>Error: {error.message}...</> }
