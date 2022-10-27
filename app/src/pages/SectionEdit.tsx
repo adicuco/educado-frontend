@@ -8,11 +8,11 @@ import axios from 'axios'
 import { ExerciseArea } from '../components/ExerciseArea'
 
 const SectionEdit = () => {
-
+/*
     const getSectionDetail = (url: string) => {
         return axios.get(url).then(res => res.data)
     }
-    
+  */  
     // Get path params
     const { id } = useParams();
     console.log("id: " + id);
@@ -21,14 +21,14 @@ const SectionEdit = () => {
     
 
     // Fetch data with useSWR
-    const { data, error } = useSWR(
-        `http://127.0.0.1:8888/api/courses/${id}`,
-        getSectionDetail
-    )
+   // const { data, error } = useSWR(
+   //     `http://127.0.0.1:8888/api/courses/${id}`,
+   //     getSectionDetail
+   // )
     
     let errors = {title: "some section", description: "bad error"};
     let mydata = {exercises: ["ex1", "ex2"], description: "my excellent course description", id: "1234"};
-    const course = data;
+    //const course = data;
     console.log(mydata);
     // console.log(data.id);
     
@@ -91,9 +91,9 @@ const SectionEdit = () => {
 
                     <ExerciseArea exercises={mydata.exercises} />
                     
-                    <div className='flex flex-col md:flex-row w-3/4 md:w-full max-w-sm md:space-x-30 space-y-30 md:space-y-30 '>
+                    <div className='flex flex-col md:flex-row w-3/4 md:w-full max-w-sm md:space-x-3 space-y-3 md:space-y-3 '>
 
-                    <form className="flex flex-col md:flex-row w-3/4 md:w-full max-w-sm md:space-x-30 space-y-30 md:space-y-30 ">
+                    <form className="flex flex-col md:flex-row w-3/4 md:w-full max-w-sm md:space-x-3 space-y-3 md:space-y-3 ">
                         <div className="">
                             <input type="text" className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent" placeholder="exercise name?" />
                         </div>
