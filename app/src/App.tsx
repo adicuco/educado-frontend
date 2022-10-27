@@ -11,10 +11,10 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import NotFound from "./pages/NotFound";
 
-
 //Educado Admin tables for reviewing the Content Creator Applicants
 import EducadoAdmin from "./pages/EducadoAdmin";
 import SingleApplicantView from "./pages/SingleApplicantView";
+
 
 function App() {
 

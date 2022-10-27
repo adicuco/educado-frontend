@@ -1,8 +1,12 @@
 import React from 'react'
+import Layout from '../components/Layout'
 
 const NotFound = () => {
   return (
-    <div>Page was not found... </div>
+    <Layout meta="Something unexpected happened">
+      <div>Page was not found... </div>
+    </Layout>
+
   )
 }
 

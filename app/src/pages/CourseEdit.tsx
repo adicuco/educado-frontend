@@ -12,6 +12,8 @@ import useSWR from 'swr';
 import CourseServices from '../services/course.services';
 import { useParams } from 'react-router-dom';
 
+import { Dnd } from "../components/dnd/Dnd";
+
 // Interface
 type Inputs = {
     title: string,
@@ -19,10 +21,8 @@ type Inputs = {
 };
 
 const CourseEdit = () => {
-
     // Get path params
     const { id } = useParams();
-    console.log(id);
 
     // Fetch data with useSWR
     const { data, error } = useSWR(
@@ -61,7 +61,7 @@ const CourseEdit = () => {
     console.log(data);
 
     return (
-        <Layout meta={`Course: ${data.title.slice(0,15)}`}>
+        <Layout meta={`Course: ${data.title.slice(0, 15)}`}>
             <div className="w-full">
 
                 {/** Course details edit */}
@@ -114,6 +114,8 @@ const CourseEdit = () => {
 
                     <h1 className='text-xl font-medium mb-4'>Sections</h1>
                     <SectionArea sections={data.sections} />
+
+                    <Dnd sections={data.sections} />
                 </div>
             </div>
         </Layout>

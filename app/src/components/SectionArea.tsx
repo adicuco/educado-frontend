@@ -1,11 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 //icons 
 import { TrashIcon } from "@heroicons/react/24/outline"
-import { Droppable } from 'react-beautiful-dnd'
+
 
 export const SectionArea = ({ sections }: { sections: Array<unknown> }) => {
-    console.log(sections);
     return (
         <div className='flex flex-col space-y-4'>
             {sections.map((section, key) => {

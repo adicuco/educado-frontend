@@ -27,6 +27,7 @@ export const Sidebar = () => {
             <SidebarElement path="/" icon={<HomeIcon />} tooltip="Home" />
             <SidebarElement path="/courses" icon={<BookOpenIcon />} tooltip="Courses" />
             <SidebarElement path="/profile" icon={<UserCircleIcon />} tooltip="Profile" />
+            <SidebarElement path="/dnd" icon={<UserCircleIcon />} tooltip="DND" />
             <SidebarElement path="/educado_admin/applications" icon={<ShieldCheckIcon />} tooltip="Admin" />
         </div>
     )
