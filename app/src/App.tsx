@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 import Courses from "./pages/Courses";
 import CourseEdit from "./pages/CourseEdit";
+import SectionEdit from "./pages/SectionEdit";
 
 // Non-auth pages
 import Login from "./pages/Login";
@@ -36,7 +37,7 @@ function App() {
     },
     {
       path: "/courses/edit/:id/section/:id",
-      element: <CourseEdit />
+      element: <SectionEdit />
     },
     {
       path: "/settings",
