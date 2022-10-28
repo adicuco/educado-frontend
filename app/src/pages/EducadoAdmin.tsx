@@ -9,6 +9,7 @@ import { CCApp } from '../interfaces/CCApp'
 
 // Components
 import Layout from "../components/Layout";
+import { PageDescriptor } from "../components/PageDescriptor";
 
 const EducadoAdmin = () => {
     // Used to navigate to the detailed view for the single applicant
@@ -29,6 +30,11 @@ const EducadoAdmin = () => {
 
     return (
         <Layout meta="Educado Admin">
+            <PageDescriptor
+                title="Educado Admin"
+                desc="Here you can find all Content Creator Applications"
+            />
+
             <div className="py-8">
 
                 {/** Component Header bar */}

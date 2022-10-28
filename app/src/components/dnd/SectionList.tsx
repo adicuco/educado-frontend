@@ -43,7 +43,7 @@ const exampleCourse = {
   "coverImg": "1648541890581-mustache.png"
 };
 
-export const Dnd = ({ sections }: { sections: Array<string> }) => {
+export const SectionList = ({ sections }: { sections: Array<string> }) => {
   const [activeId, setActiveId] = useState(null);
   const [items, setItems] = useState(exampleCourse.sections);
 

@@ -11,10 +11,13 @@ import useToggle from "../hooks/useToggle";
 import Layout from '../components/Layout'
 import { CourseListCard } from '../components/Courses/CourseListCard'
 import { CourseCreateModal } from "../components/Courses/CourseCreateModal"
+import { CreateCourseModal } from '../components/Courses/CreateCourseModal';
 
 // icons
 import { PencilSquareIcon } from '@heroicons/react/24/outline';
 import { CourseListCardLoading } from '../components/Courses/CourseListCardLoading';
+import { PageDescriptor } from '../components/PageDescriptor';
+
 
 const Courses = () => {
   // Fetch all courses
@@ -37,15 +40,23 @@ const Courses = () => {
 
   return (
     <Layout meta="Course overview">
-      <div className='flex flex-row justify-between mb-8'>
-        <div className='flex flex-row space-x-2'>
+
+      {/** Page Descriptor */}
+      <PageDescriptor
+        title="Courses"
+        desc="All courses are verified by 2 experts and valdiate by an Educado Admin"
+      />
+
+      {/** Page Navbar */}
+      <div className="navbar bg-none mb-8">
+        <div className="flex-1">
           <button onClick={setModalVisible} className="std-button">
             <PencilSquareIcon className='w-5 h-5' />
             <p className='font-normal'>Create new course</p>
           </button>
+          <CreateCourseModal />
         </div>
-
-        <div className="text-end">
+        <div className="flex-none">
           <form className="flex flex-col md:flex-row w-3/4 md:w-full max-w-sm md:space-x-3 space-y-3 md:space-y-0 justify-center">
             <div className=" relative ">
               <input
@@ -62,21 +73,20 @@ const Courses = () => {
       </div>
 
       {/** Page content real data from backend */}
-      {data ?
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {data.map((course: any, key: number) => {
-            return <CourseListCard course={course} key={key} />
-          })}
-        </div>
-        :
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {[...Array(8)].map((_, key) => {
-            return <CourseListCardLoading key={key} />
-          })}
-        </div>
-      }
-
-
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        {data ?
+          <>
+            {data.map((course: any, key: number) => {
+              return <CourseListCard course={course} key={key} />
+            })}
+          </> :
+          <>
+            {[...Array(8)].map((_, key) => {
+              return <CourseListCardLoading key={key} />
+            })}
+          </>
+        }
+      </div>
 
       {/** Modal Component */}
       {modalVisible && <CourseCreateModal toggler={toggleCallback} />}
