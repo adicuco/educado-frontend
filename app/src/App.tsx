@@ -11,9 +11,6 @@ import SectionEdit from "./pages/SectionEdit";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import NotFound from "./pages/NotFound";
-import DragDrop from "./pages/sture";
-import DnD from "./pages/dndtest";
-
 
 //Educado Admin tables for reviewing the Content Creator Applicants
 import EducadoAdmin from "./pages/EducadoAdmin";
@@ -72,16 +69,6 @@ function App() {
     {
       path: "/educado_admin/applications/:id",
       element: <SingleApplicantView />,
-    },
-    {
-      path: "/sture",
-      element: <DragDrop />,
-      errorElement: <NotFound />
-    },
-    {
-      path: "/dndtest",
-      element: <DnD />,
-      errorElement: <NotFound />
     }
   ])
 

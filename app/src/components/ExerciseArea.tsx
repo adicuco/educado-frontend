@@ -1,11 +1,8 @@
 //icons 
 import { TrashIcon } from "@heroicons/react/24/outline"
 
-import SectionForm from './SectionForm'
-
 export const ExerciseArea = ({ exercises }: { exercises: Array<unknown> }) => {
    
-    
     console.log(exercises);
     return (
         
