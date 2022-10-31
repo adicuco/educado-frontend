@@ -1,25 +1,38 @@
 import React, { useState } from 'react'
+import { useForm, SubmitHandler } from "react-hook-form";
+import { Link, useLocation, useParams } from 'react-router-dom'
+import axios from 'axios';
+
+// Components
 import Layout from '../components/Layout'
 import { CategoryPill as Pill } from '../components/CategoryPill'
 import { PlusIcon } from '@heroicons/react/24/outline'
-import { Link, useLocation, useParams } from 'react-router-dom'
-import useSWR from 'swr'
-import axios from 'axios'
 import { ExerciseArea } from '../components/ExerciseArea'
 import { Exercise } from '../interfaces/Exercise'
 
-const SectionEdit = () => {
-    
-    // Get path params
-    // const { id } = useParams();
-    // console.log("id: " + id);
-     const { pathname } = useLocation();
-    
-    // const length = pathname.length - (id?.length ? id?.length : 0) - 8;
-    // console.log(pathname.length);
-    // console.log(length);
+// Interfaces
+type AddExcerciseType = {
+    title: string,
+    description: string
+}
 
-     const backPath = pathname.substring(0, length);
+const SectionEdit = () => {
+    const { register, handleSubmit, watch, formState: { errors } } = useForm<AddExcerciseType>();
+    const onSubmit: SubmitHandler<AddExcerciseType> = data => addExcercise(data);
+
+    const { pathname } = useLocation();
+    console.log("path: " + pathname);
+    let pathMinusEdit = pathname.replace("/edit", "");
+    console.log(pathMinusEdit);
+
+    const backendUrl = import.meta.env.VITE_BACKEND_URL + "api" + pathMinusEdit;
+    console.log(backendUrl);
+    const id: any = useParams();
+    const urlLength = pathname.length - (id.length ? id.length : 0) - 8;
+    console.log(pathname.length);
+    console.log("url length: " + urlLength);
+
+    const backPath = pathname.substring(0, urlLength);
     // const location = useLocation();
     // console.log(location);
     // console.log("backurl: " + backPath);
@@ -32,7 +45,7 @@ const SectionEdit = () => {
 
     let exercise1 = { title: "exer1", desc: "exer1descr" }
     let exercise2 = { title: "exer2", desc: "exer2descr" }
-    let errors = { title: "some section", description: "bad error" };
+    //let errors = { title: "some section", description: "bad error" };
 
     const [myData, setMydata] = useState({
         title: "my course",
@@ -40,43 +53,43 @@ const SectionEdit = () => {
         exercises: [exercise1, exercise2]
     })
 
-    const test = (e: Event) => {
-        e.preventDefault();
+    console.log("excercises:");
+
+    console.log(myData.exercises);
+
+    const addExcercise = (data: AddExcerciseType) => {
         setMydata({
             ...myData,
-            exercises: [...myData.exercises, {title: "demo", desc: "exec"}]
+            exercises: [...myData.exercises, { title: data.title, desc: data.description }]
         });
-        
+
         console.log(myData);
     }
-
-    const addExcercise = (e: Event) => {
-        e.preventDefault();
-        let data = myData;
-
-        data.exercises.push({ title: "exer3", desc: "exer3descr" });
-        setMydata(data);
-        console.log(myData);
-    };
 
     return (
         //<Layout meta='Section edit page'>
         //</Layout>
 
         <div className="w-full">
-            <p className="text-center">Edit mah section</p>
-            <button className="flex-shrink-0 px-4 py-2 text-base font-semibold text-white bg-blue-600 rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-blue-200">
+            <div className='flex flex-col cols-1 bg-gray-100 items-center'>
+                <p className="flex-auto text-center">Edit mah section</p>
+                <button className="flex-auto px-4 py-2 text-base font-semibold text-white bg-blue-600 rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-blue-200">
+                    <Link to={backPath} className="w-full block">Try to go back</Link>
+                </button>
+            </div>
 
-                <Link to={backPath} className="w-full block">Try to go back</Link>
-            </button>
 
             {/** Section details edit */}
             <div className='max-w-3xl mx-auto bg-white p-4 rounded-xl'>
-                <form onSubmit={() => { }} className="flex flex-col space-y-6 divide">
+                <form onSubmit={() => {
+                    alert("you tried to submit");
+                    async () => await axios.put(backendUrl, myData.exercises);
+                }
+                } className="flex flex-col space-y-6 divide">
 
                     <div className="flex flex-col space-y-2">
                         <label htmlFor='title'>Title</label>
-                        <input type="text" defaultValue={"section title"}
+                        <input type="text" defaultValue={myData.title}
                             className="form-field focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
                         //{...register("title", { required: true })}
                         />
@@ -92,31 +105,58 @@ const SectionEdit = () => {
                         {errors.description && <span>This field is required</span>}
                     </div>
 
-                    <div className="flex flex-col space-y-2">
+                    {/* <div className="flex flex-col space-y-2">
                         <label htmlFor='video'>Section Video</label>
                         <input type="text" placeholder="video URL"
                             className="form-field focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
                         //{...register("video", { required: true })}
                         />
                         {errors.title && <span>This field is required</span>}
-                    </div>
+                    </div> */}
 
                     <button type="submit" className='std-button ml-auto'>Update Section</button>
                 </form>
 
                 <h1 className='text-xl font-medium mb-4'>Excersises</h1>
 
-                <ExerciseArea exercises={myData.exercises} />
+                <div className='flex flex-col space-y-4' id='excercises'>
 
-                <div className='flex flex-col md:flex-row w-3/4 md:w-full max-w-sm md:space-x-3 space-y-3 md:space-y-3 '>
-                    <form onSubmit={test} className="flex flex-col md:flex-row w-3/4 md:w-full max-w-sm md:space-x-3 space-y-3 md:space-y-3 ">
-                        <div className="">
-                            <input type="text" className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent" placeholder="exercise name?" />
-                        </div>
-                        <button type="submit" className="flex-shrink-0 px-4 py-2 text-base font-semibold text-white bg-blue-600 rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-blue-200">
-                            Add Exercise
-                        </button>
-                    </form>
+                    <ExerciseArea exercises={myData.exercises} />
+
+                    <div className='flex items-center flex-col md:flex-row w-3/4 md:w-full max-w-sm md:space-x-3 space-y-3 md:space-y-3 '>
+                        <form
+                            onSubmit={handleSubmit(onSubmit)}
+                            className="flex flex-col md:flex-row w-3/4 md:w-full max-w-sm md:space-x-3 space-y-3 md:space-y-3"
+                        >
+                            <button type="submit" className="px-4 py-2 text-base font-semibold text-white bg-blue-600 rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-blue-200">
+                                y u high?
+                            </button>
+
+                            <button type="submit" className="px-4 py-2 text-base font-semibold text-white bg-blue-600 rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-blue-200">
+                                y u high?
+                            </button>
+
+                            <div className="">
+                                <input
+                                    type="text"
+                                    className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
+                                    placeholder="exercise title?"
+                                    {...register("title", { required: true })}
+                                />
+                            </div>
+                            <div className="">
+                                <input
+                                    type="text"
+                                    className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
+                                    placeholder="description please?"
+                                    {...register("description", { required: true })}
+                                />
+                            </div>
+                            <button type="submit" className="flex-auto px-4 py-2 text-base font-semibold text-white bg-blue-600 rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-blue-200">
+                                Add Exercise
+                            </button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
