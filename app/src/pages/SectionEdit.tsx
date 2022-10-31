@@ -18,7 +18,7 @@ type AddExerciseType = {
 
 const SectionEdit = () => {
     const { register, handleSubmit, watch, formState: { errors } } = useForm<AddExerciseType>();
-    const onSubmit: SubmitHandler<AddExerciseType> = data => AddExercise(data);
+    const onSubmit: SubmitHandler<AddExerciseType> = data => addExercise(data);
 
     const { pathname } = useLocation();
     console.log("path: " + pathname);
@@ -57,7 +57,7 @@ const SectionEdit = () => {
 
     console.log(myData.exercises);
 
-    const AddExercise = (data: AddExerciseType) => {
+    const addExercise = (data: AddExerciseType) => {
         setMydata({
             ...myData,
             exercises: [...myData.exercises, { title: data.title, desc: data.description }]
