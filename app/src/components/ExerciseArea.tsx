@@ -33,7 +33,7 @@ export const ExerciseArea = ({ exercises }: { exercises: Array<unknown> }) => {
                     <label htmlFor="title">Title</label>
                     <input
                       type="text"
-                      placeholder="Excercize title"
+                      placeholder="Exercise title"
                       className="form-field focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
                       //{...register("title", { required: true })}
                     />
@@ -103,7 +103,7 @@ export const ExerciseArea = ({ exercises }: { exercises: Array<unknown> }) => {
                       <TrashIcon className="w-5 h-5" />
                     </button>
                     <button type="submit" className="std-button ml-auto">
-                      Update Excercize
+                      Update Exercise
                     </button>
                   </div>
                 </form>

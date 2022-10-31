@@ -11,14 +11,14 @@ import { ExerciseArea } from '../components/ExerciseArea'
 import { Exercise } from '../interfaces/Exercise'
 
 // Interfaces
-type AddExcerciseType = {
+type AddExerciseType = {
     title: string,
     description: string
 }
 
 const SectionEdit = () => {
-    const { register, handleSubmit, watch, formState: { errors } } = useForm<AddExcerciseType>();
-    const onSubmit: SubmitHandler<AddExcerciseType> = data => addExcercise(data);
+    const { register, handleSubmit, watch, formState: { errors } } = useForm<AddExerciseType>();
+    const onSubmit: SubmitHandler<AddExerciseType> = data => AddExercise(data);
 
     const { pathname } = useLocation();
     console.log("path: " + pathname);
@@ -53,11 +53,11 @@ const SectionEdit = () => {
         exercises: [exercise1, exercise2]
     })
 
-    console.log("excercises:");
+    console.log("exercises:");
 
     console.log(myData.exercises);
 
-    const addExcercise = (data: AddExcerciseType) => {
+    const AddExercise = (data: AddExerciseType) => {
         setMydata({
             ...myData,
             exercises: [...myData.exercises, { title: data.title, desc: data.description }]
@@ -117,9 +117,9 @@ const SectionEdit = () => {
                     <button type="submit" className='std-button ml-auto'>Update Section</button>
                 </form>
 
-                    <h1 className='text-xl font-medium mb-4'>Excercises</h1>
+                    <h1 className='text-xl font-medium mb-4'>exercises</h1>
 
-                <div className='flex flex-col space-y-4' id='excercises'>
+                <div className='flex flex-col space-y-4' id='exercises'>
 
                     <ExerciseArea exercises={myData.exercises} />
 
