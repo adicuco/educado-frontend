@@ -63,7 +63,7 @@ const CourseEdit = () => {
     if (!data) { return <>Loading...</> }
     if (error) { return <>Error...</> }
 
-    console.log(data);
+    // console.log(data);
 
     return (
         <Layout meta={`Course: ${data.title.slice(0, 15)}`}>
