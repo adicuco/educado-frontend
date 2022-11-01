@@ -16,7 +16,7 @@ const Home = () => {
     <Layout meta="Educado Creator">
       <PageDescriptor
         title='Welcome to the Educado Creator'
-        desc="All courses are verified by 2 experts and valdiate by an Educado Admin"
+        desc="All courses are verified by 2 experts and validated by an Educado Admin. Possibly."
       />
     </Layout>
   )

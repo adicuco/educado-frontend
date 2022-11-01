@@ -41,7 +41,7 @@ const Courses = () => {
       {/** Page Descriptor */}
       <PageDescriptor
         title="Courses"
-        desc="All courses are verified by 2 experts and valdiate by an Educado Admin"
+        desc="All courses are verified by 2 experts and validated by an Educado Admin. Allegedly."
       />
 
       {/** Page Navbar */}
