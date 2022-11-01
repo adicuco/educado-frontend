@@ -34,8 +34,11 @@ const getAllCourses = (url: string, token: string) => {
 };
 
 export const GET_COURSE_DETAIL = "GET_ALL_COURSES";
-const getCourseDetail = (url: string) => {
-    return axios.get(url).then(res => res.data)
+const getCourseDetail = (url: string, token: string) => {
+    const config: AxiosRequestConfig = {
+        headers: { Authorization: `Bearer ${token}` }
+    }
+    return axios.get(url, config).then(res => res.data)
 }
 
 const CourseServices = {

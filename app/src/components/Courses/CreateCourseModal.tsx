@@ -3,6 +3,7 @@ import { PencilSquareIcon } from '@heroicons/react/24/outline'
 import React from 'react'
 
 import { useForm, SubmitHandler } from "react-hook-form";
+import useAuthStore from '../../contexts/useAuthStore';
 import CourseServices from '../../services/course.services';
 
 type Inputs = {
@@ -11,15 +12,18 @@ type Inputs = {
 };
 
 export const CreateCourseModal = () => {
+    const token = useAuthStore(state => state.token);
     // use-form setup
     const { register, handleSubmit, formState: { errors } } = useForm<Inputs>();
 
     // success on submit handler
-    const onSubmit: SubmitHandler<Inputs> = data => {
+    const onSubmit: SubmitHandler<Inputs> = async (data) => {
         CourseServices.createCourse({
             title: data.title,
             description: data.description
-        });
+        }, token)
+            .then(res => console.log(res))
+            .catch(err => console.log(err));
     };
 
     // failure on submit handler

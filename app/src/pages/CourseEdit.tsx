@@ -15,6 +15,7 @@ import { SectionList } from '../components/dnd/SectionList';
 // Services
 import CourseServices from '../services/course.services';
 import IphoneView from '../components/mockup/IphoneView';
+import useAuthStore from '../contexts/useAuthStore';
 
 
 // Interface
@@ -28,9 +29,11 @@ const CourseEdit = () => {
     const { id } = useParams();
     const [phoneView, setPhoneView] = useState(false);
 
+    const token = useAuthStore(state => state.token);
+
     // Fetch data with useSWR
     const { data, error } = useSWR(
-        `http://127.0.0.1:8888/api/courses/${id}`,
+        [`http://127.0.0.1:8888/api/courses/${id}`, token],
         CourseServices.getCourseDetail
     )
 
@@ -59,11 +62,11 @@ const CourseEdit = () => {
         ]
     }
 
-    if (!data) { return <>Loading...</> }
-    if (error) { return <>Error...</> }
+    if (error) return <p>"An error has occurred."</p>;
+    if (!data) return <p>"Loading..."</p>;
 
     return (
-        <Layout meta={`Course: ${data.title.slice(0, 15)}`}>
+        <Layout meta={`Course: ${123}`}>
 
             {/** Course navigation */}
             <div className="navbar bg-base-100">
