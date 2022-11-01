@@ -12,15 +12,6 @@ import NotFound from './NotFound'
 import { PageDescriptor } from '../components/PageDescriptor'
 
 const Home = () => {
-  // zustand store
-  const token = useAuthStore(state => state.token);
-
-  // SWR fetcher function
-  const { data, error } = useSWR(["http://127.0.0.1:8888/api/auth/jwt/test", token], NarniaServices.getNarnia);
-
-  if (!data && !error) { return <>Loading...</> }
-  if (error) { return <NotFound /> }
-
   return (
     <Layout meta="Educado Creator">
       <PageDescriptor

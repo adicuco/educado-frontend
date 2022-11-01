@@ -1,4 +1,4 @@
-import React from 'react';
+import { Link } from 'react-router-dom';
 
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
@@ -21,13 +21,17 @@ export function SortableItem(props: any) {
   };
 
   return (
-    <div ref={setNodeRef} style={style} {...attributes} {...listeners} className="flex justify-between items-center border rounded p-2">
-      <div className='flex space-x-2'>
-        <ChevronUpDownIcon width={24} />
-        <p className='font-semibold'>{props.id}</p>
+    <div className="flex justify-between items-center border rounded p-2">
+      <div ref={setNodeRef} style={style} {...attributes} {...listeners} >
+        <div className='btn btn-ghost'>
+          <ChevronUpDownIcon width={24} />
+        </div>
       </div>
 
-      <PencilSquareIcon width={20} className="text-blue-500 hover:text-blue-700" />
+      <div className='flex justify-between w-full space-x-2 ml-2'>
+        <p className='font-semibold'>{props.id}</p>
+        <Link to="/"><PencilSquareIcon width={20} className="text-blue-500 hover:text-blue-700" /></Link>
+      </div>
     </div>
   );
 }

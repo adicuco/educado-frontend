@@ -1,37 +1,39 @@
-import axios from "axios";
+import axios, { AxiosRequestConfig } from "axios";
 
 const backend_url = import.meta.env.VITE_BACKEND_URL;
 
 // Interface for course content
 export interface CourseInterface {
     title: string,
-    description: string,
-    category: unknown,
-    published: boolean
+    description: string
 }
 
 // CREATE NEW COURSE
 export const CREATE_COURSE = "CREATE_COURSE"; // FIXME: wth is this?
-
-const createCourse = (props: CourseInterface) => {
-    console.log(import.meta.env.VITE_BACKEND_URL);
+const createCourse = async (props: CourseInterface, token: string | null | undefined) => {
+    
     const course = {
         title: props.title,
         description: props.description,
-        category: props.category,
-        published: false,
     };
 
-    return async () => await axios.post(`${backend_url}/api/course/create`, course);
+    const config: AxiosRequestConfig = {
+        headers: { Authorization: `Bearer ${token}` }
+    }
+
+    return await axios.post(`${backend_url}/api/courses`, course, config);
 };
 
 // GET ALL COURSES
 export const GET_ALL_COURSES = "GET_ALL_COURSES";
-
-const getAllCourses = (url: string) => {
-    return axios.get(url).then(res => res.data)
+const getAllCourses = (url: string, token: string) => {
+    const config: AxiosRequestConfig = {
+        headers: { Authorization: `Bearer ${token}` }
+    }
+    return axios.get(url, config).then(res => res.data)
 };
 
+export const GET_COURSE_DETAIL = "GET_ALL_COURSES";
 const getCourseDetail = (url: string) => {
     return axios.get(url).then(res => res.data)
 }

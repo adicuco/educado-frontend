@@ -3,7 +3,6 @@ import React, { useState } from 'react'
 //icons 
 import { TrashIcon } from "@heroicons/react/24/outline"
 
-
 export const SectionArea = ({ sections }: { sections: Array<unknown> }) => {
     return (
         <div className='flex flex-col space-y-4'>

@@ -10,7 +10,7 @@ export interface ContentCreatorApplication {
 
 // Authenticate with JWT login
 const postUserLogin = async (credentials: any) => {
-  return await axios.post("http://127.0.0.1:8888/api/auth/jwt", credentials);
+  return await axios.post("http://127.0.0.1:8888/auth/jwt", credentials);
 };
 
 const postUserApplication = async (formData: ContentCreatorApplication) => {

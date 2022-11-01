@@ -1,24 +1,74 @@
+import { getScrollElementRect } from '@dnd-kit/core/dist/utilities';
 import { PencilSquareIcon } from '@heroicons/react/24/outline'
 import React from 'react'
 
+import { useForm, SubmitHandler } from "react-hook-form";
+import CourseServices from '../../services/course.services';
+
+type Inputs = {
+    title: string,
+    description: string,
+};
+
 export const CreateCourseModal = () => {
+    // use-form setup
+    const { register, handleSubmit, formState: { errors } } = useForm<Inputs>();
+
+    // success on submit handler
+    const onSubmit: SubmitHandler<Inputs> = data => {
+        CourseServices.createCourse({
+            title: data.title,
+            description: data.description
+        });
+    };
+
+    // failure on submit handler
+    const onError: SubmitHandler<Inputs> = error => console.log(error);
+
     return (
-        <> 
+        <>
             {/* The button to open modal */}
-            <label htmlFor="my-modal-5" className="btn btn-sm modal-button flex space-x-2">
+            <label htmlFor="course-create" className="btn btn-sm btn-primary modal-button flex space-x-2">
                 <PencilSquareIcon className='w-5 h-5' />
                 <p className='font-normal'>Create new course</p>
             </label>
 
             {/* Put this part before </body> tag */}
-            <input type="checkbox" id="my-modal-5" className="modal-toggle" />
-            <div className="modal">
+            <input type="checkbox" id="course-create" className="modal-toggle" />
+            <div className="modal" id="course-create-modal">
                 <div className="modal-box w-11/12 max-w-5xl">
-                    <h3 className="font-bold text-lg">Congratulations random Internet user!</h3>
+                    <h3 className="font-bold text-lg">Create your brand new course!</h3>
                     <p className="py-4">You've been selected for a chance to get one year of subscription to use Wikipedia for free!</p>
-                    <div className="modal-action">
-                        <label htmlFor="my-modal-5" className="btn">Yay!</label>
-                    </div>
+
+                    <form className="flex h-full flex-col justify-between space-y-4" onSubmit={handleSubmit(onSubmit)}>
+                        <div className="flex flex-col space-y-2 text-left">
+                            <label htmlFor='title'>Title</label>
+                            <input type="text" defaultValue={""}
+                                className="form-field focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
+                                {...register("title", { required: true })}
+                            />
+                            {errors.title && <span>This field is required</span>}
+                        </div>
+
+                        <div className="flex flex-col space-y-2 text-left">
+                            <label htmlFor='description'>Description</label>
+                            <textarea rows={4} defaultValue={""}
+                                className="resize-none form-field focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
+                                {...register("description")}
+                            />
+                        </div>
+
+                        <div className='modal-action'>
+                            <div className="flex items-center justify-between gap-4 w-full mt-8">
+                                <button type="submit" className="py-2 px-4  bg-blue-600 hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
+                                    Create
+                                </button>
+                                <label htmlFor='course-create' className="py-2 px-4 bg-white hover:bg-gray-100 border border-blue-500 focus:ring-blue-500 focus:ring-offset-blue-200 text-blue-500 w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
+                                    Cancel
+                                </label>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </>

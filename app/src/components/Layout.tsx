@@ -20,7 +20,6 @@ const Layout = ({ children, meta }: { children: Array<ReactNode> | ReactNode, me
                 {/* <OptionsBar /> TODO: make it work*/}
 
                 <div className="flex flex-col flex-grow">
-
                     {/** Top Nav bar */}
                     <TopNavBar />
 

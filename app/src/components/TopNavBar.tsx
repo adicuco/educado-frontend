@@ -35,7 +35,7 @@ export const TopNavBar = () => {
                         </div>
                     </label>
                     <ul tabIndex={0} className="menu dropdown-content p-2 shadow bg-base-100 rounded-box w-52 mt-4">
-                        {links.map((route, key) => <li><Link to={route.path} key={key}>{route.desc}</Link></li>)}
+                        {links.map((route, key) => <li key={key}><Link to={route.path}>{route.desc}</Link></li>)}
                         <li><a onClick={() => clearToken} className="w-full px-4 py-2 text-left hover:bg-blue-500 hover:text-white">Sign out</a></li>
                     </ul>
                 </div>

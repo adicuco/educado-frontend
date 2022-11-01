@@ -26,7 +26,6 @@ type Inputs = {
 const CourseEdit = () => {
     // Get path params
     const { id } = useParams();
-
     const [phoneView, setPhoneView] = useState(false);
 
     // Fetch data with useSWR
@@ -63,8 +62,6 @@ const CourseEdit = () => {
     if (!data) { return <>Loading...</> }
     if (error) { return <>Error...</> }
 
-    console.log(data);
-
     return (
         <Layout meta={`Course: ${data.title.slice(0, 15)}`}>
 
@@ -86,7 +83,7 @@ const CourseEdit = () => {
             </div>
 
             {/** Course details edit */}
-            <div className="w-full flex flex-row space-x-4 p-6">
+            <div className="w-full container flex flex-row space-x-4 p-6">
                 <div className='mx-auto max-w-5xl bg-white rounded-xl p-6'>
                     <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-1 lg:grid-cols-1 gap-6">
                         <div className='flex flex-col space-y-6 divide'>
