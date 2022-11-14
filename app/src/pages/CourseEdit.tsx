@@ -5,7 +5,7 @@ import { Link, useParams } from 'react-router-dom';
 import { useForm, SubmitHandler } from "react-hook-form";
 
 // Icons
-import { ArrowLeftIcon, DevicePhoneMobileIcon, PhoneIcon, PhotoIcon, PlusIcon } from "@heroicons/react/24/outline"
+import { ArrowLeftIcon, DevicePhoneMobileIcon, PhotoIcon, PlusIcon } from "@heroicons/react/24/outline"
 
 // components
 import Layout from '../components/Layout'
@@ -16,6 +16,7 @@ import { SectionList } from '../components/dnd/SectionList';
 import CourseServices from '../services/course.services';
 import IphoneView from '../components/mockup/IphoneView';
 import useAuthStore from '../contexts/useAuthStore';
+import NotFound from './NotFound';
 
 
 // Interface
@@ -62,8 +63,11 @@ const CourseEdit = () => {
         ]
     }
 
-    if (error) return <p>"An error has occurred."</p>;
+    if (error) return <NotFound />;
     if (!data) return <p>"Loading..."</p>;
+
+    console.log(data);
+    console.log(data.data.sections);
 
     return (
         <Layout meta={`Course: ${123}`}>
@@ -96,7 +100,7 @@ const CourseEdit = () => {
                                 <label htmlFor='dover_image'>Header</label>
                                 <div className='relative'>
                                     <div className='p-1 rounded-xl border-gray-300 border h-[240px] overflow-hidden'>
-                                        <img src={course.cover_image} alt={data.title} className="w-full h-max rounded-lg object-cover" />
+                                        <img src={course.cover_image} alt={data.data.title} className="w-full h-max rounded-lg object-cover" />
                                     </div>
                                     <button className='btn btn-sm bg-gray-400 hover:bg-gray-500 border-0 gap-2 rounded-full absolute bottom-2 right-2'>
                                         <PhotoIcon width={20} />
@@ -107,7 +111,7 @@ const CourseEdit = () => {
 
                             <div className="flex flex-col space-y-2">
                                 <label htmlFor='title'>Title</label>
-                                <input type="text" defaultValue={data.title}
+                                <input type="text" defaultValue={data.data.title}
                                     className="form-field focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
                                     {...register("title", { required: true })}
                                 />
@@ -116,7 +120,7 @@ const CourseEdit = () => {
 
                             <div className="flex flex-col space-y-2">
                                 <label htmlFor='description'>Description</label>
-                                <textarea rows={4} defaultValue={data.description} placeholder={data.description}
+                                <textarea rows={4} defaultValue={data.data.description} placeholder={data.data.description}
                                     className="resize-none form-field focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
                                     {...register("description", { required: true })}
                                 />
@@ -145,7 +149,7 @@ const CourseEdit = () => {
                         {/** Course Sections area  */}
                         <div className='flex flex-col space-y-6 divide'>
                             <h1 className='text-xl font-medium'>Course Sections</h1>
-                            <SectionList sections={data.sections} />
+                            <SectionList sections={data.data.sections} />
                         </div>
                     </form>
                 </div>
