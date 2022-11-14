@@ -17,6 +17,9 @@ import EducadoAdmin from "./pages/EducadoAdmin";
 import SingleApplicantView from "./pages/SingleApplicantView";
 
 
+
+import ExcerciseDetail from "./pages/ExcerciseDetail";
+
 function App() {
 
   // router
@@ -69,7 +72,13 @@ function App() {
     {
       path: "/educado_admin/applications/:id",
       element: <SingleApplicantView />,
-    }
+    },
+    {
+      path: "/ExcerciseDetail",
+      element: <ExcerciseDetail />
+    },
+
+
   ])
 
   return <RouterProvider router={router} />;

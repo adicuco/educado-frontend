@@ -117,7 +117,7 @@ const SectionEdit = () => {
                     <button type="submit" className='std-button ml-auto'>Update Section</button>
                 </form>
 
-                    <h1 className='text-xl font-medium mb-4'>exercises</h1>
+                <h1 className='text-xl font-medium mb-4'>exercises</h1>
 
                 <div className='flex flex-col space-y-4' id='exercises'>
 

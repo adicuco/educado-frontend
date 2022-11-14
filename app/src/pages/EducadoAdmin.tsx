@@ -17,7 +17,7 @@ const EducadoAdmin = () => {
     let location = useLocation();
 
     const handleClick = () => {
-        navigate('/singleapplicantview')
+        navigate('educado_admin/applications/:id')
     }
 
     const { data, error } = useSWR(

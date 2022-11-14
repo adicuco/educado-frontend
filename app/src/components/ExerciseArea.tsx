@@ -26,7 +26,7 @@ export const ExerciseArea = ({ exercises }: { exercises: Array<unknown> }) => {
               </div>
               <div className="collapse-content">
                 <form
-                  onSubmit={() => {}}
+                  onSubmit={() => { }}
                   className="flex flex-col space-y-6 divide"
                 >
                   <div className="flex flex-col space-y-2">
@@ -35,7 +35,7 @@ export const ExerciseArea = ({ exercises }: { exercises: Array<unknown> }) => {
                       type="text"
                       placeholder="Exercise title"
                       className="form-field focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
-                      //{...register("title", { required: true })}
+                    //{...register("title", { required: true })}
                     />
                     {errors.title && <span>This field is required</span>}
                   </div>
@@ -46,7 +46,7 @@ export const ExerciseArea = ({ exercises }: { exercises: Array<unknown> }) => {
                       type="text"
                       placeholder="video URL"
                       className="form-field focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
-                      //{...register("video", { required: true })}
+                    //{...register("video", { required: true })}
                     />
                     {errors.title && <span>This field is required</span>}
                   </div>
@@ -57,7 +57,7 @@ export const ExerciseArea = ({ exercises }: { exercises: Array<unknown> }) => {
                         type="text"
                         placeholder="Answer 1 text"
                         className="form-field focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
-                        //{...register("video", { required: true })}
+                      //{...register("video", { required: true })}
                       />
                       {errors.title && <span>This field is required</span>}
                     </div>
@@ -69,7 +69,7 @@ export const ExerciseArea = ({ exercises }: { exercises: Array<unknown> }) => {
                         type="text"
                         placeholder="Answer 2 text"
                         className="form-field focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
-                        //{...register("video", { required: true })}
+                      //{...register("video", { required: true })}
                       />
                       {errors.title && <span>This field is required</span>}
                     </div>
@@ -81,7 +81,7 @@ export const ExerciseArea = ({ exercises }: { exercises: Array<unknown> }) => {
                         type="text"
                         placeholder="Answer 3 text"
                         className="form-field focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
-                        //{...register("video", { required: true })}
+                      //{...register("video", { required: true })}
                       />
                       {errors.title && <span>This field is required</span>}
                     </div>
@@ -93,7 +93,7 @@ export const ExerciseArea = ({ exercises }: { exercises: Array<unknown> }) => {
                         type="text"
                         placeholder="Answer 4 text"
                         className="form-field focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
-                        //{...register("video", { required: true })}
+                      //{...register("video", { required: true })}
                       />
                       {errors.title && <span>This field is required</span>}
                     </div>

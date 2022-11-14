@@ -47,7 +47,7 @@ export const OptionsBar = () => {
                 {course_lectures.map((lecture, key) => {
                     return (
                         <a key={key} className="flex items-center flex-shrink-0 h-10 px-2 text-sm font-medium rounded hover:bg-gray-300" href="#">
-                            <span className="leading-none">{key+1} - {lecture.name}</span>
+                            <span className="leading-none">{key + 1} - {lecture.name}</span>
                         </a>
                     )
                 })}

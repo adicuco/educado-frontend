@@ -32,7 +32,7 @@ const Login = () => {
     const onSubmit: SubmitHandler<Inputs> = async (data) => {
         AuthServices.postUserLogin(data)
             .then((res) => {
-                
+
                 setToken(res.data.data.accessToken);
                 navigate("/");
             })

@@ -37,6 +37,9 @@ function SingleApplicantView() {
         AuthServices.GetSingleUserApplication
     );
 
+    console.log(data);
+
+
     if (!data) { <>Loading...</>; }
     if (error) { <>Error...</>; }
 

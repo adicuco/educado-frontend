@@ -58,7 +58,7 @@ const CourseEdit = () => {
             { name: "variables" },
             { name: "input and output" },
             { name: "functions" },
-            { name: "classes" }
+            { name: "classNamees" }
         ]
     }
 
@@ -140,7 +140,7 @@ const CourseEdit = () => {
                             </div>
                         </div>
 
-                        <div className='divider'/>
+                        <div className='divider' />
 
                         {/** Course Sections area  */}
                         <div className='flex flex-col space-y-6 divide'>
