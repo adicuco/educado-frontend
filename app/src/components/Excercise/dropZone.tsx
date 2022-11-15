@@ -53,30 +53,31 @@ function DropZoneComponent({ update: updateContentUrl }) {
 
     return (
 
-        <div className="p-4 w-full" >
+        <div className="p-4  w-full flex flex-col items.center justify-center" >
             <div
 
                 {...getRootProps()}
-                className="w-full h-80 rounded-md cursor-pointer focus:outline-none"
+                className="flex flex-col items.center justify-center   w-full rounded-md cursor-pointer  focus:outline-none bg-base-100 border hover:shadow-xl "
             >
                 <input {...getInputProps()} />
 
 
                 <div
                     className={
-                        "flex flex-col items-center justify-center border-2 border-dashed border-green-light rounded-x1 space-y-3" +
+                        "flex flex-col items-center justify-center border-2 border-dashed border-green-light rounded-x2 space-y-2" +
                         (isDragReject === true ? "border-red-500" : " ") +
                         (isDragAccept === true ? "border-green-500" : " ")
 
                     }
                 >
-                    <img src="https://icon-library.com/icon/drag-and-drop-icon-8.html.html" alt="folder" className="w-16 h-16" />
+                    <svg className="h-32 w-32 text-blue-500" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z" />  <path d="M7 18a4.6 4.4 0 0 1 0 -9h0a5 4.5 0 0 1 11 2h1a3.5 3.5 0 0 1 0 7h-1" />  <polyline points="9 15 12 12 15 15" />  <line x1="12" y1="12" x2="12" y2="21" /></svg>
+
                     {isDragReject ? (
                         <p> Unfortunatly, this applications does only support video files </p>
                     ) : (
 
                         <>
-                            <p>Choose a file or drag it here</p>
+                            <p>Drag and drop Files Here to Upload</p>
 
                             <p className="mt-2 text-base text-gray-300">Only video files supported</p>
 

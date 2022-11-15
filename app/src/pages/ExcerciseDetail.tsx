@@ -1,15 +1,21 @@
 import axios, { AxiosRequestConfig } from "axios";
-import React, { Fragment, useState } from "react";
+import React, { useState, } from "react";
 
-// Auth
-import useAuthStore from "../contexts/useAuthStore";
+
 
 // Components
 import DropZoneComponent from "../components/Excercise/dropZone";
 import AnswerCards from "../components/Excercise/AnswerCards";
 import CourseServices from "../services/course.services";
 
+// Auth
+import useAuthStore from "../contexts/useAuthStore";
+import { useParams } from "react-router-dom";
+
 export const ExcerciseDetail = () => {
+
+    const { id } = useParams();
+
     const [contentUrl, setContentUrl] = useState("");
     const [answers, setAnswers] = useState([{}]);
 
@@ -53,7 +59,7 @@ export const ExcerciseDetail = () => {
             <DropZoneComponent update={updateContentUrl} />
             <AnswerCards update={updateAnswers} />
 
-            <button onClick={saveExercise}>Save</button>
+            <button className="border-dashed border-2 border-indigo-800 bg-blue-400 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={saveExercise}>Save</button>
         </>
     );
 };

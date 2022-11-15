@@ -20,8 +20,8 @@ const Login = () => {
     // Location
     const location = useLocation();
 
-    // states
     const [error, setError] = useState<LoginReponseError.RootObject | null>(null); // store http error objects
+    // states
     const setToken = useAuthStore(state => state.setToken); // zustand store for key storage
     const navigate = useNavigate(); // hooke for redirect
 

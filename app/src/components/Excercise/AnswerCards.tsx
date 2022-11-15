@@ -48,7 +48,7 @@ function AnswerCards({ update: updateAnswers }) {
 
 
     const [toggleList, setToggleList] = useState([]);
-    const [isDisabled, setIsDisabled] = useState(false);
+    // const [isDisabled, setIsDisabled] = useState(false);
     const [answerCards, setAnswerCards] = useState([{ text: "", correct: false }]);
 
     const handleAnswerCardAdd = () => {
@@ -82,7 +82,7 @@ function AnswerCards({ update: updateAnswers }) {
 
 
     return (
-        <div className="flex justify-center py-8">
+        <div className="flex justify-center py-2">
             <div className="flex justify-space-around ">
                 <div className=" flex grid grid-cols-2 gap-5">
                     {answerCards.map((singleAnswer, index) => (
