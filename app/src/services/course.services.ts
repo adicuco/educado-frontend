@@ -80,11 +80,21 @@ const saveExcercise = async (
   );
 };
 
+
+const updateCourseDetail = (data: any, id: any, token: any) => {
+  const config: AxiosRequestConfig = {
+    headers: { Authorization: `Bearer ${token}` },
+  };
+
+  return axios.put(`${backend_url}/api/courses/${id}`, data, config).then((res) => res.data);
+}
+
 const CourseServices = {
   createCourse,
   getAllCourses,
   getCourseDetail,
   saveExcercise,
+  updateCourseDetail
 };
 
 export default CourseServices;
