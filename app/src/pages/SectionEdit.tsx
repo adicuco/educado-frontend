@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Link, useLocation, useParams } from 'react-router-dom'
 import axios from 'axios';
+import useSWR from 'swr';
 
 // Components
 import Layout from '../components/Layout'
@@ -9,6 +10,7 @@ import { CategoryPill as Pill } from '../components/CategoryPill'
 import { PlusIcon } from '@heroicons/react/24/outline'
 import { ExerciseArea } from '../components/ExerciseArea'
 import { Exercise } from '../interfaces/Exercise'
+
 
 // Interfaces
 type AddExerciseType = {
@@ -33,15 +35,18 @@ const SectionEdit = () => {
     console.log("url length: " + urlLength);
 
     const backPath = pathname.substring(0, urlLength);
+    // Get path params
+    const { sid } = useParams();
+
     // const location = useLocation();
     // console.log(location);
     // console.log("backurl: " + backPath);
 
     // Fetch data with useSWR
-    // const { data, error } = useSWR(
-    //     `http://127.0.0.1:8888/api/courses/${id}`,
-    //     getSectionDetail
-    // )
+    const { data, error } = useSWR(
+        `http://127.0.0.1:8888/api/courses/${sid}`,
+        () => console.log(sid)
+    );
 
     let exercise1 = { title: "exer1", desc: "exer1descr" }
     let exercise2 = { title: "exer2", desc: "exer2descr" }
@@ -54,7 +59,6 @@ const SectionEdit = () => {
     })
 
     console.log("exercises:");
-
     console.log(myData.exercises);
 
     const addExercise = (data: AddExerciseType) => {
@@ -65,6 +69,8 @@ const SectionEdit = () => {
 
         console.log(myData);
     }
+
+    console.log(data);
 
     return (
         <Layout meta="Section edit">

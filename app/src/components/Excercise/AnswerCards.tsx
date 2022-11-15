@@ -84,7 +84,7 @@ function AnswerCards({ update: updateAnswers }) {
     return (
         <div className="flex justify-center py-8">
             <div className="flex justify-space-around ">
-                <div className=" flex grid grid-cols-2 gap-5">
+                <div className="grid grid-cols-2 gap-5">
                     {answerCards.map((singleAnswer, index) => (
                         <div key={index} className="card w-64 h-64 bg-base-100 border hover:shadow-xl">
                             <div className="card-body">

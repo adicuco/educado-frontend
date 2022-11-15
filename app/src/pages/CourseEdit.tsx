@@ -41,7 +41,7 @@ const CourseEdit = () => {
 
     // React useForm setup
     const { register, handleSubmit, formState: { errors } } = useForm<Inputs>();
-    const onSubmit: SubmitHandler<Inputs> = data => console.log(data);
+    const onSubmit: SubmitHandler<Inputs> = data => CourseServices.updateCourseDetail(data, id, token);
 
     // Demo data
     const course = {
@@ -69,7 +69,7 @@ const CourseEdit = () => {
 
     return (
         <Layout meta={`Course: ${123}`}>
-
+            
             {/** Course navigation */}
             <div className="navbar bg-base-100">
                 <div className='flex-1'>
@@ -86,7 +86,6 @@ const CourseEdit = () => {
                     </button>
                 </div>
             </div>
-
             {/** Course details edit */}
             <div className="w-full container flex flex-row space-x-4 p-6">
                 <div className='mx-auto max-w-5xl bg-white rounded-xl p-6'>
