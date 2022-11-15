@@ -31,10 +31,6 @@ const Courses = () => {
   if (error) return <p>"An error has occurred."</p>;
   if (!data) return <p>"Loading..."</p>;
 
-  if (data) {
-    console.log(data);
-  }
-
   return (
     <Layout meta="Course overview">
 
@@ -45,7 +41,7 @@ const Courses = () => {
       />
 
       {/** Page Navbar */}
-      <div className="navbar bg-none mb-8 p-6">
+      <div className="navbar bg-none mb-4 p-6">
         <div className="flex-1">
           {/** Create new courses */}
           <CreateCourseModal />
@@ -69,18 +65,12 @@ const Courses = () => {
 
       {/** Page content real data from backend */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 p-6">
-        {data ?
-          <>
-            {data.data.map((course: any, key: number) => {
-              return <CourseListCard course={course} key={key} />
-            })}
-          </> :
-          <>
-            {[...Array(8)].map((_, key) => {
-              return <CourseListCardLoading key={key} />
-            })}
-          </>
-        }
+        <>
+          {data.data.map((course: any, key: number) => {
+            return <CourseListCard course={course} key={key} />
+          })}
+        </>
+
       </div>
     </Layout>
   )

@@ -27,6 +27,7 @@ import {
 import { SortableItem } from './@dnd/SortableItem';
 import { Item } from './@dnd/Item';
 import { PlusIcon } from '@heroicons/react/24/outline';
+import { Section } from '../../interfaces/CourseDetail';
 
 // Interfaces
 type Inputs = {
@@ -34,7 +35,7 @@ type Inputs = {
 }
 
 
-export const SectionList = ({ sections }: { sections: Array<string> }) => {
+export const SectionList = ({ sections }: { sections: Array<Section> }) => {
   // React useForm setup
   const { register, handleSubmit, formState: { errors } } = useForm<Inputs>();
   const onSubmit: SubmitHandler<Inputs> = (data) => { console.log(data); }
@@ -79,9 +80,8 @@ export const SectionList = ({ sections }: { sections: Array<string> }) => {
         onDragStart={handleDragStart}
         onDragEnd={handleDragEnd}
       >
-
         <SortableContext items={items} strategy={verticalListSortingStrategy}>
-          {items.map(id => <SortableItem key={id} id={id} />)}
+          {items.map((item) => <SortableItem key={item._id} item={item} />)}
         </SortableContext>
 
         <DragOverlay>

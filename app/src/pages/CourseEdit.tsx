@@ -30,6 +30,7 @@ const CourseEdit = () => {
     const { id } = useParams();
     const [phoneView, setPhoneView] = useState(false);
 
+    // Global state
     const token = useAuthStore(state => state.token);
 
     // Fetch data with useSWR
@@ -65,9 +66,6 @@ const CourseEdit = () => {
 
     if (error) return <NotFound />;
     if (!data) return <p>"Loading..."</p>;
-
-    console.log(data);
-    console.log(data.data.sections);
 
     return (
         <Layout meta={`Course: ${123}`}>
@@ -145,13 +143,13 @@ const CourseEdit = () => {
                         </div>
 
                         <div className='divider' />
-
-                        {/** Course Sections area  */}
-                        <div className='flex flex-col space-y-6 divide'>
-                            <h1 className='text-xl font-medium'>Course Sections</h1>
-                            <SectionList sections={data.data.sections} />
-                        </div>
                     </form>
+
+                    {/** Course Sections area  */}
+                    <div className='flex flex-col space-y-6 divide'>
+                        <h1 className='text-xl font-medium'>Course Sections</h1>
+                        <SectionList sections={data.data.sections} />
+                    </div>
                 </div>
 
                 {phoneView &&
