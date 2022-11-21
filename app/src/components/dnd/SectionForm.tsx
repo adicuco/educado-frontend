@@ -42,7 +42,7 @@ export const SectionForm = () => {
                     <label htmlFor='title' className='hidden'>Add New</label>
                     <input type="text" placeholder='Add new'
                         className="form-field focus:outline-none focus:ring-2 focus:ring-gray-200 focus:border-transparent border-0 w-full shadow-none"
-                        {...register("input", { required: true })}
+                        {...register("title", { required: true })}
                     />
                 </div>
             </div>

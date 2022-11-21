@@ -18,7 +18,7 @@ import SingleApplicantView from "./pages/SingleApplicantView";
 
 
 
-import ExcerciseDetail from "./pages/ExcerciseDetail";
+import ExerciseDetail from "./pages/ExerciseDetail";
 
 function App() {
 
@@ -74,8 +74,8 @@ function App() {
       element: <SingleApplicantView />,
     },
     {
-      path: "/ExcerciseDetail",
-      element: <ExcerciseDetail />
+      path: "/ExerciseDetail",
+      element: <ExerciseDetail />
     },
 
 
