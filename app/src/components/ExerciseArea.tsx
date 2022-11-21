@@ -1,6 +1,7 @@
 //icons
 import { TrashIcon } from "@heroicons/react/24/outline";
 import { Exercise } from "../interfaces/Exercise";
+import ExerciseDetail from "../pages/ExerciseDetail";
 
 export const ExerciseArea = ({ exercises }: { exercises: Array<unknown> }) => {
   let errors = { title: "some section", description: "bad error" };
@@ -25,6 +26,8 @@ export const ExerciseArea = ({ exercises }: { exercises: Array<unknown> }) => {
                 <p className="font-semibold">{"exercise " + (key + 1)}</p>
               </div>
               <div className="collapse-content">
+                <ExerciseDetail></ExerciseDetail>
+                {/* 
                 <form
                   onSubmit={() => { }}
                   className="flex flex-col space-y-6 divide"
@@ -106,7 +109,7 @@ export const ExerciseArea = ({ exercises }: { exercises: Array<unknown> }) => {
                       Update Exercise
                     </button>
                   </div>
-                </form>
+                </form> */}
               </div>
             </div>
           </div>

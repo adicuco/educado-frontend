@@ -12,7 +12,7 @@ import CourseServices from "../services/course.services";
 import useAuthStore from "../contexts/useAuthStore";
 import { useParams } from "react-router-dom";
 
-export const ExcerciseDetail = () => {
+export const ExerciseDetail = () => {
 
     const { id } = useParams();
 
@@ -64,4 +64,4 @@ export const ExcerciseDetail = () => {
     );
 };
 
-export default ExcerciseDetail;
+export default ExerciseDetail;
