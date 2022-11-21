@@ -17,6 +17,7 @@ import CourseServices from '../services/course.services';
 import IphoneView from '../components/mockup/IphoneView';
 import useAuthStore from '../contexts/useAuthStore';
 import NotFound from './NotFound';
+import { SectionForm } from '../components/dnd/SectionForm';
 
 
 // Interface
@@ -28,7 +29,6 @@ type Inputs = {
 const CourseEdit = () => {
     // Get path params
     const { id } = useParams();
-    const [phoneView, setPhoneView] = useState(false);
 
     // Global state
     const token = useAuthStore(state => state.token);
@@ -69,7 +69,7 @@ const CourseEdit = () => {
 
     return (
         <Layout meta={`Course: ${123}`}>
-            
+
             {/** Course navigation */}
             <div className="navbar bg-base-100">
                 <div className='flex-1'>
@@ -79,11 +79,6 @@ const CourseEdit = () => {
                 <div className="flex-none space-x-2">
                     <button onClick={() => toast.success("Course published")} className='btn btn-sm bg-blue-500 text-white border-0'>Unpublish</button>
                     <button type="submit" className='btn btn-sm bg-blue-700 text-white border-0'>Update Course</button>
-                    <button
-                        onClick={() => setPhoneView(!phoneView)}
-                        className='btn btn-ghost'
-                    ><DevicePhoneMobileIcon width={24} />
-                    </button>
                 </div>
             </div>
             {/** Course details edit */}
@@ -147,19 +142,10 @@ const CourseEdit = () => {
                     {/** Course Sections area  */}
                     <div className='flex flex-col space-y-6 divide'>
                         <h1 className='text-xl font-medium'>Course Sections</h1>
+                        <SectionForm />
                         <SectionList sections={data.data.sections} />
                     </div>
                 </div>
-
-                {phoneView &&
-                    <div className='mx-auto p-8 rounded-xl'>
-                        <IphoneView>
-                            Hello Jakob
-
-                            <div className='h-24 w-24 bg-green-500 rounded'></div>
-                        </IphoneView>
-                    </div>
-                }
             </div>
         </Layout>
     )
