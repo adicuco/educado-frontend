@@ -1,4 +1,6 @@
 export interface Exercise {
+    title: string,
+    description: string,
     exerciseNumber: number,
     content: {
         type: string,

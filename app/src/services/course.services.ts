@@ -64,7 +64,7 @@ const getCourseDetail = (url: string, token: string) => {
 };
 
 export const SAVE_EXCERCISE = "SAVE_EXCERCISE"; // FIXME: wth is this?
-const saveExcercise = async (
+const saveExercise = async (
   props: ExerciseInterface,
   token: string | null | undefined
 ) => {
@@ -93,7 +93,7 @@ const CourseServices = {
   createCourse,
   getAllCourses,
   getCourseDetail,
-  saveExcercise,
+  saveExercise,
   updateCourseDetail
 };
 
