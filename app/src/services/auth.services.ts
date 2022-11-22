@@ -19,7 +19,7 @@ const postUserApplication = async (formData: ContentCreatorApplication) => {
 
 const GetCCApplications = async (): Promise<CCApp.RootObject> => {
   return await axios.get(
-    "http://127.0.0.1:8888/api/applications?approved=false"
+    "http://127.0.0.1:8888/api/applications?approved=false&isRejected=false"
   );
 };
 
