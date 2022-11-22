@@ -14,10 +14,7 @@ const postUserLogin = async (credentials: any) => {
 };
 
 const postUserApplication = async (formData: ContentCreatorApplication) => {
-  return await axios.post(
-    "http://127.0.0.1:8888/api/signup/content-creator",
-    formData
-  );
+  return await axios.post("http://127.0.0.1:8888/api/applications", formData);
 };
 
 const GetCCApplications = async (): Promise<CCApp.RootObject> => {
@@ -27,23 +24,31 @@ const GetCCApplications = async (): Promise<CCApp.RootObject> => {
 };
 
 const GetSingleUserApplication = async (url: string): Promise<CCApp.Datum> => {
-  return await axios.get(url);
+  const response = await axios.get(url);
+
+  return response.data.data;
 };
 
 const PostDelcineContentCreator = async (id: string): Promise<unknown> => {
-  return await axios.put(`http://127.0.0.1:8888/api/applications/${id}?action=reject`, {
-    data: {
-      reason: "No",
-    },
-  });
+  return await axios.put(
+    `http://127.0.0.1:8888/api/applications/${id}?action=reject`,
+    {
+      data: {
+        reason: "No",
+      },
+    }
+  );
 };
 
 const PostAcceptContentCreator = async (id: string): Promise<unknown> => {
-  return await axios.put(`http://127.0.0.1:8888/api/applications/${id}?action=approve`, {
-    data: {
-      reason: "Yes",
-    },
-  });
+  return await axios.put(
+    `http://127.0.0.1:8888/api/applications/${id}?action=approve`,
+    {
+      data: {
+        reason: "Yes",
+      },
+    }
+  );
 };
 
 const AuthServices = {
