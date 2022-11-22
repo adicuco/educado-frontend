@@ -66,6 +66,8 @@ export const SectionList = ({ sections }: { sections: Array<Section> }) => {
       setItems((items) => {
         const oldIndex = items.indexOf(active.id);
         const newIndex = items.indexOf(over.id);
+        console.log(active.id);
+        
         return arrayMove(items, oldIndex, newIndex);
       });
     }
@@ -81,7 +83,7 @@ export const SectionList = ({ sections }: { sections: Array<Section> }) => {
         onDragEnd={handleDragEnd}
       >
         <SortableContext items={items} strategy={verticalListSortingStrategy}>
-          {items.map((item) => <SortableItem key={item._id} item={item} />)}
+          {items.map((item) => <SortableItem key={item.id} item={item} />)}
         </SortableContext>
 
         <DragOverlay>

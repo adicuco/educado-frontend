@@ -15,7 +15,7 @@ export const ExerciseArea = ({ exercises }: { exercises: Array<Exercise> }) => {
               <p className="font-semibold">{exercise.title + " #" + (key + 1)}</p>
             </div>
             <div className="collapse-content">
-              <ExerciseDetail />
+              <ExerciseDetail exercise={exercise} eid={exercise.id} />
             </div>
 
           </div>

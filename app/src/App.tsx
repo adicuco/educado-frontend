@@ -39,7 +39,7 @@ function App() {
       element: <CourseEdit />
     },
     {
-      path: "/courses/edit/:cid/section/:sid",
+      path: "/courses/edit/:cid/sections/:sid",
       element: <SectionEdit />
     },
     {

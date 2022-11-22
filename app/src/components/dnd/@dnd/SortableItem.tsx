@@ -15,7 +15,7 @@ export function SortableItem(props: any) {
     setNodeRef,
     transform,
     transition,
-  } = useSortable({ id: props.item._id });
+  } = useSortable({ id: props.item.sectionNumber });
 
   const style = {
     transform: CSS.Transform.toString(transform),
@@ -32,7 +32,7 @@ export function SortableItem(props: any) {
 
       <div className='flex justify-between w-full space-x-2'>
         <p className='font-semibold'>{props.item.title}</p>
-        <Link to={`${location.pathname}/section/${props.item._id}`} className='btn btn-ghost'>
+        <Link to={`${location.pathname}/sections/${props.item.id}`} className='btn btn-ghost'>
           <PencilSquareIcon width={20} className="text-blue-500 hover:text-blue-700" />
           </Link>
       </div>

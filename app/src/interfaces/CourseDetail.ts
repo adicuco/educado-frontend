@@ -19,7 +19,7 @@ export interface Data {
 }
 
 export interface Author {
-    _id:       string;
+    id:       string;
     firstName: string;
     lastName:  string;
 }
@@ -30,7 +30,7 @@ export enum ID {
 
 export interface Section {
     exercises:     Exercise[];
-    _id:           string;
+    id:           string;
     parentCourse:  ID;
     title:         string;
     sectionNumber: number;
@@ -47,7 +47,7 @@ export enum Description {
 }
 
 export interface Exercise {
-    _id:              string;
+    id:              string;
     modifiedAt:       Date;
     answers:          Answer[];
     __v:              number;
@@ -56,7 +56,7 @@ export interface Exercise {
 }
 
 export interface Answer {
-    _id:        string;
+    id:        string;
     text:       string;
     correct:    boolean;
     modifiedAt: Date;

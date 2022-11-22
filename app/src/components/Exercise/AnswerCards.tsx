@@ -98,15 +98,15 @@ function AnswerCards({ update: updateAnswers }) {
 
                                     {/*Deletebutton  */}
                                     <button onClick={() => handleAnswerCardDelete(index)} className="btn btn-square btn-sm absolute top-2 right-2">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-6 h-6 ">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M18 12H6" />
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6 ">
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M18 12H6" />
                                         </svg>
                                     </button>
                                 </div>
 
 
 
-                                <textarea className="textarea textarea-success disabled:bg-white disabled:border-white h-full resize-none" placeholder="Bio"
+                                <textarea className="textarea textarea-success disabled:bg-white disabled:border-white h-full resize-none" placeholder="Fill me out"
                                     name="answer"
                                     id="answer"
                                     required value={singleAnswer.text}
@@ -134,8 +134,8 @@ function AnswerCards({ update: updateAnswers }) {
                             <div className="card-body">
                                 <div className="card-actions flex justify-around items-center h-full">
                                     <div className="flex flex-row space-x-4" >
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-6 h-6">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                                         </svg>
                                         Add Answer
                                     </div>

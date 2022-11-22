@@ -8,28 +8,8 @@ export interface CourseInterface {
   description: string;
 }
 
-// Interface for Exercise
-export interface ExerciseInterface {
-  onWrongFeedback: {
-    url: string;
-  };
-  content: {
-    url: string;
-  };
-  answers: [
-    {
-      text: string;
-      correct: boolean;
-    },
-    {
-      text: string;
-      correct: boolean;
-    }
-  ];
-}
-
 // CREATE NEW COURSE
-export const CREATE_COURSE = "CREATE_COURSE"; // FIXME: wth is this?
+export const CREATE_COURSE = "CREATE_COURSE"; // FIXME: wth is this? //todo: delete line?
 const createCourse = async (
   props: CourseInterface,
   token: string | null | undefined
@@ -63,24 +43,6 @@ const getCourseDetail = (url: string, token: string) => {
   return axios.get(url, config).then((res) => res.data);
 };
 
-export const SAVE_EXCERCISE = "SAVE_EXCERCISE"; // FIXME: wth is this?
-const saveExercise = async (
-  props: ExerciseInterface,
-  token: string | null | undefined
-) => {
-  const config: AxiosRequestConfig = {
-    headers: { Authorization: `Bearer ${token}` },
-  };
-
-  // Send the info to exercise service
-  return axios.put(
-    `http://127.0.0.1:8888/api/exercises/${"6372532fe975371444cba82b"}`,
-    props,
-    config
-  );
-};
-
-
 const updateCourseDetail = (data: any, id: any, token: any) => {
   const config: AxiosRequestConfig = {
     headers: { Authorization: `Bearer ${token}` },
@@ -93,7 +55,6 @@ const CourseServices = {
   createCourse,
   getAllCourses,
   getCourseDetail,
-  saveExercise,
   updateCourseDetail
 };
 

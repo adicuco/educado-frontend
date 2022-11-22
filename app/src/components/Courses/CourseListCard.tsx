@@ -14,7 +14,7 @@ export const CourseListCard = ({ course }: { course: Course }) => {
 
   return (
     <div className="overflow-hidden shadow-lg rounded-lg h-90 w-full cursor-pointer m-auto">
-      <Link to={`/courses/edit/${course._id}`} className="w-full block h-full">
+      <Link to={`/courses/edit/${course.id}`} className="w-full block h-full">
         <img src={images[Math.round(Math.random() * 2)]} alt="blog photo" className="max-h-40 w-full object-cover" />
         <div className="bg-white w-full">
           <div className='p-4'>

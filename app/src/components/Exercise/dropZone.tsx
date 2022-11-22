@@ -1,10 +1,11 @@
 
+import { Video } from 'aws-sdk/clients/rekognition';
 import { useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone'
 import StorageService from '../../services/storage.services';
 
 
-function DropZoneComponent({ update: updateContentUrl }) {
+function DropZoneComponent({ update: updateContentUrl, props }) {
 
     const [File, SetFile] = useState(null);
 
@@ -17,21 +18,24 @@ function DropZoneComponent({ update: updateContentUrl }) {
 
     const handleFileUpload = async (file: any) => {
 
+        const KEY = `${props.exerciseId}.${file.name.split('.').pop()}`
+        
         if (!file) {
             alert("Please select a file")
             return
         }
 
         try {
-            const url = await StorageService.uploadFile(file)
+            await StorageService.uploadFile({file, key: KEY})
 
             // Send bucket url up to parent exercise component for saving
-            updateContentUrl(url)
+            updateContentUrl(KEY)
 
             alert("File uploaded successfully")
 
         } catch (error) {
             console.log(error);
+            alert("File upload failed");
         }
     }
 
@@ -53,7 +57,7 @@ function DropZoneComponent({ update: updateContentUrl }) {
 
     return (
 
-        <div className="p-4  w-full flex flex-col items.center justify-center" >
+        <div className="py-2 w-full flex flex-col items.center justify-center" >
             <div
 
                 {...getRootProps()}
@@ -70,7 +74,7 @@ function DropZoneComponent({ update: updateContentUrl }) {
 
                     }
                 >
-                    <svg className="h-32 w-32 text-blue-500" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z" />  <path d="M7 18a4.6 4.4 0 0 1 0 -9h0a5 4.5 0 0 1 11 2h1a3.5 3.5 0 0 1 0 7h-1" />  <polyline points="9 15 12 12 15 15" />  <line x1="12" y1="12" x2="12" y2="21" /></svg>
+                    <svg className="h-32 w-32 text-blue-500" width="24" height="24" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">  <path stroke="none" d="M0 0h24v24H0z" />  <path d="M7 18a4.6 4.4 0 0 1 0 -9h0a5 4.5 0 0 1 11 2h1a3.5 3.5 0 0 1 0 7h-1" />  <polyline points="9 15 12 12 15 15" />  <line x1="12" y1="12" x2="12" y2="21" /></svg>
 
                     {isDragReject ? (
                         <p> Unfortunatly, this applications does only support video files </p>

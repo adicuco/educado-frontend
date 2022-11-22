@@ -7,7 +7,7 @@
 //   dateCreated: Date;
 //   dateUpdated: Date;
 //   __v: number;
-//   _id: string;
+//   id: string;
 //   _user: string;
 //   coverImg: string;
 //   published: boolean;
@@ -22,7 +22,7 @@ export interface Main {
 }
 
 export interface Course {
-  _id:         string;
+  id:         string;
   title:       string;
   category:    Category;
   coverImg?:   string;
@@ -35,13 +35,13 @@ export interface Course {
 }
 
 export interface Author {
-  _id:       string;
+  id:       string;
   firstName: string;
   lastName:  string;
 }
 
 export interface Category {
-  _id:   string;
+  id:   string;
   name:  string;
   icon?: string;
 }
@@ -51,7 +51,7 @@ export interface Category {
 /* reference from backend
 const courseSchema = new Schema({
       sections: string[];
-      _id: string;
+      id: string;
       title: string;
       description: string;
       category: string;

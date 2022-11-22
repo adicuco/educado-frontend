@@ -1,25 +1,31 @@
-import axios, { AxiosRequestConfig } from "axios";
-import React, { useState, } from "react";
-
-
+import { useState, } from "react";
+import { useParams } from "react-router-dom";
+import { useForm, SubmitHandler } from "react-hook-form";
 
 // Components
 import DropZoneComponent from "../components/Exercise/dropZone";
 import AnswerCards from "../components/Exercise/AnswerCards";
-import CourseServices from "../services/course.services";
 
+import { Answer } from "../interfaces/Answer";
+
+// Helpers
+import { Exercise } from "../interfaces/Exercise"
+import ExerciseServices from "../services/exercise.services";
 
 // Auth
 import useAuthStore from "../contexts/useAuthStore";
-import { useParams } from "react-router-dom";
 
-export const ExerciseDetail = () => {
+export const ExerciseDetail = ({exercise, eid}: {exercise: Exercise, eid: string}) => {
 
-    const { id } = useParams();
-
+    console.log(eid);
     
+    const { cid, sid } = useParams();
+
     const [contentUrl, setContentUrl] = useState("");
-    const [answers, setAnswers] = useState([{text: "ans1", correct: true}, {text: "ans2", correct: true}]);
+    const [answers, setAnswers] = useState<Answer[]>([]);
+
+    const { register, handleSubmit: handleExerciseSave, formState: { errors } } = useForm();
+    const onExerciseSave: SubmitHandler<any> = data => saveExercise(data);
 
     const token = useAuthStore(state => state.token);
 
@@ -35,54 +41,61 @@ export const ExerciseDetail = () => {
         setContentUrl(url);
     }
 
-    const saveExercise = () => {
+    const saveExercise = (data: any) => {
 
-        const exercise = {
-            title: "no title",
-            description: "no desc",
-            onWrongFeedback: {
-                url: "NOT IMPLEMENTED"
-            },
-            content: {
-                url: contentUrl
-            },
+        const exerciseToSave: Exercise = {
+            id: exercise.id,
+            sectionId: exercise.sectionId || "",
+            title: data.title,
+            description: data.description,
+            exerciseNumber: exercise.exerciseNumber,
+            content: contentUrl,
+            onWrongFeedback: "NOT IMPLEMENTED",
             answers: answers
         }
 
-        console.log(exercise);
+        console.log(exerciseToSave);
         console.log(token);
 
-        const response = CourseServices.saveExercise(exercise, token)
+        ExerciseServices.saveExercise(exerciseToSave, token)
             .then(() => alert("Saved"))
             .catch(() => alert("Failed to save exercise"));
 
     }
 
     return (
-        <>
-        <div className="form-control w-full max-w-xs">
-  <label className="label">
-    <span className="label-text">Exercise title</span>
-  </label>
-  <input type="text" placeholder="Type here" className="input input-bordered w-full max-w-xs" />
-  <label className="label">
-  </label>
 
-  <label className="label">
-    <span className="label-text">Exercise description</span>
-    
-  </label> 
-  <textarea className="textarea textarea-bordered h-24" placeholder="Bio"></textarea>
-  <label className="label">
-    
-  </label> 
+        <form onSubmit={handleExerciseSave(onExerciseSave)}
+            className="flex flex-col space-y-6 divide"
+        >
+            <div className="flex flex-col form-control align-items justify-content w-full">
+                <label className="label">
+                    <span className="label-text">Exercise title</span>
+                </label>
+                <input 
+                type="text"
+                defaultValue={exercise.title}
+                placeholder="Exercise title goes here"
+                className="input input-bordered w-full max-w-xs"
+                {...register("title", { required: true })}
+                 />
 
-</div>
-            <DropZoneComponent update={updateContentUrl} />
+                <label className="label">
+                    <span className="label-text">Exercise description</span>
+                </label>
+                <textarea
+                className="textarea textarea-bordered h-24"
+                defaultValue={exercise.description}
+                placeholder="Here you can describe the exercise"
+                {...register("description", { required: true })}
+                ></textarea>
+
+            </div>
+            <DropZoneComponent update={updateContentUrl} props={{exerciseId: eid}} />
             <AnswerCards update={updateAnswers} />
 
-            <button className="border border-2 border-indigo-800 bg-blue-400 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={saveExercise}>Save Exercise</button>
-        </>
+            <button type='submit' className="std-button ml-auto py-2 px-4">Save Exercise</button>
+        </form>
     );
 };
 

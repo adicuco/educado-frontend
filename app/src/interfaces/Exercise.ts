@@ -1,23 +1,12 @@
+import { Answer } from "./Answer";
+
 export interface Exercise {
+    id: string,
+    sectionId: string,
     title: string,
     description: string,
     exerciseNumber: number,
-    content: {
-        type: string,
-        url: string
-    },
-    on_wrong_feedback: {
-        type: string,
-        url: string
-    },
-    answers: [{
-        answerNumber: number,
-        text: string,
-        correct: boolean
-    },
-    {
-        answerNumber: number,
-        text: string,
-        correct: boolean
-    }]
+    content: string,
+    onWrongFeedback: string,
+    answers: Answer[]
 }

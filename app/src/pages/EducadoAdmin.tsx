@@ -105,7 +105,7 @@ const EducadoAdmin = () => {
                                                 </p>
                                             </td>
                                             <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                                <Link to={`${location.pathname}/${application._id}`}>
+                                                <Link to={`${location.pathname}/${application.id}`}>
                                                     <button
                                                         onClick={handleClick}
                                                         className="flex items-center justify-center h-12 px-6 w-full bg-blue-600 mt-8 rounded font-semibold text-sm text-blue-100 hover:bg-blue-700"
