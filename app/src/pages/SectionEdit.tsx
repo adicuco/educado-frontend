@@ -28,15 +28,15 @@ const SectionEdit = () => {
         [`${BACKEND_URL}/sections/${sid}`, token],
         SectionServices.getSectionDetail
     );
-
-    if (sectionError) return <p>"An error has occurred."</p>;
-    if (!sectionData) return <p>"Loading..."</p>;
-
+    
     const [section, setSection] = useState<Section>();
     const [exercises, setExercises] = useState<Exercise[]>([]);
-
+    
     const onExerciseAdd: SubmitHandler<Exercise> = data => addExercise(data);
     const onSectionSave: SubmitHandler<Section> = data => saveSection(data);
+    
+    if (sectionError) return <p>"An error has occurred."</p>;
+    if (!sectionData) return <p>"Loading..."</p>;
 
     const addExercise = async (data: Exercise) => {
         console.log(data);
@@ -103,12 +103,11 @@ const SectionEdit = () => {
                     <span className="text-xl font-bold">Add new exercise</span>
                 </div>
 
-                <div className="card w-96 bg-base-200 shadow-xl">
+                {/* <div className="card w-96 bg-base-200 shadow-xl">
                     <div className="card-body">
                         <h2 className="card-title">New Add Exercise!</h2>
                         <p>If a dog chews shoes whose shoes does he choose?</p>
                         <div className="card-actions justify-end">
-                            {/* TEST of card for add exercise*/}
                             <form
                                 onSubmit={handleExerciseAdd(onExerciseAdd)}
                                 className="flex flex-col justify-content align-items space-evenly w-full space-y-2"
@@ -134,15 +133,14 @@ const SectionEdit = () => {
                                         className="textarea textarea-bordered h-24"
                                         placeholder="Add a description to your exercise"
                                         {...registerExercise("description", { required: true })}
+
                                     />
                                 </div>
                                 <button type='submit' className="btn btn-primary">Add exercise!</button>
                             </form>
-                            {/* TEST */}
                         </div>
                     </div>
-                </div>
-                {/* old add exercise
+                </div> */}
                 <form
                     onSubmit={handleExerciseAdd(onExerciseAdd)}
                     className="flex flex-col justify-content align-items space-evenly w-full space-y-2"
@@ -157,6 +155,7 @@ const SectionEdit = () => {
                             className="input input-bordered w-full"
                             {...registerExercise("title", { required: true })}
                         />
+                        {exerciseErrors.title && <span>This field is required</span>}
                     </div>
 
                     <div className="form-control w-full">
@@ -170,14 +169,10 @@ const SectionEdit = () => {
                         />
                     </div>
 
-                    <button type='submit' className="my-2 std-button ml-auto">Add Exercise</button>
+                    <button type='submit' className="std-button ml-auto">Add Exercise</button>
 
-
-                    {/* <button type="submit" className="w-auto px-4 py-2 text-base font-semibold text-white bg-blue-600 rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-blue-200">
-                        Add Exercise
-                    </button> 
                 </form>
-            */}
+
             </div>
         </div>
         //</Layout>

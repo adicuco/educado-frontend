@@ -104,7 +104,6 @@ const EducadoAdmin = () => {
                                         return application;
                                     }
 
-                                    console.log(application)
                                 }).map((application: CCApp.Datum, key: number) => {
                                     let date = new Date(application.createdAt); // TODO: Format Time
                                     // let dateString = new Intl.DateTimeFormat('en-US').format(date);

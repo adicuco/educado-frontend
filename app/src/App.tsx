@@ -1,24 +1,22 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
 
+// Non-auth pages
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import NotFound from "./pages/NotFound";
+
 // Auth Pages
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 import Courses from "./pages/Courses";
 import CourseEdit from "./pages/CourseEdit";
 import SectionEdit from "./pages/SectionEdit";
-
-// Non-auth pages
-import Login from "./pages/Login";
-import Signup from "./pages/Signup";
-import NotFound from "./pages/NotFound";
+import ExerciseDetail from "./pages/ExerciseDetail";
 
 //Educado Admin tables for reviewing the Content Creator Applicants
 import EducadoAdmin from "./pages/EducadoAdmin";
 import SingleApplicantView from "./pages/SingleApplicantView";
 
-
-
-import ExerciseDetail from "./pages/ExerciseDetail";
 
 function App() {
 
@@ -72,13 +70,7 @@ function App() {
     {
       path: "/educado_admin/applications/:id",
       element: <SingleApplicantView />,
-    },
-    {
-      path: "/ExerciseDetail",
-      element: <ExerciseDetail />
-    },
-
-
+    }
   ])
 
   return <RouterProvider router={router} />;
