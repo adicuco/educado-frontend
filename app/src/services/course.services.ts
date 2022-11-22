@@ -51,11 +51,20 @@ const updateCourseDetail = (data: any, id: any, token: any) => {
   return axios.put(`${backend_url}/api/courses/${id}`, data, config).then((res) => res.data);
 }
 
+const createSection = async (data: any, id: any, token: any) => {
+  const config: AxiosRequestConfig = {
+    headers: { Authorization: `Bearer ${token}` },
+  };
+
+  return await axios.post(`${backend_url}/api/courses/${id}/sections`, data, config);
+}
+
 const CourseServices = {
   createCourse,
   getAllCourses,
   getCourseDetail,
-  updateCourseDetail
+  updateCourseDetail,
+  createSection
 };
 
 export default CourseServices;
