@@ -64,7 +64,7 @@ const getCourseDetail = (url: string, token: string) => {
 };
 
 export const SAVE_EXCERCISE = "SAVE_EXCERCISE"; // FIXME: wth is this?
-const saveExcercise = async (
+const saveExercise = async (
   props: ExerciseInterface,
   token: string | null | undefined
 ) => {
@@ -80,7 +80,6 @@ const saveExcercise = async (
   );
 };
 
-
 const updateCourseDetail = (data: any, id: any, token: any) => {
   const config: AxiosRequestConfig = {
     headers: { Authorization: `Bearer ${token}` },
@@ -89,12 +88,21 @@ const updateCourseDetail = (data: any, id: any, token: any) => {
   return axios.put(`${backend_url}/api/courses/${id}`, data, config).then((res) => res.data);
 }
 
+const createSection = async (data: any, id: any, token: any) => {
+  const config: AxiosRequestConfig = {
+    headers: { Authorization: `Bearer ${token}` },
+  };
+
+  return await axios.post(`${backend_url}/api/courses/${id}/sections`, data, config);
+}
+
 const CourseServices = {
   createCourse,
   getAllCourses,
   getCourseDetail,
-  saveExcercise,
-  updateCourseDetail
+  updateCourseDetail,
+  createSection,
+  saveExercise
 };
 
 export default CourseServices;
