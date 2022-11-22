@@ -17,29 +17,13 @@ import useAuthStore from "../contexts/useAuthStore";
 
 export const ExerciseDetail = ({exercise, eid}: {exercise: Exercise, eid: string}) => {
 
-    console.log(eid);
-    
-    const { cid, sid } = useParams();
-
     const [contentUrl, setContentUrl] = useState("");
-    const [answers, setAnswers] = useState<Answer[]>([]);
+    const [answers, setAnswers] = useState<Answer[]>(exercise.answers);
 
     const { register, handleSubmit: handleExerciseSave, formState: { errors } } = useForm();
     const onExerciseSave: SubmitHandler<any> = data => saveExercise(data);
 
     const token = useAuthStore(state => state.token);
-
-    const updateAnswers = (answers: any): any => {
-        console.log(answers);
-
-        setAnswers(answers);
-    };
-
-    const updateContentUrl = (url: string) => {
-        console.log(url);
-
-        setContentUrl(url);
-    }
 
     const saveExercise = (data: any) => {
 
@@ -91,8 +75,8 @@ export const ExerciseDetail = ({exercise, eid}: {exercise: Exercise, eid: string
                 ></textarea>
 
             </div>
-            <DropZoneComponent update={updateContentUrl} props={{exerciseId: eid}} />
-            <AnswerCards update={updateAnswers} />
+            <DropZoneComponent update={setContentUrl} props={{exerciseId: eid}} />
+            <AnswerCards update={setAnswers} initialAnswers={answers} />
 
             <button type='submit' className="std-button ml-auto py-2 px-4">Save Exercise</button>
         </form>

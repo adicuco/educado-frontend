@@ -29,17 +29,17 @@ const SectionEdit = () => {
         SectionServices.getSectionDetail
     );
 
+    if (sectionError) return <p>"An error has occurred."</p>;
+    if (!sectionData) return <p>"Loading..."</p>;
+
     const [section, setSection] = useState<Section>();
     const [exercises, setExercises] = useState<Exercise[]>([]);
 
     const onExerciseAdd: SubmitHandler<Exercise> = data => addExercise(data);
     const onSectionSave: SubmitHandler<Section> = data => saveSection(data);
 
-    if (sectionError) return <p>"An error has occurred."</p>;
-    if (!sectionData) return <p>"Loading..."</p>;
-
     const addExercise = async (data: Exercise) => {
-        console.log(data, token);
+        console.log(data);
 
         const response = await ExerciseServices.addExercise(data, token, sid)
 
@@ -108,42 +108,41 @@ const SectionEdit = () => {
                         <h2 className="card-title">New Add Exercise!</h2>
                         <p>If a dog chews shoes whose shoes does he choose?</p>
                         <div className="card-actions justify-end">
-
-
-                            {/* TEST */}
+                            {/* TEST of card for add exercise*/}
                             <form
-                    onSubmit={handleExerciseAdd(onExerciseAdd)}
-                    className="flex flex-col justify-content align-items space-evenly w-full space-y-2"
-                >
-                    <div className="form-control w-full">
-                        <label className="label">
-                            <span className="label-text">Title</span>
-                        </label>
-                        <input
-                            type="text"
-                            placeholder="Some awesome title"
-                            className="input input-bordered w-full"
-                            {...registerExercise("title", { required: true })}
-                        />
-                    </div>
+                                onSubmit={handleExerciseAdd(onExerciseAdd)}
+                                className="flex flex-col justify-content align-items space-evenly w-full space-y-2"
+                            >
+                                <div className="form-control w-full">
+                                    <label className="label">
+                                        <span className="label-text">Title</span>
+                                    </label>
+                                    <input
+                                        type="text"
+                                        placeholder="Some awesome title"
+                                        className="input input-bordered w-full"
+                                        {...registerExercise("title", { required: true })}
+                                    />
+                                    {exerciseErrors.title && <span>This field is required</span>}
+                                </div>
 
-                    <div className="form-control w-full">
-                        <label className="label">
-                            <span className="label-text">Description</span>
-                        </label>
-                        <textarea
-                            className="textarea textarea-bordered h-24"
-                            placeholder="Add a description to your exercise"
-                            {...registerExercise("description", { required: true })}
-                        />
-                    </div>
-                            <button type='submit' className="btn btn-primary">Add exercise!</button>
-                    </form>
+                                <div className="form-control w-full">
+                                    <label className="label">
+                                        <span className="label-text">Description</span>
+                                    </label>
+                                    <textarea
+                                        className="textarea textarea-bordered h-24"
+                                        placeholder="Add a description to your exercise"
+                                        {...registerExercise("description", { required: true })}
+                                    />
+                                </div>
+                                <button type='submit' className="btn btn-primary">Add exercise!</button>
+                            </form>
                             {/* TEST */}
                         </div>
                     </div>
                 </div>
-{/*
+                {/* old add exercise
                 <form
                     onSubmit={handleExerciseAdd(onExerciseAdd)}
                     className="flex flex-col justify-content align-items space-evenly w-full space-y-2"
