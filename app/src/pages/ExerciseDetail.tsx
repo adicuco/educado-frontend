@@ -67,46 +67,53 @@ export const ExerciseDetail = ({ exercise, eid }: { exercise: Exercise, eid: str
     return (
 
         <form onSubmit={handleExerciseSave(onExerciseSave)}
-            className="flex flex-col space-y-6 divide"
+            className="flex flex-col space-y-6 divide py-2"
         >
-            <div className="flex flex-col form-control align-items justify-content w-full">
-                <label className="label">
-                    <span className="label-text">Exercise title</span>
-                </label>
-                <input
-                    type="text"
-                    defaultValue={exercise.title}
-                    placeholder="Exercise title goes here"
-                    className="input input-bordered w-full max-w-xs"
-                    {...register("title", { required: true })}
-                />
+            <div className=" rounded-md cursor-pointer  focus:outline-none bg-base-100 border ">
+                <div className="flex flex-col form-control align-items justify-content w-full">
+                    <label className="label">
+                        <span className="label-text">Exercise title</span>
+                    </label>
+                    <input
+                        type="text"
+                        defaultValue={exercise.title}
+                        placeholder="Exercise title goes here"
+                        className="input input-bordered w-full max-w-xs"
+                        {...register("title", { required: true })}
+                    />
 
-                <label className="label">
-                    <span className="label-text">Exercise description</span>
-                </label>
-                <textarea
-                    className="textarea textarea-bordered h-24"
-                    defaultValue={exercise.description}
-                    placeholder="Here you can describe the exercise"
-                    {...register("description", { required: true })}
-                ></textarea>
+                    <label className="label">
+                        <span className="label-text">Exercise description</span>
+                    </label>
+                    <textarea
+                        className="textarea textarea-bordered h-24"
+                        defaultValue={exercise.description}
+                        placeholder="Here you can describe the exercise"
+                        {...register("description", { required: true })}
+                    ></textarea>
 
+                </div>
             </div>
 
-            <div>
-                {exercise.content ?
-                    <h1 className='text-md font-medium mt-2'>Content video</h1> :
-                    <h1 className='text-md font-medium mt-2'>Content video not uploaded</h1>
-                }
-                <ReactPlayer url={exercise.content || "https://www.youtube.com/watch?v=KuXjwB4LzSA"} controls={true} light={true} />
+            <div className="rounded-md cursor-pointer  focus:outline-none bg-base-100 border ">
+                <div>
+                    {exercise.content ?
+                        <h1 className='text-md font-medium mt-2'>Content video</h1> :
+                        <h1 className='text-md font-medium mt-2'>Content video not uploaded</h1>
+                    }
+                    <ReactPlayer url={exercise.content || "https://www.youtube.com/watch?v=KuXjwB4LzSA"} controls={true} light={true} />
+                </div>
+
+                <DropZoneComponent update={setContentUrl} props={{ exerciseId: eid }} />
             </div>
 
-            <DropZoneComponent update={setContentUrl} props={{ exerciseId: eid }} />
-            <h1 className='text-md font-medium mb-2'>Answers</h1>
-            <AnswerCards update={setAnswers} initialAnswers={answers} />
-
+            <div className="rounded-md cursor-pointer  focus:outline-none bg-base-100 border ">
+                <h1 className='text-md font-medium mb-2'>Answers</h1>
+                <AnswerCards update={setAnswers} initialAnswers={answers} />
+            </div>
             <button type='submit' className="std-button ml-auto py-2 px-4">Save Exercise</button>
         </form>
+
     );
 };
 
