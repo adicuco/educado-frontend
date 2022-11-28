@@ -2,13 +2,13 @@ import { useState } from "react";
 import { Answer } from "../../interfaces/Answer";
 
 function AnswerCards({ update: updateAnswers, initialAnswers }: { update: any, initialAnswers: Answer[] }) {
-    
+
     console.log(updateAnswers);
-    
+
     console.log(initialAnswers);
-    
+
     const [answers, setAnswers] = useState(initialAnswers);
-    
+
     const toggler = (index: number) => {
         const updatedAnswerCards = answers.map((answer, idx) => {
             if (idx === index) {
@@ -29,7 +29,7 @@ function AnswerCards({ update: updateAnswers, initialAnswers }: { update: any, i
     }
 
     const handleAnswerCardDelete = (index: any) => {
-        
+
         try {
 
             if (index < 2) {
@@ -42,10 +42,10 @@ function AnswerCards({ update: updateAnswers, initialAnswers }: { update: any, i
             updateAnswers(withOneLessAnswer);
 
         }
-        catch (err){
+        catch (err) {
             console.error(err);
         }
-            
+
     }
 
     const handleAnswerCardChange = (e: any, index: number) => {
@@ -59,7 +59,7 @@ function AnswerCards({ update: updateAnswers, initialAnswers }: { update: any, i
     }
 
     console.log(answers);
-    
+
     return (
         <div className="flex justify-center py-2">
             <div className="flex justify-space-around ">
@@ -70,14 +70,14 @@ function AnswerCards({ update: updateAnswers, initialAnswers }: { update: any, i
 
                                 <div className="card-actions flex justify-around ">
 
-                                    <button onClick={() => handleAnswerCardDelete(index)} className="btn btn-square btn-sm absolute top-2 right-2">
+                                    <button onClick={() => handleAnswerCardDelete(index)} className="btn btn-square btn-sm absolute top-2 right-2  ">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6 ">
                                             <path strokeLinecap="round" strokeLinejoin="round" d="M18 12H6" />
                                         </svg>
                                     </button>
                                 </div>
 
-                                <textarea className="textarea textarea-success disabled:bg-white disabled:border-white h-full resize-none" 
+                                <textarea className="textarea textarea-success disabled:bg-white disabled:border-white h-full resize-none"
                                     placeholder="Some answer text"
                                     required={true}
                                     name="answer"

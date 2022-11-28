@@ -19,14 +19,14 @@ function DropZoneComponent({ update: updateContentUrl, props }) {
     const handleFileUpload = async (file: any) => {
 
         const KEY = `${props.exerciseId}.${file.name.split('.').pop()}`
-        
+
         if (!file) {
             alert("Please select a file")
             return
         }
 
         try {
-            await StorageService.uploadFile({file, key: KEY})
+            await StorageService.uploadFile({ file, key: KEY })
 
             // Send bucket url up to parent exercise component for saving
             updateContentUrl(KEY)
@@ -53,23 +53,25 @@ function DropZoneComponent({ update: updateContentUrl, props }) {
         accept: {
             'video/mp4': []
         }
+
+
     });
 
     return (
 
-        <div className="py-2 flex flex-col w-auto" >
+        // w-full flex flex-col items-center justify-center
+        //border-green-light 
+        <div className="py-2 " >
             <div
 
                 {...getRootProps()}
-                className="flex flex-col align-items justify-center w-auto m-fit-content rounded-md cursor-pointer focus:outline-none bg-base-100 border hover:shadow-xl "
-                
-            >
+                className="rounded-md cursor-pointer  focus:outline-none bg-base-100 border hover:shadow-xl " >
                 <input {...getInputProps()} />
 
 
                 <div
                     className={
-                        "flex flex-col items-center justify-center border-2 border-dashed border-green-light rounded-x2 space-y-2" +
+                        "flex flex-col items-center justify-center border-4 border-dashed rounded-x2 space-y-2" +
                         (isDragReject === true ? "border-red-500" : " ") +
                         (isDragAccept === true ? "border-green-500" : " ")
 
