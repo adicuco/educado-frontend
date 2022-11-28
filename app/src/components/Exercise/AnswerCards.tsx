@@ -3,10 +3,6 @@ import { Answer } from "../../interfaces/Answer";
 
 function AnswerCards({ update: updateAnswers, initialAnswers }: { update: any, initialAnswers: Answer[] }) {
 
-    console.log(updateAnswers);
-
-    console.log(initialAnswers);
-
     const [answers, setAnswers] = useState(initialAnswers);
 
     const toggler = (index: number) => {
@@ -57,8 +53,6 @@ function AnswerCards({ update: updateAnswers, initialAnswers }: { update: any, i
         setAnswers(list);
         updateAnswers(list);
     }
-
-    console.log(answers);
 
     return (
         <div className="flex justify-center py-2">

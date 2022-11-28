@@ -1,6 +1,5 @@
-import React, { useState, } from "react";
+import { useState, } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { ReactElement } from "react";
 
 // Components
 import DropZoneComponent from "../components/Exercise/dropZone";
@@ -49,7 +48,7 @@ export const ExerciseDetail = ({ exercise, eid }: { exercise: Exercise, eid: str
             }
 
             ExerciseServices.saveExercise(exerciseToSave, token)
-                .then(() => alert("Saved"))
+                .then(() => alert("Exercise Saved"))
                 .catch((e) => alert("Failed to save exercise due to error: " + e));
         }
         catch (err) {
@@ -91,16 +90,16 @@ export const ExerciseDetail = ({ exercise, eid }: { exercise: Exercise, eid: str
 
             <div className="rounded-md cursor-pointer  focus:outline-none bg-base-100 border ">
                 <div>
-                {exercise.onWrongFeedback ?
-                    <h1 className='text-md font-medium mt-2'>On wrong answer feedback video</h1> :
-                    <h1 className='text-md font-medium mt-2'>On wrong answer feedback video not uploaded</h1>
-                }
-                <ReactPlayer url={exercise.onWrongFeedback || "https://www.youtube.com/watch?v=KuXjwB4LzSA"} controls={true} light={true} />
-            </div>
+                    {exercise.onWrongFeedback ?
+                        <h1 className='text-md font-medium mt-2'>On wrong answer feedback video</h1> :
+                        <h1 className='text-md font-medium mt-2'>On wrong answer feedback video not uploaded</h1>
+                    }
+                    <ReactPlayer url={exercise.onWrongFeedback || "https://www.youtube.com/watch?v=KuXjwB4LzSA"} controls={true} light={true} />
+                </div>
 
-            <DropZoneComponent update={setOnWrongFeedbackUrl} props={{ exerciseId: eid }} />
+                <DropZoneComponent update={setOnWrongFeedbackUrl} props={{ exerciseId: eid }} />
 
-            <div>
+                <div>
                     {exercise.content ?
                         <h1 className='text-md font-medium mt-2'>Content video</h1> :
                         <h1 className='text-md font-medium mt-2'>Content video not uploaded</h1>
