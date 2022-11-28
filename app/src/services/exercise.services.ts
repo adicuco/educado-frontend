@@ -9,7 +9,7 @@ const saveExercise = async (
       headers: { Authorization: `Bearer ${token}` },
     };
   
-    console.log(props.id);
+    console.log(props);
 
     // Send the info to exercise service
     const response = await axios.put(

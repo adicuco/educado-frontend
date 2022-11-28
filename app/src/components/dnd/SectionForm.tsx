@@ -19,8 +19,6 @@ export const SectionForm = () => {
     const { id } = useParams();
     const token = useAuthStore(state => state.token);
 
-    console.log(id + " SectionForm");
-
     // React useForm setup
     const { register, handleSubmit, formState: { errors } } = useForm<Inputs>();
     const onSubmit: SubmitHandler<Inputs> = (data) => {
