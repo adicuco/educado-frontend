@@ -20,13 +20,10 @@ import ReactPlayer from "react-player";
 
 export const ExerciseDetail = ({ exercise, eid }: { exercise: Exercise, eid: string }) => {
 
+    const [onWrongFeedbackUrl, setOnWrongFeedbackUrl] = useState("");
     const [contentUrl, setContentUrl] = useState("");
     const [answers, setAnswers] = useState<Answer[]>(exercise.answers);
 
-    console.log("logg answers");
-    
-    console.log(answers);
-    
     const { register, handleSubmit: handleExerciseSave, formState: { errors } } = useForm();
     const onExerciseSave: SubmitHandler<any> = data => saveExercise(data);
 
@@ -34,15 +31,12 @@ export const ExerciseDetail = ({ exercise, eid }: { exercise: Exercise, eid: str
 
     const saveExercise = (data: any) => {
 
-        console.log("logging DATA");
-        
-        console.log(data);
         try {
 
             if (answers.length === 0) {
                 throw Error("Cannot save exercise when answers is empty. Set 2-4 answers, please")
             }
-            
+
             const exerciseToSave: Exercise = {
                 id: exercise.id,
                 sectionId: exercise.sectionId || "",
@@ -50,13 +44,13 @@ export const ExerciseDetail = ({ exercise, eid }: { exercise: Exercise, eid: str
                 description: data.description,
                 exerciseNumber: exercise.exerciseNumber,
                 content: contentUrl,
-                onWrongFeedback: "NOT IMPLEMENTED",
+                onWrongFeedback: onWrongFeedbackUrl || "NOT IMPLEMENTED",
                 answers: answers
             }
-            
+
             ExerciseServices.saveExercise(exerciseToSave, token)
-            .then(() => alert("Saved"))
-            .catch((e) => alert("Failed to save exercise due to error: " + e));
+                .then(() => alert("Saved"))
+                .catch((e) => alert("Failed to save exercise due to error: " + e));
         }
         catch (err) {
             console.error(err)
@@ -92,6 +86,16 @@ export const ExerciseDetail = ({ exercise, eid }: { exercise: Exercise, eid: str
                 ></textarea>
 
             </div>
+
+            <div>
+                {exercise.onWrongFeedback ?
+                    <h1 className='text-md font-medium mt-2'>On wrong answer feedback video</h1> :
+                    <h1 className='text-md font-medium mt-2'>On wrong answer feedback video not uploaded</h1>
+                }
+                <ReactPlayer url={exercise.onWrongFeedback || "https://www.youtube.com/watch?v=KuXjwB4LzSA"} controls={true} light={true} />
+            </div>
+
+            <DropZoneComponent update={setOnWrongFeedbackUrl} props={{ exerciseId: eid }} />
 
             <div>
                 {exercise.content ?

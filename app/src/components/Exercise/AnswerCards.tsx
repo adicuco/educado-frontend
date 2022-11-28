@@ -82,7 +82,7 @@ function AnswerCards({ update: updateAnswers, initialAnswers }: { update: any, i
                                     required={true}
                                     name="answer"
                                     id="answer"
-                                    defaultValue={answer.text || "where's my data?"}
+                                    defaultValue={answer.text || ""}
                                     onClick={(e) => handleAnswerCardChange(e, index)}
                                 >
                                 </textarea>
