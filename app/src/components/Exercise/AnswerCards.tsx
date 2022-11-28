@@ -69,7 +69,7 @@ function AnswerCards({ update: updateAnswers, initialAnswers }: { update: any, i
 
                                 <div className="grid justify-items-center">
                                     {/*Toggle True or False  */}
-                                    <input type="checkbox" className="toggle" checked={answer.correct} onClick={() => toggler(index)} />
+                                    <input type="checkbox" className="toggle" checked={answer.correct} onChange={() => toggler(index)} />
                                     {answer.correct ? <span>Correct</span> : <span>Incorrect</span>}
                                 </div>
 

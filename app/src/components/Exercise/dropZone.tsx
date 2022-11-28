@@ -57,11 +57,12 @@ function DropZoneComponent({ update: updateContentUrl, props }) {
 
     return (
 
-        <div className="py-2 w-full flex flex-col items.center justify-center" >
+        <div className="py-2 flex flex-col w-auto" >
             <div
 
                 {...getRootProps()}
-                className="flex flex-col items.center justify-center   w-full rounded-md cursor-pointer  focus:outline-none bg-base-100 border hover:shadow-xl "
+                className="flex flex-col align-items justify-center w-auto m-fit-content rounded-md cursor-pointer focus:outline-none bg-base-100 border hover:shadow-xl "
+                
             >
                 <input {...getInputProps()} />
 

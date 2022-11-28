@@ -1,6 +1,6 @@
-import { useState, } from "react";
-import { useParams } from "react-router-dom";
+import React, { useState, } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { ReactElement } from "react";
 
 // Components
 import DropZoneComponent from "../components/Exercise/dropZone";
@@ -15,7 +15,10 @@ import ExerciseServices from "../services/exercise.services";
 // Auth
 import useAuthStore from "../contexts/useAuthStore";
 
-export const ExerciseDetail = ({exercise, eid}: {exercise: Exercise, eid: string}) => {
+// Video Player
+import ReactPlayer from "react-player";
+
+export const ExerciseDetail = ({ exercise, eid }: { exercise: Exercise, eid: string }) => {
 
     const [contentUrl, setContentUrl] = useState("");
     const [answers, setAnswers] = useState<Answer[]>(exercise.answers);
@@ -29,7 +32,7 @@ export const ExerciseDetail = ({exercise, eid}: {exercise: Exercise, eid: string
 
         const exerciseToSave: Exercise = {
             id: exercise.id,
-            sectionId: exercise.sectionId || "",
+            sectionId: exercise.sectionId || "no sectionId",
             title: data.title,
             description: data.description,
             exerciseNumber: exercise.exerciseNumber,
@@ -37,9 +40,6 @@ export const ExerciseDetail = ({exercise, eid}: {exercise: Exercise, eid: string
             onWrongFeedback: "NOT IMPLEMENTED",
             answers: answers
         }
-
-        console.log(exerciseToSave);
-        console.log(token);
 
         ExerciseServices.saveExercise(exerciseToSave, token)
             .then(() => alert("Saved"))
@@ -56,26 +56,36 @@ export const ExerciseDetail = ({exercise, eid}: {exercise: Exercise, eid: string
                 <label className="label">
                     <span className="label-text">Exercise title</span>
                 </label>
-                <input 
-                type="text"
-                defaultValue={exercise.title}
-                placeholder="Exercise title goes here"
-                className="input input-bordered w-full max-w-xs"
-                {...register("title", { required: true })}
-                 />
+                <input
+                    type="text"
+                    defaultValue={exercise.title}
+                    placeholder="Exercise title goes here"
+                    className="input input-bordered w-full max-w-xs"
+                    {...register("title", { required: true })}
+                />
 
                 <label className="label">
                     <span className="label-text">Exercise description</span>
                 </label>
                 <textarea
-                className="textarea textarea-bordered h-24"
-                defaultValue={exercise.description}
-                placeholder="Here you can describe the exercise"
-                {...register("description", { required: true })}
+                    className="textarea textarea-bordered h-24"
+                    defaultValue={exercise.description}
+                    placeholder="Here you can describe the exercise"
+                    {...register("description", { required: true })}
                 ></textarea>
 
             </div>
-            <DropZoneComponent update={setContentUrl} props={{exerciseId: eid}} />
+
+            <div>
+                {exercise.content ?
+                    <h1 className='text-md font-medium mt-2'>Content video</h1> :
+                    <h1 className='text-md font-medium mt-2'>Content video not uploaded</h1>
+                }
+                <ReactPlayer url={exercise.content || "https://www.youtube.com/watch?v=KuXjwB4LzSA"} controls={true} light={true} />
+            </div>
+
+            <DropZoneComponent update={setContentUrl} props={{ exerciseId: eid }} />
+            <h1 className='text-md font-medium mb-2'>Answers</h1>
             <AnswerCards update={setAnswers} initialAnswers={answers} />
 
             <button type='submit' className="std-button ml-auto py-2 px-4">Save Exercise</button>

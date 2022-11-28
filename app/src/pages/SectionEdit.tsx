@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useForm, SubmitHandler } from "react-hook-form";
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import useSWR from 'swr';
 
 // Services
@@ -12,6 +12,7 @@ import { Exercise } from '../interfaces/Exercise'
 import useAuthStore from '../contexts/useAuthStore';
 import ExerciseServices from '../services/exercise.services';
 import { Section } from '../interfaces/CourseDetail';
+import ArrowLeftIcon from '@heroicons/react/24/outline/ArrowLeftIcon';
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL + "api";
 
@@ -19,7 +20,7 @@ const SectionEdit = () => {
     const { register: registerSection, handleSubmit: handleSectionUpdate, formState: { errors: sectionErrors } } = useForm();
     const { register: registerExercise, handleSubmit: handleExerciseAdd, formState: { errors: exerciseErrors } } = useForm();
 
-    const { sid } = useParams();
+    const { cid, sid } = useParams();
 
     const token = useAuthStore(state => state.token);
 
@@ -39,7 +40,6 @@ const SectionEdit = () => {
     if (!sectionData) return <p>"Loading..."</p>;
 
     const addExercise = async (data: Exercise) => {
-        console.log(data);
 
         const response = await ExerciseServices.addExercise(data, token, sid)
 
@@ -62,6 +62,14 @@ const SectionEdit = () => {
     return (
         //<Layout meta='Section edit page'>
         <div className="w-full">
+            {/** Course navigation */}
+            <div className="navbar bg-base-100">
+                <div className='flex-1'>
+                    <Link to={`/courses/edit/${cid}`} className="btn btn-square btn-ghost normal-case text-xl"><ArrowLeftIcon width={24} /></Link>
+                    <a className="normal-case text-xl ml-4">{section?.parentCourse || "parent course attr on section is undefined"}</a>
+                </div>
+                
+            </div>
 
             {/** Section details edit */}
             <div className='max-w-3xl mx-auto bg-white p-4 rounded-xl'>
