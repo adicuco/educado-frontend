@@ -3,6 +3,10 @@ import { Answer } from "../../interfaces/Answer";
 
 function AnswerCards({ update: updateAnswers, initialAnswers }: { update: any, initialAnswers: Answer[] }) {
     
+    console.log(updateAnswers);
+    
+    console.log(initialAnswers);
+    
     const [answers, setAnswers] = useState(initialAnswers);
     
     const toggler = (index: number) => {
@@ -25,11 +29,23 @@ function AnswerCards({ update: updateAnswers, initialAnswers }: { update: any, i
     }
 
     const handleAnswerCardDelete = (index: any) => {
-        const withOneLessAnswer = [...answers]
-        withOneLessAnswer.splice(index, 1);
+        
+        try {
 
-        setAnswers(withOneLessAnswer);
-        updateAnswers(withOneLessAnswer);
+            if (index < 2) {
+                throw Error("Deletion not allowed. An exercise needs at least 2 answers")
+            }
+
+            const withOneLessAnswer = [...answers]
+            withOneLessAnswer.splice(index, 1);
+            setAnswers(withOneLessAnswer);
+            updateAnswers(withOneLessAnswer);
+
+        }
+        catch (err){
+            console.error(err);
+        }
+            
     }
 
     const handleAnswerCardChange = (e: any, index: number) => {
@@ -42,6 +58,8 @@ function AnswerCards({ update: updateAnswers, initialAnswers }: { update: any, i
         updateAnswers(list);
     }
 
+    console.log(answers);
+    
     return (
         <div className="flex justify-center py-2">
             <div className="flex justify-space-around ">
@@ -59,11 +77,13 @@ function AnswerCards({ update: updateAnswers, initialAnswers }: { update: any, i
                                     </button>
                                 </div>
 
-                                <textarea className="textarea textarea-success disabled:bg-white disabled:border-white h-full resize-none" placeholder="Fill me out"
+                                <textarea className="textarea textarea-success disabled:bg-white disabled:border-white h-full resize-none" 
+                                    placeholder="Some answer text"
+                                    required={true}
                                     name="answer"
                                     id="answer"
                                     defaultValue={answer.text || "where's my data?"}
-                                    onChange={(e) => handleAnswerCardChange(e, index)}
+                                    onClick={(e) => handleAnswerCardChange(e, index)}
                                 >
                                 </textarea>
 
