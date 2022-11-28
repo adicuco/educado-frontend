@@ -24,9 +24,9 @@ export const ExerciseDetail = ({ exercise, eid }: { exercise: Exercise, eid: str
     const [answers, setAnswers] = useState<Answer[]>(exercise.answers);
 
     console.log("logg answers");
-    
+
     console.log(answers);
-    
+
     const { register, handleSubmit: handleExerciseSave, formState: { errors } } = useForm();
     const onExerciseSave: SubmitHandler<any> = data => saveExercise(data);
 
@@ -34,29 +34,15 @@ export const ExerciseDetail = ({ exercise, eid }: { exercise: Exercise, eid: str
 
     const saveExercise = (data: any) => {
 
-<<<<<<< HEAD
-        const exerciseToSave: Exercise = {
-            id: exercise.id,
-            sectionId: exercise.sectionId || "no sectionId",
-            title: data.title,
-            description: data.description,
-            exerciseNumber: exercise.exerciseNumber,
-            content: contentUrl,
-            onWrongFeedback: "NOT IMPLEMENTED",
-            answers: answers
-        }
-
-        ExerciseServices.saveExercise(exerciseToSave, token)
-=======
         console.log("logging DATA");
-        
+
         console.log(data);
         try {
 
             if (answers.length === 0) {
                 throw Error("Cannot save exercise when answers is empty. Set 2-4 answers, please")
             }
-            
+
             const exerciseToSave: Exercise = {
                 id: exercise.id,
                 sectionId: exercise.sectionId || "",
@@ -67,11 +53,10 @@ export const ExerciseDetail = ({ exercise, eid }: { exercise: Exercise, eid: str
                 onWrongFeedback: "NOT IMPLEMENTED",
                 answers: answers
             }
-            
+
             ExerciseServices.saveExercise(exerciseToSave, token)
->>>>>>> 4b3706f7a0ccf1a551ca2ad770b7ff16c3dd52f5
-            .then(() => alert("Saved"))
-            .catch((e) => alert("Failed to save exercise due to error: " + e));
+                .then(() => alert("Saved"))
+                .catch((e) => alert("Failed to save exercise due to error: " + e));
         }
         catch (err) {
             console.error(err)
