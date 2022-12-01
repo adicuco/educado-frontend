@@ -13,6 +13,8 @@
 //   published: boolean;
 // }
 
+import { StorageFile } from "./File";
+
 
 export interface Main {
   status:  number;

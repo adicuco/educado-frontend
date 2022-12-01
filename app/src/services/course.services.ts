@@ -2,7 +2,7 @@ import axios, { AxiosRequestConfig } from "axios";
 
 const backend_url = import.meta.env.VITE_BACKEND_URL;
 
-// Interface for course content
+// Interface for posting course content
 export interface CourseInterface {
   title: string;
   description: string;

@@ -18,13 +18,22 @@ import IphoneView from '../components/mockup/IphoneView';
 import useAuthStore from '../contexts/useAuthStore';
 import NotFound from './NotFound';
 import { SectionForm } from '../components/dnd/SectionForm';
-
+import StorageService from '../services/storage.services';
 
 // Interface
+import { StorageFile } from '../interfaces/File';
+
 type Inputs = {
+    coverImg: FileList
     title: string,
     description: string,
 };
+
+type CoursePartial = {
+    coverImg?: StorageFile | {}
+    title: string,
+    description: string,
+}
 
 const CourseEdit = () => {
     // Get path params
@@ -41,9 +50,28 @@ const CourseEdit = () => {
 
     // React useForm setup
     const { register, handleSubmit, formState: { errors } } = useForm<Inputs>();
-    const onSubmit: SubmitHandler<Inputs> = data => CourseServices.updateCourseDetail(data, id, token);
+    const onSubmit: SubmitHandler<Inputs> = (data) => {
+
+        const changes: CoursePartial = {
+            title: data.title,
+            description: data.description
+        }
+ 
+        if (coverImg) {
+            changes.coverImg = {
+                path: `${course.id}/coverImg`,
+                filename: coverImg.name,
+                size: coverImg.size,
+                type: coverImg.type
+            }
+        }
+
+        CourseServices.updateCourseDetail(changes, id, token)
+    };
 
     // Demo data
+    const DEFAULT_COVER_IMAGE = "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=80"
+
     const course = {
         id: "6335993db89fa3077a35ce82",
         title: "Basic Python",
@@ -63,9 +91,32 @@ const CourseEdit = () => {
             { name: "classNamees" }
         ]
     }
+    const [coverImg, setCoverImg] = useState()
+    const [coverImgPreview, setCoverImgPreview] = useState()
+    
 
     if (error) return <NotFound />;
     if (!data) return <p>"Loading..."</p>;
+
+
+    const onCoverImgChange = async (e: any) => {
+
+        const image = e.target.files[0]
+
+        // Enables us to preview the image file before storing it
+        setCoverImgPreview(URL.createObjectURL(image))
+
+        // Using coverImage from useState variable instead of regular form field
+        // as useForm handles files a little inconsistent
+        setCoverImg(image)
+
+        try {
+            await StorageService.uploadFile({ file: image, key: `${course.id}/coverImg` })
+            console.log('success!');
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     return (
         <Layout meta={`Course: ${123}`}>
@@ -89,15 +140,17 @@ const CourseEdit = () => {
                             <h1 className='text-xl font-medium'>Course Content</h1>
 
                             <div className="flex flex-col space-y-2">
-                                <label htmlFor='dover_image'>Header</label>
                                 <div className='relative'>
                                     <div className='p-1 rounded-xl border-gray-300 border h-[240px] overflow-hidden'>
-                                        <img src={course.cover_image} alt={data.data.title} className="w-full h-max rounded-lg object-cover" />
+                                        <img src={coverImgPreview || data.data.coverImg || DEFAULT_COVER_IMAGE} alt={data.data.title} className="w-full h-max rounded-lg object-cover" />
                                     </div>
-                                    <button className='btn btn-sm bg-gray-400 hover:bg-gray-500 border-0 gap-2 rounded-full absolute bottom-2 right-2'>
-                                        <PhotoIcon width={20} />
-                                        change
-                                    </button>
+                                    {/* Cover image upload */}
+                                    <input type="file" accept='.jpg,.jpeg,.png'
+                                        {...register("coverImg")}
+                                        onChange={onCoverImgChange}
+                                        className='btn btn-sm bg-gray-400 hover:bg-gray-500 border-0 gap-2 rounded-full absolute bottom-2 right-2'
+                                    >
+                                    </input>
                                 </div>
                             </div>
 
