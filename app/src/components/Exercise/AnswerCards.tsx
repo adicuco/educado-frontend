@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Answer } from "../../interfaces/Answer";
 
 function AnswerCards({ update: updateAnswers, initialAnswers }: { update: any, initialAnswers: Answer[] }) {
-
     const [answers, setAnswers] = useState(initialAnswers);
 
     const toggler = (index: number) => {
@@ -18,6 +17,7 @@ function AnswerCards({ update: updateAnswers, initialAnswers }: { update: any, i
     }
 
     const handleAnswerCardAdd = () => {
+        
         const withAddedAnswer = [...answers, { text: "", correct: false }];
 
         setAnswers(withAddedAnswer);
@@ -51,9 +51,10 @@ function AnswerCards({ update: updateAnswers, initialAnswers }: { update: any, i
         list[index].text = value;
 
         setAnswers(list);
+        console.log(list);
+        
         updateAnswers(list);
     }
-
     return (
         <div className="flex justify-center py-2">
             <div className="flex justify-space-around ">

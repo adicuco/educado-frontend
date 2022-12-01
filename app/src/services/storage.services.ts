@@ -19,7 +19,7 @@ const uploadFile = async ({file, key} : {
     const params = {
         Body: file,
         Bucket: S3_BUCKET,
-        Key: key, // The key should be a the content plus the exercise id
+        Key: key,
         ContentType: file.type
     };
 

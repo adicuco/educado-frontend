@@ -9,8 +9,6 @@ const saveExercise = async (
       headers: { Authorization: `Bearer ${token}` },
     };
   
-    console.log(props);
-
     // Send the info to exercise service
     const response = await axios.put(
       `http://127.0.0.1:8888/api/exercises/${props.id}`,

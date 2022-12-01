@@ -5,7 +5,7 @@ import { useDropzone } from 'react-dropzone'
 import StorageService from '../../services/storage.services';
 
 
-function DropZoneComponent({ update: updateContentUrl, props }) {
+function DropZoneComponent({ update: updateFile, storageKey }) {
 
     const [File, SetFile] = useState(null);
 
@@ -15,10 +15,7 @@ function DropZoneComponent({ update: updateContentUrl, props }) {
         setTimeout(() => handleFileUpload(acceptedFiles[0]), 300)
     }, []);
 
-
     const handleFileUpload = async (file: any) => {
-
-        const KEY = `${props.exerciseId}.${file.name.split('.').pop()}`
 
         if (!file) {
             alert("Please select a file")
@@ -26,10 +23,15 @@ function DropZoneComponent({ update: updateContentUrl, props }) {
         }
 
         try {
-            await StorageService.uploadFile({ file, key: KEY })
+            await StorageService.uploadFile({ file, key: storageKey })
 
-            // Send bucket url up to parent exercise component for saving
-            updateContentUrl(KEY)
+            // Send file up to parent exercise component for saving
+            updateFile({
+                filename: file.name,
+                path: storageKey,
+                size: file.size,
+                type: file.type,
+            })
 
             alert("File uploaded successfully")
 
@@ -41,8 +43,6 @@ function DropZoneComponent({ update: updateContentUrl, props }) {
 
 
     const {
-        acceptedFiles,
-        fileRejections,
         getRootProps,
         getInputProps,
         isDragReject,
@@ -53,8 +53,6 @@ function DropZoneComponent({ update: updateContentUrl, props }) {
         accept: {
             'video/mp4': []
         }
-
-
     });
 
     return (
@@ -88,11 +86,8 @@ function DropZoneComponent({ update: updateContentUrl, props }) {
 
                             <p className="mt-2 text-base text-gray-300">Only video files supported</p>
 
-
                             {
                                 File ? File.name : "Please select a file"
-
-
                             }
                         </>
 

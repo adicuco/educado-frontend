@@ -19,10 +19,10 @@ import ReactPlayer from "react-player";
 
 export const ExerciseDetail = ({ exercise, eid }: { exercise: Exercise, eid: string }) => {
 
-    const [onWrongFeedbackUrl, setOnWrongFeedbackUrl] = useState("");
-    const [contentUrl, setContentUrl] = useState("");
+    const [onWrongFeedbackUrl, setOnWrongFeedbackUrl] = useState({});
+    const [mainContentFile, setMainContentFile] = useState({});
     const [answers, setAnswers] = useState<Answer[]>(exercise.answers);
-
+    
     const { register, handleSubmit: handleExerciseSave, formState: { errors } } = useForm();
     const onExerciseSave: SubmitHandler<any> = data => saveExercise(data);
 
@@ -42,13 +42,16 @@ export const ExerciseDetail = ({ exercise, eid }: { exercise: Exercise, eid: str
                 title: data.title,
                 description: data.description,
                 exerciseNumber: exercise.exerciseNumber,
-                content: contentUrl,
-                onWrongFeedback: onWrongFeedbackUrl || "NOT IMPLEMENTED",
+                content: mainContentFile || {},
+                onWrongFeedback: {},
                 answers: answers
             }
 
+            console.log(exerciseToSave);
+            
+            
             ExerciseServices.saveExercise(exerciseToSave, token)
-                .then(() => alert("Exercise Saved"))
+                .then(() => alert("Saved"))
                 .catch((e) => alert("Failed to save exercise due to error: " + e));
         }
         catch (err) {
@@ -89,7 +92,7 @@ export const ExerciseDetail = ({ exercise, eid }: { exercise: Exercise, eid: str
             </div>
 
             <div className="rounded-md cursor-pointer  focus:outline-none bg-base-100 border ">
-                <div>
+                {/* <div>
                     {exercise.onWrongFeedback ?
                         <h1 className='text-md font-medium mt-2'>On wrong answer feedback video</h1> :
                         <h1 className='text-md font-medium mt-2'>On wrong answer feedback video not uploaded</h1>
@@ -97,17 +100,18 @@ export const ExerciseDetail = ({ exercise, eid }: { exercise: Exercise, eid: str
                     <ReactPlayer url={exercise.onWrongFeedback || "https://www.youtube.com/watch?v=KuXjwB4LzSA"} controls={true} light={true} />
                 </div>
 
-                <DropZoneComponent update={setOnWrongFeedbackUrl} props={{ exerciseId: eid }} />
+                <DropZoneComponent update={setOnWrongFeedbackUrl} props={{ exerciseId: eid }} /> */}
 
                 <div>
                     {exercise.content ?
                         <h1 className='text-md font-medium mt-2'>Content video</h1> :
                         <h1 className='text-md font-medium mt-2'>Content video not uploaded</h1>
                     }
-                    <ReactPlayer url={exercise.content || "https://www.youtube.com/watch?v=KuXjwB4LzSA"} controls={true} light={true} />
+                    <ReactPlayer url={exercise.content} controls={true} light={true} />
                 </div>
+                {/* "https://www.youtube.com/watch?v=KuXjwB4LzSA" */}
 
-                <DropZoneComponent update={setContentUrl} props={{ exerciseId: eid }} />
+                <DropZoneComponent update={setMainContentFile} storageKey={`${exercise.id}/mainContent`} />
             </div>
 
             <div className="rounded-md cursor-pointer  focus:outline-none bg-base-100 border ">
