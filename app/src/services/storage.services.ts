@@ -1,33 +1,39 @@
 import AWS from "aws-sdk";
 
-const S3_BUCKET = "colibristoragesystem";
-const REGION = "eu-central-1";
+// AWS information
+// const S3_BUCKET = "colibristoragesystem";
+// const REGION = "eu-central-1";
 
-AWS.config.update({accessKeyId: "AKIAJCN7BXSGZVFJSVHA", secretAccessKey: "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"});
-
-const myBucket = new AWS.S3({
-    params: {
-        Bucket: S3_BUCKET
-    },
-    region: REGION
+// AWS configuration update
+AWS.config.update({
+    accessKeyId: import.meta.env.VITE_S3_ACCESS,
+    secretAccessKey: import.meta.env.VITE_S3_SECRET
 });
 
-const uploadFile = async ({file, key} : {
+// Create new bucket
+const myBucket = new AWS.S3({
+    params: { Bucket: import.meta.env.VITE_S3_BUCKET },
+    region: import.meta.env.VITE_S3_REGION
+});
+
+// Props interface
+type UploadProps = {
     file: any,
-    key: string
-}) => {
+    key: string // The key should be a the content plus the exercise id
+}
+
+const uploadFile = async ({ file, key }: UploadProps) => {
     const params = {
         Body: file,
-        Bucket: S3_BUCKET,
-        Key: key,
+        Bucket: import.meta.env.VITE_S3_BUCKET,
+        Key: key, 
         ContentType: file.type
     };
 
     await myBucket.putObject(params).send();
-
     return key;
 };
 
-const StorageService = Object.freeze({uploadFile});
+const StorageService = Object.freeze({ uploadFile });
 
 export default StorageService;

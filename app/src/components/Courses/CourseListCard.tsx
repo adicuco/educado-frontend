@@ -25,10 +25,12 @@ export const CourseListCard = ({ course }: { course: Course }) => {
               <h2 className="text-gray-800 text-xl font-medium mb-2">{course.title}</h2>
             }
 
-            {course.description.length > 100 ?
-              <p className="text-gray-400 font-light text-md">{course.description.slice(0, 80)}...</p> :
-              <p className="text-gray-400 font-light text-md">{course.description}</p>
-            }
+            <div className='h-14 overflow-hidden'>
+              {course.description.length != 0 ?
+                <p className="text-gray-400 font-light text-md">{course.description.length > 80 ? course.description.slice(0, 80) + "..." : course.description}</p> :
+                <p className="text-gray-400 font-light text-md">No description</p>
+              }
+            </div>
           </div>
 
           <div className="flex items-center border-t border-gray-100 p-2">

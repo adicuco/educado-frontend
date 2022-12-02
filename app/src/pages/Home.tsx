@@ -1,14 +1,9 @@
-import axios from 'axios'
-import React from 'react'
-import useSWR from 'swr'
 
 // Stores
-import useAuthStore from '../contexts/useAuthStore'
+// import useAuthStore from '../contexts/useAuthStore'
 
 // Components
 import Layout from '../components/Layout'
-import NarniaServices from '../services/narnia.services'
-import NotFound from './NotFound'
 import { PageDescriptor } from '../components/PageDescriptor'
 
 const Home = () => {

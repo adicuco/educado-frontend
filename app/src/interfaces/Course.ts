@@ -1,20 +1,4 @@
-
-// export interface Course {
-//   title: string;
-//   description: string;
-//   category: string;
-//   sections: string[];
-//   dateCreated: Date;
-//   dateUpdated: Date;
-//   __v: number;
-//   id: string;
-//   _user: string;
-//   coverImg: string;
-//   published: boolean;
-// }
-
 import { StorageFile } from "./File";
-
 
 export interface Main {
   status:  number;

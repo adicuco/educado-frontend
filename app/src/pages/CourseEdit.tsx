@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import useSWR from 'swr';
 import { toast } from 'react-toastify';
 import { Link, useParams } from 'react-router-dom';
 import { useForm, SubmitHandler } from "react-hook-form";
 
 // Icons
-import { ArrowLeftIcon, DevicePhoneMobileIcon, PhotoIcon, PlusIcon } from "@heroicons/react/24/outline"
+import { ArrowLeftIcon, PlusIcon } from "@heroicons/react/24/outline"
 
 // components
 import Layout from '../components/Layout'
@@ -14,7 +14,6 @@ import { SectionList } from '../components/dnd/SectionList';
 
 // Services
 import CourseServices from '../services/course.services';
-import IphoneView from '../components/mockup/IphoneView';
 import useAuthStore from '../contexts/useAuthStore';
 import NotFound from './NotFound';
 import { SectionForm } from '../components/dnd/SectionForm';
@@ -66,7 +65,7 @@ const CourseEdit = () => {
             }
         }
 
-        CourseServices.updateCourseDetail(changes, id, token)
+        CourseServices.updateCourseDetail(changes, id)
     };
 
     // Demo data
@@ -132,9 +131,10 @@ const CourseEdit = () => {
                     <button type="submit" className='btn btn-sm bg-blue-700 text-white border-0'>Update Course</button>
                 </div>
             </div>
+
             {/** Course details edit */}
-            <div className="w-full container flex flex-row space-x-4 p-6">
-                <div className='mx-auto max-w-5xl bg-white rounded-xl p-6'>
+            <div className="container mx-auto flex flex-row space-x-4 p-6">
+                <div className='w-full max-w-5xl mx-auto bg-white rounded-xl p-6'>
                     <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-1 lg:grid-cols-1 gap-6">
                         <div className='flex flex-col space-y-6 divide'>
                             <h1 className='text-xl font-medium'>Course Content</h1>

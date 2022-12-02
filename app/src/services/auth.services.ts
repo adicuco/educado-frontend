@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from "axios";
+import axios from "axios";
 import { CCApp } from "../interfaces/CCApp";
 
 export interface ContentCreatorApplication {
@@ -51,13 +51,13 @@ const PostAcceptContentCreator = async (id: string): Promise<unknown> => {
   );
 };
 
-const AuthServices = {
+const AuthServices = Object.freeze({
   postUserLogin,
   postUserApplication,
   GetCCApplications,
   GetSingleUserApplication,
   PostDelcineContentCreator,
   PostAcceptContentCreator,
-};
+});
 
 export default AuthServices;
