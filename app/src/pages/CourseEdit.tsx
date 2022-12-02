@@ -35,6 +35,9 @@ type CoursePartial = {
 }
 
 const CourseEdit = () => {
+    // Demo data
+    const DEFAULT_COVER_IMAGE = "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=80"
+
     // Get path params
     const { id } = useParams();
 
@@ -47,18 +50,20 @@ const CourseEdit = () => {
         CourseServices.getCourseDetail
     )
 
+    console.log(data);
+
     // React useForm setup
     const { register, handleSubmit, formState: { errors } } = useForm<Inputs>();
     const onSubmit: SubmitHandler<Inputs> = (data) => {
-
+        console.log(data);
         const changes: CoursePartial = {
             title: data.title,
             description: data.description
         }
- 
+
         if (coverImg) {
             changes.coverImg = {
-                path: `${course.id}/coverImg`,
+                path: `${id}/coverImg`,
                 filename: coverImg.name,
                 size: coverImg.size,
                 type: coverImg.type
@@ -66,10 +71,12 @@ const CourseEdit = () => {
         }
 
         CourseServices.updateCourseDetail(changes, id)
+        .then(res => toast.success(res))
+        .catch(err => toast.error(err))
+
     };
 
-    // Demo data
-    const DEFAULT_COVER_IMAGE = "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=80"
+
 
     const course = {
         id: "6335993db89fa3077a35ce82",
@@ -90,31 +97,28 @@ const CourseEdit = () => {
             { name: "classNamees" }
         ]
     }
+
     const [coverImg, setCoverImg] = useState()
     const [coverImgPreview, setCoverImgPreview] = useState()
-    
+
 
     if (error) return <NotFound />;
     if (!data) return <p>"Loading..."</p>;
 
 
     const onCoverImgChange = async (e: any) => {
-
-        const image = e.target.files[0]
+        const image = e.target.files[0];
 
         // Enables us to preview the image file before storing it
-        setCoverImgPreview(URL.createObjectURL(image))
-
         // Using coverImage from useState variable instead of regular form field
         // as useForm handles files a little inconsistent
-        setCoverImg(image)
+        setCoverImgPreview(URL.createObjectURL(image));
+        setCoverImg(image);
 
         try {
-            await StorageService.uploadFile({ file: image, key: `${course.id}/coverImg` })
+            await StorageService.uploadFile({ file: image, key: `${data.data.id}/coverImg` })
             console.log('success!');
-        } catch (error) {
-            console.log(error);
-        }
+        } catch (error) { console.log(error); }
     }
 
     return (
@@ -148,7 +152,7 @@ const CourseEdit = () => {
                                     <input type="file" accept='.jpg,.jpeg,.png'
                                         {...register("coverImg")}
                                         onChange={onCoverImgChange}
-                                        className='btn btn-sm bg-gray-400 hover:bg-gray-500 border-0 gap-2 rounded-full absolute bottom-2 right-2'
+                                        className='file-input w-full max-w-xs mt-2'
                                     >
                                     </input>
                                 </div>
