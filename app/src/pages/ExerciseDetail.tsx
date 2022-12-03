@@ -16,13 +16,14 @@ import useAuthStore from "../contexts/useAuthStore";
 
 // Video Player
 import ReactPlayer from "react-player";
+import { toast } from "react-toastify";
 
 export const ExerciseDetail = ({ exercise, eid }: { exercise: Exercise, eid: string }) => {
 
-    const [onWrongFeedbackUrl, setOnWrongFeedbackUrl] = useState({});
+    const [onWrongFeedbackFile, setonWrongFeedbackFile] = useState({});
     const [mainContentFile, setMainContentFile] = useState({});
     const [answers, setAnswers] = useState<Answer[]>(exercise.answers);
-    
+
     const { register, handleSubmit: handleExerciseSave, formState: { errors } } = useForm();
     const onExerciseSave: SubmitHandler<any> = data => saveExercise(data);
 
@@ -32,8 +33,9 @@ export const ExerciseDetail = ({ exercise, eid }: { exercise: Exercise, eid: str
 
         try {
 
-            if (answers.length === 0) {
-                throw Error("Cannot save exercise when answers is empty. Set 2-4 answers, please")
+            {/** (3.12.22) Current version of mobile app requires exactly 4 answers */ }
+            if (answers.length < 4 || answers.length > 4) {
+                throw Error("Please set 4 answers before saving exercise")
             }
 
             const exerciseToSave: Exercise = {
@@ -43,19 +45,16 @@ export const ExerciseDetail = ({ exercise, eid }: { exercise: Exercise, eid: str
                 description: data.description,
                 exerciseNumber: exercise.exerciseNumber,
                 content: mainContentFile || {},
-                onWrongFeedback: {},
+                onWrongFeedback: onWrongFeedbackFile || {},
                 answers: answers
             }
 
-            console.log(exerciseToSave);
-            
-            
             ExerciseServices.saveExercise(exerciseToSave, token)
-                .then(() => alert("Saved"))
-                .catch((e) => alert("Failed to save exercise due to error: " + e));
+                .then(() => toast.success(`Successfully saved exercise`))
+                .catch((e) => toast.error("Failed to save exercise due to error: " + e));
         }
         catch (err) {
-            console.error(err)
+            toast.error(`${err}`)
         }
 
     }
@@ -91,16 +90,8 @@ export const ExerciseDetail = ({ exercise, eid }: { exercise: Exercise, eid: str
                 </div>
             </div>
 
+            {/* Content video */}
             <div className="rounded-md cursor-pointer  focus:outline-none bg-base-100 border ">
-                {/* <div>
-                    {exercise.onWrongFeedback ?
-                        <h1 className='text-md font-medium mt-2'>On wrong answer feedback video</h1> :
-                        <h1 className='text-md font-medium mt-2'>On wrong answer feedback video not uploaded</h1>
-                    }
-                    <ReactPlayer url={exercise.onWrongFeedback || "https://www.youtube.com/watch?v=KuXjwB4LzSA"} controls={true} light={true} />
-                </div>
-
-                <DropZoneComponent update={setOnWrongFeedbackUrl} props={{ exerciseId: eid }} /> */}
 
                 <div>
                     {exercise.content ?
@@ -109,12 +100,29 @@ export const ExerciseDetail = ({ exercise, eid }: { exercise: Exercise, eid: str
                     }
                     <ReactPlayer url={exercise.content} controls={true} light={true} />
                 </div>
-                {/* "https://www.youtube.com/watch?v=KuXjwB4LzSA" */}
 
                 <DropZoneComponent update={setMainContentFile} storageKey={`${exercise.id}/mainContent`} />
             </div>
 
+            <div className="flex flex-col w-full">
+                <div className="divider"></div>
+            </div>
+
+            {/* feedback Video */}
             <div className="rounded-md cursor-pointer  focus:outline-none bg-base-100 border ">
+                <div>
+                    {exercise.onWrongFeedback ?
+                        <h1 className='text-md font-medium mt-2'>Feedback video (on wrong answer)</h1> :
+                        <h1 className='text-md font-medium mt-2'>Feedback video (on wrong answer) not uploaded</h1>
+                    }
+                    <ReactPlayer url={exercise.onWrongFeedback} controls={true} light={true} />
+                </div>
+
+                <DropZoneComponent update={setonWrongFeedbackFile} storageKey={`${exercise.id}/feedbackContent`} />
+            </div>
+
+            {/* Answers */}
+            <div className="rounded-md cursor-pointer focus:outline-none bg-base-100 border ">
                 <h1 className='text-md font-medium mb-2'>Answers</h1>
                 <AnswerCards update={setAnswers} initialAnswers={answers} />
             </div>

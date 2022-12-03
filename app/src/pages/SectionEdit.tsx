@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Link, useParams } from 'react-router-dom'
 import useSWR from 'swr';
+import { toast, ToastContainer } from 'react-toastify';
 
 // Services
 import SectionServices from '../services/section.services';
@@ -29,13 +30,13 @@ const SectionEdit = () => {
         [`${BACKEND_URL}/sections/${sid}`, token],
         SectionServices.getSectionDetail
     );
-    
+
     const [section, setSection] = useState<Section>();
     const [exercises, setExercises] = useState<Exercise[]>([]);
-    
+
     const onExerciseAdd: SubmitHandler<Exercise> = data => addExercise(data);
     const onSectionSave: SubmitHandler<Section> = data => saveSection(data);
-    
+
     if (sectionError) return <p>"An error has occurred."</p>;
     if (!sectionData) return <p>"Loading..."</p>;
 
@@ -56,7 +57,15 @@ const SectionEdit = () => {
 
         const response = await SectionServices.saveSection(toSave, token, sid);
 
-        setSection(response.data);
+        const status = response.status
+
+        if (status >= 200 && status <= 299) {
+            toast.success("Section saved")
+            setSection(response.data);
+        }
+        else if (status >= 400 && status <= 599) {
+            toast.error(`(${status}, ${response.statusText}) while attempting to save section`)
+        }
     }
 
     return (
@@ -66,9 +75,8 @@ const SectionEdit = () => {
             <div className="navbar bg-base-100">
                 <div className='flex-1'>
                     <Link to={`/courses/edit/${cid}`} className="btn btn-square btn-ghost normal-case text-xl"><ArrowLeftIcon width={24} /></Link>
-                    <a className="normal-case text-xl ml-4">{section?.parentCourse || "parent course attr on section is undefined"}</a>
+                    <a className="normal-case text-xl ml-4">{section?.parentCourse || "get back on course"}</a>
                 </div>
-                
             </div>
 
             {/** Section details edit */}
@@ -98,6 +106,7 @@ const SectionEdit = () => {
                 </form>
 
                 <h1 className='text-xl font-medium mb-4'>Exercises</h1>
+
                 <div className='flex-auto flex-col space-y-4' id='exercises'>
 
                     <ExerciseArea exercises={exercises.length > 0 ? exercises : sectionData.exercises} />
@@ -105,50 +114,10 @@ const SectionEdit = () => {
                 </div>
 
                 <div className="flex flex-col w-full mb-8">
-
                     <div className="divider"></div>
-                    {/* <div className="grid h-20 card bg-base-300 rounded-box place-items-center">Add Exercise</div> */}
                     <span className="text-xl font-bold">Add new exercise</span>
                 </div>
 
-                {/* <div className="card w-96 bg-base-200 shadow-xl">
-                    <div className="card-body">
-                        <h2 className="card-title">New Add Exercise!</h2>
-                        <p>If a dog chews shoes whose shoes does he choose?</p>
-                        <div className="card-actions justify-end">
-                            <form
-                                onSubmit={handleExerciseAdd(onExerciseAdd)}
-                                className="flex flex-col justify-content align-items space-evenly w-full space-y-2"
-                            >
-                                <div className="form-control w-full">
-                                    <label className="label">
-                                        <span className="label-text">Title</span>
-                                    </label>
-                                    <input
-                                        type="text"
-                                        placeholder="Some awesome title"
-                                        className="input input-bordered w-full"
-                                        {...registerExercise("title", { required: true })}
-                                    />
-                                    {exerciseErrors.title && <span>This field is required</span>}
-                                </div>
-
-                                <div className="form-control w-full">
-                                    <label className="label">
-                                        <span className="label-text">Description</span>
-                                    </label>
-                                    <textarea
-                                        className="textarea textarea-bordered h-24"
-                                        placeholder="Add a description to your exercise"
-                                        {...registerExercise("description", { required: true })}
-
-                                    />
-                                </div>
-                                <button type='submit' className="btn btn-primary">Add exercise!</button>
-                            </form>
-                        </div>
-                    </div>
-                </div> */}
                 <form
                     onSubmit={handleExerciseAdd(onExerciseAdd)}
                     className="flex flex-col justify-content align-items space-evenly w-full space-y-2"
@@ -180,6 +149,20 @@ const SectionEdit = () => {
                     <button type='submit' className="std-button ml-auto">Add Exercise</button>
 
                 </form>
+
+                {/* todo: Remove this ToastContainer when layout works */}
+                <ToastContainer
+                    position="bottom-right"
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover={false}
+                    theme="light"
+                />
 
             </div>
         </div>

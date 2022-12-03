@@ -1,4 +1,4 @@
-import { Answer } from "./Answer";
+import {Answer} from "./Answer";
 
 export interface Exercise {
     id: string,
@@ -6,7 +6,7 @@ export interface Exercise {
     title: string,
     description: string,
     exerciseNumber: number,
-    content: string,
-    onWrongFeedback: string,
+    content: any,
+    onWrongFeedback: any,
     answers: Answer[]
 }

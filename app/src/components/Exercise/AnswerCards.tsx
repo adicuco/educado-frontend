@@ -17,7 +17,7 @@ function AnswerCards({ update: updateAnswers, initialAnswers }: { update: any, i
     }
 
     const handleAnswerCardAdd = () => {
-        
+
         const withAddedAnswer = [...answers, { text: "", correct: false }];
 
         setAnswers(withAddedAnswer);
@@ -51,8 +51,7 @@ function AnswerCards({ update: updateAnswers, initialAnswers }: { update: any, i
         list[index].text = value;
 
         setAnswers(list);
-        console.log(list);
-        
+
         updateAnswers(list);
     }
     return (
@@ -78,7 +77,7 @@ function AnswerCards({ update: updateAnswers, initialAnswers }: { update: any, i
                                     name="answer"
                                     id="answer"
                                     defaultValue={answer.text || ""}
-                                    onClick={(e) => handleAnswerCardChange(e, index)}
+                                    onChange={(e) => handleAnswerCardChange(e, index)}
                                 >
                                 </textarea>
 
