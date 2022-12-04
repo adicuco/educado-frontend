@@ -24,13 +24,13 @@ export const CreateCourseModal = () => {
         CourseServices.createCourse({
             title: data.title,
             description: data.description
-        }, token)
+        })
             .then(res => console.log(res))
             .catch(err => console.log(err));
     };
 
     // failure on submit handler
-    const onError: SubmitHandler<Inputs> = error => console.log(error);
+    // const onError: SubmitHandler<Inputs> = error => console.log(error);
 
     return (
         <>

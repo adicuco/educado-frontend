@@ -21,6 +21,8 @@ import useAuthStore from '../contexts/useAuthStore';
 const Courses = () => {
 
   const token = useAuthStore(state => state.token);
+  const getToken = useAuthStore(async state => await state.getToken);
+
   // Fetch all courses
   const { data, error } = useSWR(
     ["http://127.0.0.1:8888/api/courses/", token],

@@ -9,7 +9,6 @@ import { TopNavBar } from './TopNavBar'
 // import { OptionsBar } from './OptionsBar'
 
 const Layout = ({ children, meta }: { children: Array<ReactNode> | ReactNode, meta: string | undefined }) => {
-    const notify = () => toast("First toast");
     return (
         <RequireAuth>
             <div className="flex w-screen h-screen text-gray-700">

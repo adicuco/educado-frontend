@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom"
+import { createBrowserRouter, RouterProvider, Navigate } from "react-router-dom"
 
 // Non-auth pages
 import Login from "./pages/Login";
@@ -24,7 +24,7 @@ function App() {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <Home />,
+      element: <Navigate to={"/courses"} />,
       errorElement: <NotFound />
     },
     {
@@ -43,11 +43,6 @@ function App() {
     {
       path: "/settings",
       element: <p>settings</p>
-    },
-    {
-      path: "/profile",
-      element: <Profile />,
-      errorElement: <NotFound />
     },
     {
       path: "/login",
