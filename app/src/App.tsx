@@ -7,7 +7,7 @@ import NotFound from "./pages/NotFound";
 
 // Auth Pages
 import Home from "./pages/Home";
-import Profile from "./pages/Profile";
+import Profile from "./pages/archive/Profile";
 import Courses from "./pages/Courses";
 import CourseEdit from "./pages/CourseEdit";
 import SectionEdit from "./pages/SectionEdit";

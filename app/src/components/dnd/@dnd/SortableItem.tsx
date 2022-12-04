@@ -23,14 +23,14 @@ export function SortableItem(props: any) {
   };
 
   return (
-    <div className="flex justify-between items-center border rounded p-2">
+    <div className="flex justify-between items-center border rounded p-1">
       <div ref={setNodeRef} style={style} {...attributes} {...listeners} >
         <div className='btn btn-ghost'>
           <ChevronUpDownIcon width={24} />
         </div>
       </div>
 
-      <div className='flex justify-between w-full space-x-2'>
+      <div className='flex justify-between items-center w-full space-x-2'>
         <p className='font-semibold'>{props.item.title}</p>
         <Link to={`${location.pathname}/sections/${props.item.id}`} className='btn btn-ghost'>
           <PencilSquareIcon width={20} className="text-blue-500 hover:text-blue-700" />

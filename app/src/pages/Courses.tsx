@@ -1,11 +1,9 @@
-import React from 'react'
+import { useState, useEffect, ChangeEvent } from 'react';
 import useSWR from 'swr';
+import { useDebounce } from 'usehooks-ts';
 
 // Services
 import CourseServices from '../services/course.services';
-
-// hooks
-import useToggle from "../hooks/useToggle";
 
 // Components
 import Layout from '../components/Layout'
@@ -13,13 +11,11 @@ import { CourseListCard } from '../components/Courses/CourseListCard'
 import { CreateCourseModal } from '../components/Courses/CreateCourseModal';
 
 // icons
-import { CourseListCardLoading } from '../components/Courses/CourseListCardLoading';
 import { PageDescriptor } from '../components/PageDescriptor';
 import useAuthStore from '../contexts/useAuthStore';
 
 
 const Courses = () => {
-
   const token = useAuthStore(state => state.token);
   const getToken = useAuthStore(async state => await state.getToken);
 
@@ -28,6 +24,25 @@ const Courses = () => {
     ["http://127.0.0.1:8888/api/courses/", token],
     CourseServices.getAllCourses
   );
+
+  // local data clone
+  const [localData, setLocalData] = useState(data);
+  const [search, setSearch] = useState<string>("");
+  const debouncedSearch = useDebounce<string>(search, 250);
+
+  // Simple search change
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setSearch(event.target.value)
+  }
+
+  // Client side filtering
+  useEffect(() => {
+    if (debouncedSearch !== '') {
+      setLocalData(localData.filter((d: any) => d.title.toLowerCase().includes(debouncedSearch.toLowerCase()) == true));
+    } else {
+      setLocalData(data);
+    }
+  }, [debouncedSearch, localData, data]);
 
   // useSWR built in loaders
   if (error) return <p>"An error has occurred."</p>;
@@ -43,7 +58,7 @@ const Courses = () => {
       />
 
       {/** Page Navbar */}
-      <div className="navbar bg-none mb-4 p-6">
+      <div className="navbar bg-none p-6">
         <div className="flex-1">
           {/** Create new courses */}
           <CreateCourseModal />
@@ -54,25 +69,21 @@ const Courses = () => {
             <div className=" relative ">
               <input
                 type="text"
-                className=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
+                className="input input-bordered rounded w-full max-w-xs"
                 placeholder="Looking for a course?"
+                onChange={handleChange}
               />
             </div>
-            <button className="flex-shrink-0 px-4 py-2 text-base font-semibold text-white bg-blue-600 rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-blue-200" type="submit">
-              Search
+            <button className="btn btn-primary space-x-2">
+              Filter
             </button>
           </form>
         </div>
       </div>
 
       {/** Page content real data from backend */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 p-6">
-        <>
-          {data.data.map((course: any, key: number) => {
-            return <CourseListCard course={course} key={key} />
-          })}
-        </>
-
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6 p-6">
+        {localData.data.map((course: any, key: number) => <CourseListCard course={course} key={key} />)}
       </div>
     </Layout>
   )

@@ -1,0 +1,86 @@
+import React from 'react'
+import { Link, Navigate, useNavigate } from 'react-router-dom'
+import useAuthStore from '../contexts/useAuthStore'
+
+// static
+import Logo from "../assets/ecs-logo.png"
+
+// icons
+import {
+    BookOpenIcon,
+    ShieldCheckIcon
+} from "@heroicons/react/24/outline";
+
+export const Navbar = () => {
+    const clearToken = useAuthStore(state => state.clearToken);
+    const navigate = useNavigate();
+
+    // List to generete dropdown li's 
+    const links = [
+        { path: "/courses", desc: "Courses" },
+    ]
+
+    return (
+        <div className="navbar bg-base-100 border-b">
+            <div className="navbar-start">
+                <div className="dropdown">
+                    <label tabIndex={0} className="btn btn-ghost lg:hidden">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
+                    </label>
+                    <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
+                        <li>
+                            <Link to={"/courses"} className="flex">
+                                <BookOpenIcon width={20} /><span>Courses</span>
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to={"/educado_admin/applications"} className="flex">
+                                <ShieldCheckIcon width={20} /><span>Admin</span>
+                            </Link>
+                        </li>
+                    </ul>
+                </div>
+
+                <Link to="/" className="flex flex-shrink-0 items-center space-x-3 normal-case text-xl" >
+                    <img src={Logo} alt="ecs-logo" className='h-6' /><p className='font-semibold'>Educardo</p>
+                </Link>
+            </div>
+
+            <div className="navbar-center hidden lg:flex">
+                <ul className="menu menu-horizontal p-0">
+                    <li>
+                        <Link to={"/courses"} className="flex tooltip tooltip-hover tooltip-bottom" data-tip="see your courses">
+                            <BookOpenIcon width={20} /><span>Courses</span>
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to={"/educado_admin/applications"} className="flex tooltip tooltip-hover tooltip-bottom" data-tip="Check Applications">
+                            <ShieldCheckIcon width={20} /><span>Admin</span>
+                        </Link>
+                    </li>
+                </ul>
+            </div>
+            <div className="navbar-end">
+                <button className="relative ml-auto text-sm focus:outline-none group">
+                    <div className="dropdown dropdown-end">
+                        <label tabIndex={0} className="btn btn-ghost hover:bg-transparent">
+                            <div className="flex items-center justify-between w-10 h-10 rounded">
+                                <div className="block relative">
+                                    <img
+                                        alt="profil"
+                                        src="https://www.tailwind-kit.com/images/person/6.jpg"
+                                        className="mx-auto object-cover rounded-full h-10 w-10 hover:rounded "
+                                    />
+                                </div>
+                            </div>
+                        </label>
+                        <ul tabIndex={0} className="menu dropdown-content p-2 shadow bg-base-100 rounded-box w-52 mt-4">
+                            {links.map((route, key) => <li key={key}><Link to={route.path}>{route.desc}</Link></li>)}
+                            <li><a onClick={() => {clearToken; navigate("/login")}} className="w-full px-4 py-2 text-left hover:bg-blue-500 hover:text-white">Sign out</a></li>
+                        </ul>
+                    </div>
+                </button>
+            </div>
+        </div>
+    )
+}

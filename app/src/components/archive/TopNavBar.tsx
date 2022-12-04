@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import useAuthStore from '../contexts/useAuthStore'
+import useAuthStore from '../../contexts/useAuthStore'
 
 export const TopNavBar = () => {
 
@@ -29,7 +29,7 @@ export const TopNavBar = () => {
                                 <img
                                     alt="profil"
                                     src="https://www.tailwind-kit.com/images/person/6.jpg"
-                                    className="mx-auto object-cover rounded-full h-10 w-10 hover:rounded-lg "
+                                    className="mx-auto object-cover rounded-full h-10 w-10 hover:rounded "
                                 />
                             </div>
                         </div>

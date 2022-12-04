@@ -2,7 +2,7 @@ import React from 'react'
 
 export const PageDescriptor = ({ title, desc }: { title: string, desc: string }) => {
     return (
-        <div className="header flex items-end justify-between p-6 mb-6 border-b bg-white">
+        <div className="header flex items-end justify-between p-6 border-b bg-white">
             <div className="title">
                 <p className="text-3xl font-bold text-gray-800 mb-4">
                     {title}

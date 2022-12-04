@@ -29,6 +29,11 @@ const getCourseDetail = (url: string) => {
   return axios.get(url).then((res) => res.data);
 };
 
+// Get course categories
+const getCourseCategories = (url: string) => {
+  return axios.get(url).then(res => res.data);
+}
+
 // Updating a specific course
 const updateCourseDetail = (data: any, id: any) => {
   return axios.put(`/api/courses/${id}`, data).then(res => res.data);
@@ -43,6 +48,7 @@ const CourseServices = {
   createCourse,
   getAllCourses,
   getCourseDetail,
+  getCourseCategories,
   updateCourseDetail,
   createSection
 };

@@ -22,14 +22,14 @@ export const SectionForm = () => {
     // React useForm setup
     const { register, handleSubmit, formState: { errors } } = useForm<Inputs>();
     const onSubmit: SubmitHandler<Inputs> = (data) => {
-        CourseServices.createSection(data, id, token)
+        CourseServices.createSection(data, id)
             .then(res => console.log(res))
             .catch(err => console.log(err));
     }
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="flex justify-between items-center border rounded p-2">
+            <div className="flex justify-between items-center border rounded p-1">
                 <div >
                     <button type="submit" className='btn btn-ghost'>
                         <PlusIcon width={24} />

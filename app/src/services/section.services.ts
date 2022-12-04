@@ -1,36 +1,25 @@
-import axios, {AxiosRequestConfig} from "axios";
-import {Section} from "../interfaces/CourseDetail";
+import { make_authenticated_axios } from "./axios.wrappers";
+
+// Intefaces
+import { Section } from "../interfaces/CourseDetail";
 
 const backend_url = import.meta.env.VITE_BACKEND_URL + 'api';
 
-export const getSectionDetail = (url : string, token : string) => {
-    const config: AxiosRequestConfig = {
-        headers: {
-            Authorization: `Bearer ${token}`
-        }
-    }
-    return axios.get(url, config).then(res => res.data.data)
+// Create dynamic axios with authorization header set
+const axios = make_authenticated_axios();
+
+export const getSectionDetail = (url: string) => {
+    return axios.get(url).then(res => res.data.data)
 }
 
 // boilerplate
-export const getExerciseDetail = (url : string, token : string) => {
-    const config: AxiosRequestConfig = {
-        headers: {
-            Authorization: `Bearer ${token}`
-        }
-    }
-    return axios.get(url, config).then(res => res.data.data)
+export const getExerciseDetail = (url: string) => {
+    return axios.get(url).then(res => res.data.data)
 }
 
-export const saveSection = async (props : Section, token : string | null | undefined, sid : string | null | undefined) => {
-    const config: AxiosRequestConfig = {
-        headers: {
-            Authorization: `Bearer ${token}`
-        }
-    };
-
+export const saveSection = async (props: Section, sid: string | null | undefined) => {
     // Send the info to caller
-    return axios.put(`${backend_url}/sections/${sid}`, props, config);
+    return axios.put(`${backend_url}/sections/${sid}`);
 };
 
 const SectionServices = {

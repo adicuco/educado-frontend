@@ -56,11 +56,11 @@ const Signup = () => {
       <h1 className="font-bold text-3xl">Content Creator Application</h1>
       <div className="bg-white rounded p-12 shadow-lg mt-12 min-w-min w-[500px]">
         <div className='flex flex-col divide text-gray-700'>
-          <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
+          <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col space-y-4">
             <label className="font-semibold text-xs" htmlFor="usernameField">First name</label>
             <input
               type="text"
-              className="rounded-lg border flex-1 appearance-none border border-gray-300 w-full py-2 px-4 mt-2 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
+              className="rounded border flex-1 appearance-none border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
               placeholder="First Name"
               {...register("firstName", { required: "Please enter your first name." })}
             />
@@ -69,7 +69,7 @@ const Signup = () => {
             <label className="font-semibold text-xs" htmlFor="usernameField">Last name</label>
             <input
               type="text"
-              className="rounded-lg border flex-1 appearance-none border border-gray-300 w-full py-2 px-4 mt-2 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
+              className="rounded border flex-1 appearance-none border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
               placeholder="Last Name"
               {...register("lastName", { required: "Please enter your last name." })}
             />
@@ -78,7 +78,7 @@ const Signup = () => {
             <label className="font-semibold text-xs mt-3" htmlFor="usernameField">Email</label>
             <input
               type="text"
-              className="rounded-lg border flex-1 appearance-none border border-gray-300 w-full py-2 px-4 mt-2 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="rounded border flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               placeholder="Email"
               {...register("email", { required: "Please enter your email." })}
             />
@@ -86,7 +86,7 @@ const Signup = () => {
 
             <label className="font-semibold text-xs mt-3">Motivation box</label>
             <textarea
-              className="flex-1 appearance-none border border-gray-300 w-full py-2 px-4 mt-2 bg-white text-gray-700 placeholder-gray-400 rounded-lg text-base focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+              className="flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 rounded text-base focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
               id="motivation"
               placeholder="What is your motivation for applying as a content creator?"
               rows={5}

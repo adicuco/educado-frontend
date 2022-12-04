@@ -35,22 +35,25 @@ type CoursePartial = {
 }
 
 const CourseEdit = () => {
-    // Demo data
+    const [coverImg, setCoverImg] = useState();
+    const [coverImgPreview, setCoverImgPreview] = useState();
+
     const DEFAULT_COVER_IMAGE = "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=80"
 
-    // Get path params
-    const { id } = useParams();
-
-    // Global state
-    const token = useAuthStore(state => state.token);
+    const { id } = useParams(); // Get path params
+    const token = useAuthStore(state => state.token); // Global state
 
     // Fetch data with useSWR
     const { data, error } = useSWR(
-        [`http://127.0.0.1:8888/api/courses/${id}`, token],
+        `http://127.0.0.1:8888/api/courses/${id}`,
         CourseServices.getCourseDetail
     )
 
-    console.log(data);
+    // Fetch possible categories
+    // const { data: categories, error: categoriesError } = useSWR(
+    //     `http://127.0.0.1:8888/api/categories`,
+    //     CourseServices.getCourseCategories
+    // );
 
     // React useForm setup
     const { register, handleSubmit, formState: { errors } } = useForm<Inputs>();
@@ -71,41 +74,12 @@ const CourseEdit = () => {
         }
 
         CourseServices.updateCourseDetail(changes, id)
-        .then(res => toast.success(res))
-        .catch(err => toast.error(err))
+            .then(res => toast.success(res))
+            .catch(err => toast.error(err))
 
     };
 
-
-
-    const course = {
-        id: "6335993db89fa3077a35ce82",
-        title: "Basic Python",
-        description: "Python - Learn math while you commute, develop the skills you need, conquer tomorrow's job market, begin your journey today",
-        cover_image: "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=80",
-        created_at: "26 sept 2022",
-        categories: ["Programming", "IT"],
-        creator: {
-            name: "Frederik Bode",
-            image: "https://www.tailwind-kit.com/images/person/7.jpg",
-            institution: "AAU"
-        },
-        sections: [
-            { name: "variables" },
-            { name: "input and output" },
-            { name: "functions" },
-            { name: "classNamees" }
-        ]
-    }
-
-    const [coverImg, setCoverImg] = useState()
-    const [coverImgPreview, setCoverImgPreview] = useState()
-
-
-    if (error) return <NotFound />;
-    if (!data) return <p>"Loading..."</p>;
-
-
+    // update cover image function
     const onCoverImgChange = async (e: any) => {
         const image = e.target.files[0];
 
@@ -120,6 +94,10 @@ const CourseEdit = () => {
             console.log('success!');
         } catch (error) { console.log(error); }
     }
+
+    if (error) return <NotFound />;
+    if (!data) return <p>"Loading..."</p>;
+    // if (!data && !categories) return <p>"Loading..."</p>;
 
     return (
         <Layout meta={`Course: ${123}`}>
@@ -138,15 +116,16 @@ const CourseEdit = () => {
 
             {/** Course details edit */}
             <div className="container mx-auto flex flex-row space-x-4 p-6">
-                <div className='w-full max-w-5xl mx-auto bg-white rounded-xl p-6'>
+                <div className='w-full max-w-5xl mx-auto bg-white rounded p-6'>
                     <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-1 lg:grid-cols-1 gap-6">
                         <div className='flex flex-col space-y-6 divide'>
                             <h1 className='text-xl font-medium'>Course Content</h1>
 
+                            {/** Cover Image Field */}
                             <div className="flex flex-col space-y-2">
                                 <div className='relative'>
-                                    <div className='p-1 rounded-xl border-gray-300 border h-[240px] overflow-hidden'>
-                                        <img src={coverImgPreview || data.data.coverImg || DEFAULT_COVER_IMAGE} alt={data.data.title} className="w-full h-max rounded-lg object-cover" />
+                                    <div className='p-1 rounded border-gray-300 border h-[240px] overflow-hidden'>
+                                        <img src={coverImgPreview || data.data.coverImg || DEFAULT_COVER_IMAGE} alt={data.data.title} className="w-full h-max rounded object-cover" />
                                     </div>
                                     {/* Cover image upload */}
                                     <input type="file" accept='.jpg,.jpeg,.png'
@@ -158,6 +137,7 @@ const CourseEdit = () => {
                                 </div>
                             </div>
 
+                            {/** Course Title Field */}
                             <div className="flex flex-col space-y-2">
                                 <label htmlFor='title'>Title</label>
                                 <input type="text" defaultValue={data.data.title}
@@ -167,6 +147,7 @@ const CourseEdit = () => {
                                 {errors.title && <span>This field is required</span>}
                             </div>
 
+                            {/** Course Description Field */}
                             <div className="flex flex-col space-y-2">
                                 <label htmlFor='description'>Description</label>
                                 <textarea rows={4} defaultValue={data.data.description} placeholder={data.data.description}
@@ -180,7 +161,7 @@ const CourseEdit = () => {
                             <div className="flex flex-col space-y-2">
                                 <label htmlFor='categories'>Categories</label>
                                 <div className='flex flex-row space-x-2'>
-                                    {course.categories.map((category: any, key: number) => <Pill category={category} key={key} />)}
+                                    {/* {categories.map((category: any, key: number) => <Pill category={category} key={key} />)} */}
 
                                     {/** Add new pill */}
                                     <span className="px-3 py-1 flex items-center text-base rounded-full border border-blue-500 hover:bg-blue-700 text-blue-500 shadow cursor-pointer">
@@ -192,13 +173,13 @@ const CourseEdit = () => {
                                 </div>
                             </div>
                         </div>
-
-                        <div className='divider' />
                     </form>
 
+                    <div className='divider' />
+
                     {/** Course Sections area  */}
-                    <div className='flex flex-col space-y-6 divide'>
-                        <h1 className='text-xl font-medium'>Course Sections</h1>
+                    <div className='flex flex-col space-y-2 divide'>
+                        <h1 className='text-xl font-medium mb-4'>Course Sections</h1>
                         <SectionForm />
                         <SectionList sections={data.data.sections} />
                     </div>

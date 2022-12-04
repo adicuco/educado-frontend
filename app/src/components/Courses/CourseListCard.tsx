@@ -13,7 +13,7 @@ export const CourseListCard = ({ course }: { course: Course }) => {
   images.push("https://plus.unsplash.com/premium_photo-1661517760211-211f319a4909?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80");
 
   return (
-    <div className="overflow-hidden shadow-lg rounded-lg h-90 w-full cursor-pointer m-auto">
+    <div className="overflow-hidden shadow rounded h-90 w-full cursor-pointer m-auto">
       <Link to={`/courses/edit/${course.id}`} className="w-full block h-full">
         <img src={course.coverImg || images[Math.round(Math.random() * 2)]} alt="blog photo" className="max-h-40 w-full object-cover" />
         <div className="bg-white w-full">

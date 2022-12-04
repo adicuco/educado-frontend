@@ -35,7 +35,7 @@ export const CreateCourseModal = () => {
     return (
         <>
             {/* The button to open modal */}
-            <label htmlFor="course-create" className="btn btn-sm btn-primary modal-button flex space-x-2">
+            <label htmlFor="course-create" className="btn btn-primary modal-button flex space-x-2">
                 <PencilSquareIcon className='w-5 h-5' />
                 <p className='font-normal'>Create new course</p>
             </label>
@@ -43,9 +43,9 @@ export const CreateCourseModal = () => {
             {/* Put this part before </body> tag */}
             <input type="checkbox" id="course-create" className="modal-toggle" />
             <div className="modal" id="course-create-modal">
-                <div className="modal-box w-11/12 max-w-5xl">
+                <div className="modal-box rounded w-11/12 max-w-xl">
                     <h3 className="font-bold text-lg">Create your brand new course!</h3>
-                    <p className="py-4">You've been selected for a chance to get one year of subscription to use Wikipedia for free!</p>
+                    <p className="py-4">Fill out the form and get started with your brand new course!</p>
 
                     <form className="flex h-full flex-col justify-between space-y-4" onSubmit={handleSubmit(onSubmit)}>
                         <div className="flex flex-col space-y-2 text-left">
@@ -67,10 +67,12 @@ export const CreateCourseModal = () => {
 
                         <div className='modal-action'>
                             <div className="flex items-center justify-between gap-4 w-full mt-8">
-                                <button type="submit" className="py-2 px-4  bg-blue-600 hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
-                                    Create
-                                </button>
-                                <label htmlFor='course-create' className="py-2 px-4 bg-white hover:bg-gray-100 border border-blue-500 focus:ring-blue-500 focus:ring-offset-blue-200 text-blue-500 w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg ">
+                                <label htmlFor='course-create' className="py-2 px-4  bg-blue-600 hover:bg-blue-700 focus:ring-blue-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded">
+                                    <button type="submit">
+                                        Create
+                                    </button>
+                                </label>
+                                <label htmlFor='course-create' className="py-2 px-4 bg-white hover:bg-gray-100 border border-blue-500 focus:ring-blue-500 focus:ring-offset-blue-200 text-blue-500 w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded">
                                     Cancel
                                 </label>
                             </div>
