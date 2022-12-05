@@ -4,18 +4,19 @@ import { toast } from 'react-toastify';
 import { Link, useParams } from 'react-router-dom';
 import { useForm, SubmitHandler } from "react-hook-form";
 
+// Pages
+import NotFound from './NotFound';
+
 // Icons
-import { ArrowLeftIcon, PlusIcon } from "@heroicons/react/24/outline"
+import { ArrowLeftIcon } from "@heroicons/react/24/outline"
 
 // components
 import Layout from '../components/Layout'
-import { CategoryPill as Pill } from "../components/CategoryPill";
 import { SectionList } from '../components/dnd/SectionList';
 
 // Services
 import CourseServices from '../services/course.services';
 import useAuthStore from '../contexts/useAuthStore';
-import NotFound from './NotFound';
 import { SectionForm } from '../components/dnd/SectionForm';
 import StorageService from '../services/storage.services';
 
@@ -50,15 +51,17 @@ const CourseEdit = () => {
     )
 
     // Fetch possible categories
-    // const { data: categories, error: categoriesError } = useSWR(
-    //     `http://127.0.0.1:8888/api/categories`,
-    //     CourseServices.getCourseCategories
-    // );
+    const { data: categories, error: categoriesError } = useSWR(
+        `http://127.0.0.1:8888/api/categories`,
+        CourseServices.getCourseCategories
+    );
+    
+    console.log(categories);
+    
 
     // React useForm setup
     const { register, handleSubmit, formState: { errors } } = useForm<Inputs>();
     const onSubmit: SubmitHandler<Inputs> = (data) => {
-        console.log(data);
         const changes: CoursePartial = {
             title: data.title,
             description: data.description
@@ -75,9 +78,8 @@ const CourseEdit = () => {
 
         CourseServices.updateCourseDetail(changes, id)
             .then(res => toast.success(res))
-            .catch(err => toast.error(err))
-
-    };
+            .catch(err => toast.error(err));
+    }
 
     // update cover image function
     const onCoverImgChange = async (e: any) => {
@@ -92,7 +94,9 @@ const CourseEdit = () => {
         try {
             await StorageService.uploadFile({ file: image, key: `${data.data.id}/coverImg` })
             console.log('success!');
-        } catch (error) { console.log(error); }
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     if (error) return <NotFound />;
@@ -121,22 +125,6 @@ const CourseEdit = () => {
                         <div className='flex flex-col space-y-6 divide'>
                             <h1 className='text-xl font-medium'>Course Content</h1>
 
-                            {/** Cover Image Field */}
-                            <div className="flex flex-col space-y-2">
-                                <div className='relative'>
-                                    <div className='p-1 rounded border-gray-300 border h-[240px] overflow-hidden'>
-                                        <img src={coverImgPreview || data.data.coverImg || DEFAULT_COVER_IMAGE} alt={data.data.title} className="w-full h-max rounded object-cover" />
-                                    </div>
-                                    {/* Cover image upload */}
-                                    <input type="file" accept='.jpg,.jpeg,.png'
-                                        {...register("coverImg")}
-                                        onChange={onCoverImgChange}
-                                        className='file-input w-full max-w-xs mt-2'
-                                    >
-                                    </input>
-                                </div>
-                            </div>
-
                             {/** Course Title Field */}
                             <div className="flex flex-col space-y-2">
                                 <label htmlFor='title'>Title</label>
@@ -157,19 +145,34 @@ const CourseEdit = () => {
                                 {errors.description && <span>This field is required</span>}
                             </div>
 
+                            {/** Cover Image Field */}
+                            <div className="flex flex-col">
+                                <div className='relative'>
+                                    <div className='p-0 rounded-b-none rounded-t border-gray-300 border-x border-t h-[240px] overflow-hidden'>
+                                        <img src={coverImgPreview || data.data.coverImg || DEFAULT_COVER_IMAGE} alt={data.data.title} className="w-full h-max rounded object-cover" />
+                                    </div>
+                                    {/* Cover image upload */}
+                                    <input type="file" accept='.jpg,.jpeg,.png'
+                                        {...register("coverImg")}
+                                        onChange={onCoverImgChange}
+                                        className='file-input w-full input-bordered rounded-b rounded-t-none focus:outline-none'
+                                    >
+                                    </input>
+                                </div>
+                            </div>
+
                             {/** Category Pills */}
                             <div className="flex flex-col space-y-2">
                                 <label htmlFor='categories'>Categories</label>
                                 <div className='flex flex-row space-x-2'>
-                                    {/* {categories.map((category: any, key: number) => <Pill category={category} key={key} />)} */}
-
-                                    {/** Add new pill */}
-                                    <span className="px-3 py-1 flex items-center text-base rounded-full border border-blue-500 hover:bg-blue-700 text-blue-500 shadow cursor-pointer">
-                                        <span>Add</span>
-                                        <button className="bg-transparent">
-                                            <PlusIcon className='w-4 h-4 ml-2' />
-                                        </button>
-                                    </span>
+                                    <select className="select select-bordered rounded focus:outline-none w-full">
+                                        <option disabled>Pick a category for the course</option>
+                                        <option>Homer</option>
+                                        <option>Marge</option>
+                                        <option>Bart</option>
+                                        <option>Lisa</option>
+                                        <option>Maggie</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>

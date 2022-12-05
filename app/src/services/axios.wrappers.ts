@@ -7,7 +7,7 @@ export const make_authenticated_axios = () => {
   if (axios_authenticated) return axios_authenticated;
   const instance = axios.create({
     baseURL: import.meta.env.VITE_BACKEND_URL,
-    headers: { Authorization: `Bearer ${"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiNjM0ZTdiM2NhMDE2MWFkNGU2YjNiODBkIiwiaWF0IjoxNjcwMTg5NTIzLCJleHAiOjE2NzAyNzU5MjN9.s9NgXKK2uOF975fa_i3Il1zZ4qbqIgBCZSirnDdU9ew"}` }
+    headers: { Authorization: `Bearer ${"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiNjM0ZTdiM2NhMDE2MWFkNGU2YjNiODBkIiwiaWF0IjoxNjcwMjUyMzM0LCJleHAiOjE2NzAzMzg3MzR9.NyOvvn_EoFC7hE5uDwkeCmBKa4ykeGPbKQVuF3TOFHU"}` }
   });
 
   axios_authenticated = instance;

@@ -25,24 +25,24 @@ const Courses = () => {
     CourseServices.getAllCourses
   );
 
-  // local data clone
-  const [localData, setLocalData] = useState(data);
-  const [search, setSearch] = useState<string>("");
-  const debouncedSearch = useDebounce<string>(search, 250);
+  // // local data clone
+  // const [localData, setLocalData] = useState(data);
+  // const [search, setSearch] = useState<string>("");
+  // const debouncedSearch = useDebounce<string>(search, 250);
 
-  // Simple search change
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setSearch(event.target.value)
-  }
+  // // Simple search change
+  // const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+  //   setSearch(event.target.value)
+  // }
 
-  // Client side filtering
-  useEffect(() => {
-    if (debouncedSearch !== '') {
-      setLocalData(localData.filter((d: any) => d.title.toLowerCase().includes(debouncedSearch.toLowerCase()) == true));
-    } else {
-      setLocalData(data);
-    }
-  }, [debouncedSearch, localData, data]);
+  // // Client side filtering
+  // useEffect(() => {
+  //   if (debouncedSearch !== '') {
+  //     setLocalData(localData.filter((d: any) => d.title.toLowerCase().includes(debouncedSearch.toLowerCase()) == true));
+  //   } else {
+  //     setLocalData(data);
+  //   }
+  // }, [debouncedSearch, localData, data]);
 
   // useSWR built in loaders
   if (error) return <p>"An error has occurred."</p>;
@@ -71,7 +71,7 @@ const Courses = () => {
                 type="text"
                 className="input input-bordered rounded w-full max-w-xs"
                 placeholder="Looking for a course?"
-                onChange={handleChange}
+                onChange={() => console.log("Heyo")}
               />
             </div>
             <button className="btn btn-primary space-x-2">
@@ -83,7 +83,7 @@ const Courses = () => {
 
       {/** Page content real data from backend */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6 p-6">
-        {localData.data.map((course: any, key: number) => <CourseListCard course={course} key={key} />)}
+        {data.data.map((course: any, key: number) => <CourseListCard course={course} key={key} />)}
       </div>
     </Layout>
   )

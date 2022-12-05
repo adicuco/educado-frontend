@@ -3,8 +3,6 @@ import { make_authenticated_axios } from "./axios.wrappers";
 // Create dynamic axios with authorization header set
 const axios = make_authenticated_axios();
 
-console.log(axios);
-
 // Interface for posting course content
 export interface CourseInterface {
   title: string;
