@@ -17,7 +17,7 @@ export const Navbar = () => {
 
     // List to generete dropdown li's 
     const links = [
-        { path: "/courses", desc: "Courses" },
+        { path: "/profile", desc: "Settings" },
     ]
 
     return (

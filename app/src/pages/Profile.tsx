@@ -9,7 +9,8 @@ import Layout from "../components/Layout";
 import { PageDescriptor } from '../components/PageDescriptor';
 
 type ProfileInputs = {
-    about: string
+    password: string,
+    passwordVerify: string
 }
 
 type PersonalInputs = {
@@ -21,7 +22,7 @@ const Profile = () => {
 
     const token = useAuthStore(state => state.token);
     // use-form setup
-    const { register: profileRegister, handleSubmit: profileHandleSubmit, formState: { errors : profileErrors } } = useForm<ProfileInputs>();
+    const { register: profileRegister, handleSubmit: profileHandleSubmit, formState: { errors: profileErrors } } = useForm<ProfileInputs>();
     const { register: personalRegister, handleSubmit: personalHandleSubmit, formState: { errors: personalErrors } } = useForm<PersonalInputs>();
 
     // success on submit handler
@@ -53,25 +54,38 @@ const Profile = () => {
                             <form onSubmit={profileHandleSubmit(onProfileSubmit)}>
                                 <div className="shadow sm:overflow-hidden sm:rounded-md">
                                     <div className="space-y-6 bg-white px-4 py-5 sm:p-6">
-                                        <div>
-                                            <label htmlFor="about" className="block text-sm font-medium text-gray-700 mb-2">
-                                                About
-                                            </label>
-                                            <div className="mt-1">
-                                                <textarea
-                                                    id="about"
-                                                    rows={3}
+                                        <div className="grid grid-cols-6 gap-6">
+                                            <div className="col-span-6">
+                                                <label htmlFor="first-name" className="block text-sm font-medium text-gray-700 mb-2">
+                                                    Password
+                                                </label>
+                                                <input
+                                                    type="text"
+                                                    id="first-name"
+                                                    autoComplete="given-name"
                                                     className="form-field focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
-                                                    placeholder="you@example.com"
-                                                    {...profileRegister("about", { required: true })}
+                                                    {...profileRegister("password", { required: true })}
                                                 />
-                                                {personalErrors.firstName && <span>This field is required</span>}
+                                                {profileErrors.password && <span>This field is required</span>}
                                             </div>
-                                            <p className="mt-2 text-sm text-gray-500">
-                                                Brief description for your profile. URLs are hyperlinked.
-                                            </p>
+
+                                            <div className="col-span-6">
+                                                <label htmlFor="last-name" className="block text-sm font-medium text-gray-700 mb-2">
+                                                    Password Verfication
+                                                </label>
+                                                <input
+                                                    type="text"
+                                                    id="last-name"
+                                                    autoComplete="family-name"
+                                                    className="form-field focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
+                                                    {...profileRegister("passwordVerify", { required: true })}
+                                                />
+                                                {profileErrors.passwordVerify && <span>This field is required</span>}
+                                            </div>
                                         </div>
                                     </div>
+
+
                                     <div className="bg-gray-50 px-4 py-3 text-right sm:px-6">
                                         <button
                                             type="submit"
@@ -131,19 +145,6 @@ const Profile = () => {
                                                     {...personalRegister("firstName", { required: true })}
                                                 />
                                                 {personalErrors.lastName && <span>This field is required</span>}
-                                            </div>
-
-                                            <div className="col-span-6">
-                                                <label htmlFor="email-address" className="block text-sm font-medium text-gray-700 mb-2">
-                                                    Email address
-                                                </label>
-                                                <input
-                                                    type="text"
-                                                    name="email-address"
-                                                    id="email-address"
-                                                    autoComplete="email"
-                                                    className="form-field focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
-                                                />
                                             </div>
                                         </div>
                                     </div>
