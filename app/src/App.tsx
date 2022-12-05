@@ -9,11 +9,12 @@ import NotFound from "./pages/NotFound";
 import Courses from "./pages/Courses";
 import CourseEdit from "./pages/CourseEdit";
 import SectionEdit from "./pages/SectionEdit";
-import ExerciseDetail from "./pages/ExerciseDetail";
+import Profile from "./pages/Profile";
 
 //Educado Admin tables for reviewing the Content Creator Applicants
 import EducadoAdmin from "./pages/EducadoAdmin";
 import SingleApplicantView from "./pages/SingleApplicantView";
+
 
 
 function App() {
@@ -41,6 +42,10 @@ function App() {
     {
       path: "/settings",
       element: <p>settings</p>
+    },
+    {
+      path: "/profile",
+      element: <Profile />
     },
     {
       path: "/login",

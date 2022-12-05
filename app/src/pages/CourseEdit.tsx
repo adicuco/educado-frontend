@@ -172,6 +172,8 @@ const CourseEdit = () => {
                                         <option>Bart</option>
                                         <option>Lisa</option>
                                         <option>Maggie</option>
+
+                                        {categories.data.map((category: any, key: number) => <option value={key} key={key}></option>)}
                                     </select>
                                 </div>
                             </div>
