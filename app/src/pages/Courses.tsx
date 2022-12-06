@@ -1,6 +1,8 @@
-import { useState, useEffect, ChangeEvent } from 'react';
 import useSWR from 'swr';
-import { useDebounce } from 'usehooks-ts';
+import { useNavigate } from 'react-router-dom';
+
+// Hooks 
+import useToken from '../hooks/useToken';
 
 // Services
 import CourseServices from '../services/course.services';
@@ -9,43 +11,21 @@ import CourseServices from '../services/course.services';
 import Layout from '../components/Layout'
 import { CourseListCard } from '../components/Courses/CourseListCard'
 import { CreateCourseModal } from '../components/Courses/CreateCourseModal';
-
-// icons
 import { PageDescriptor } from '../components/PageDescriptor';
-import useAuthStore from '../contexts/useAuthStore';
-
 
 const Courses = () => {
-  const token = useAuthStore(state => state.token);
-  const getToken = useAuthStore(async state => await state.getToken);
+  // States and Hooks
+  const navigate = useNavigate();
+  const token = useToken();
 
   // Fetch all courses
   const { data, error } = useSWR(
-    ["http://127.0.0.1:8888/api/courses/", token],
+    token ? ["http://127.0.0.1:8888/api/courses/", token] : null,
     CourseServices.getAllCourses
   );
 
-  // // local data clone
-  // const [localData, setLocalData] = useState(data);
-  // const [search, setSearch] = useState<string>("");
-  // const debouncedSearch = useDebounce<string>(search, 250);
-
-  // // Simple search change
-  // const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-  //   setSearch(event.target.value)
-  // }
-
-  // // Client side filtering
-  // useEffect(() => {
-  //   if (debouncedSearch !== '') {
-  //     setLocalData(localData.filter((d: any) => d.title.toLowerCase().includes(debouncedSearch.toLowerCase()) == true));
-  //   } else {
-  //     setLocalData(data);
-  //   }
-  // }, [debouncedSearch, localData, data]);
-
   // useSWR built in loaders
-  if (error) return <p>"An error has occurred."</p>;
+  if (error) return navigate("/login");
   if (!data) return <p>"Loading..."</p>;
 
   return (

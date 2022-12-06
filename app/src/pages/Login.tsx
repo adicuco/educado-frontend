@@ -22,7 +22,8 @@ const Login = () => {
 
     const [error, setError] = useState<LoginReponseError.RootObject | null>(null); // store http error objects
     // states
-    const setToken = useAuthStore(state => state.setToken); // zustand store for key storage
+    const setToken = useAuthStore(state => state.setToken);  // zustand store for key storage
+    const setRefresh = useAuthStore(state => state.setRefresh); // zustand store for key storage
     const navigate = useNavigate(); // hooke for redirect
 
     // use-form setup
@@ -33,6 +34,7 @@ const Login = () => {
         AuthServices.postUserLogin(data)
             .then((res) => {
                 setToken(res.data.data.accessToken);
+                setRefresh(res.data.data.refreshToken);
                 navigate("/");
             })
             .catch(err => { setError(err); console.log(err) });

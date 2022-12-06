@@ -1,27 +1,30 @@
 import { useState } from 'react'
-import useSWR from 'swr';
-import { toast } from 'react-toastify';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import { useForm, SubmitHandler } from "react-hook-form";
+import { toast } from 'react-toastify';
+import useSWR from 'swr';
 
-// Pages
-import NotFound from './NotFound';
+// Hooks
+import useToken from '../hooks/useToken';
 
-// Icons
-import { ArrowLeftIcon } from "@heroicons/react/24/outline"
-
-// components
-import Layout from '../components/Layout'
-import { SectionList } from '../components/dnd/SectionList';
+// Interfaces
+import { StorageFile } from '../interfaces/File';
 
 // Services
 import CourseServices from '../services/course.services';
 import useAuthStore from '../contexts/useAuthStore';
-import { SectionForm } from '../components/dnd/SectionForm';
 import StorageService from '../services/storage.services';
 
-// Interface
-import { StorageFile } from '../interfaces/File';
+// Pages
+import NotFound from './NotFound';
+
+// components
+import Layout from '../components/Layout'
+import { SectionList } from '../components/dnd/SectionList';
+import { SectionForm } from '../components/dnd/SectionForm';
+
+// Icons
+import { ArrowLeftIcon } from "@heroicons/react/24/outline"
 
 type Inputs = {
     coverImg: FileList
@@ -36,28 +39,25 @@ type CoursePartial = {
 }
 
 const CourseEdit = () => {
+    // States and Hooks
+    const navigate = useNavigate();
+    const token = useToken();
+    const { id } = useParams(); // Get path params
+
     const [coverImg, setCoverImg] = useState();
     const [coverImgPreview, setCoverImgPreview] = useState();
 
-    const DEFAULT_COVER_IMAGE = "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=80"
-
-    const { id } = useParams(); // Get path params
-    const token = useAuthStore(state => state.token); // Global state
-
-    // Fetch data with useSWR
+    // Fetch Course Data
     const { data, error } = useSWR(
-        `http://127.0.0.1:8888/api/courses/${id}`,
+        token ? [`http://127.0.0.1:8888/api/courses/${id}`, token] : null,
         CourseServices.getCourseDetail
     )
 
-    // Fetch possible categories
+    // Fetch Categories
     const { data: categories, error: categoriesError } = useSWR(
-        `http://127.0.0.1:8888/api/categories`,
+        token ? [`http://127.0.0.1:8888/api/categories`, token] : null,
         CourseServices.getCourseCategories
     );
-    
-    console.log(categories);
-    
 
     // React useForm setup
     const { register, handleSubmit, formState: { errors } } = useForm<Inputs>();
@@ -76,7 +76,7 @@ const CourseEdit = () => {
             }
         }
 
-        CourseServices.updateCourseDetail(changes, id)
+        CourseServices.updateCourseDetail(changes, id, token)
             .then(res => toast.success(res))
             .catch(err => toast.error(err));
     }
@@ -149,7 +149,11 @@ const CourseEdit = () => {
                             <div className="flex flex-col">
                                 <div className='relative'>
                                     <div className='p-0 rounded-b-none rounded-t border-gray-300 border-x border-t h-[240px] overflow-hidden'>
-                                        <img src={coverImgPreview || data.data.coverImg || DEFAULT_COVER_IMAGE} alt={data.data.title} className="w-full h-max rounded object-cover" />
+                                        {data.data.coverImg ?
+                                            <img src={coverImgPreview || data.data.coverImg} alt={data.data.title} className="w-full h-max rounded object-cover" /> :
+                                            <div className='h-full w-full oceanic-gradient flex justify-center items-center text-2xl text-white'>No Cover Image</div>
+                                        }
+
                                     </div>
                                     {/* Cover image upload */}
                                     <input type="file" accept='.jpg,.jpeg,.png'
@@ -167,13 +171,9 @@ const CourseEdit = () => {
                                 <div className='flex flex-row space-x-2'>
                                     <select className="select select-bordered rounded focus:outline-none w-full">
                                         <option disabled>Pick a category for the course</option>
-                                        <option>Homer</option>
-                                        <option>Marge</option>
-                                        <option>Bart</option>
-                                        <option>Lisa</option>
-                                        <option>Maggie</option>
-
-                                        {categories.data.map((category: any, key: number) => <option value={key} key={key}></option>)}
+                                        {categories.data.map((category: any, key: number) =>
+                                            <option value={category} key={key}>{category.name}</option>)
+                                        }
                                     </select>
                                 </div>
                             </div>

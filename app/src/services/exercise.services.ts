@@ -1,4 +1,6 @@
 import axios, { AxiosRequestConfig } from "axios";
+
+// Interfaces
 import { Exercise } from "../interfaces/Exercise";
 
 const saveExercise = async (

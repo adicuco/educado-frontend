@@ -1,5 +1,7 @@
-import React from 'react'
 import { useForm, SubmitHandler } from 'react-hook-form';
+
+// Hooks 
+import useToken from '../../hooks/useToken';
 
 // Services
 import CourseServices from '../../services/course.services';
@@ -7,7 +9,6 @@ import CourseServices from '../../services/course.services';
 // Icons
 import { PlusIcon } from '@heroicons/react/24/outline';
 import { useParams } from 'react-router-dom';
-import useAuthStore from '../../contexts/useAuthStore';
 
 // Interfaces
 type Inputs = {
@@ -16,13 +17,14 @@ type Inputs = {
 
 export const SectionForm = () => {
     // Query Params
+    const token = useToken();
     const { id } = useParams();
-    const token = useAuthStore(state => state.token);
+   // const token = useAuthStore(state => state.token);
 
     // React useForm setup
     const { register, handleSubmit, formState: { errors } } = useForm<Inputs>();
     const onSubmit: SubmitHandler<Inputs> = (data) => {
-        CourseServices.createSection(data, id)
+        CourseServices.createSection(data, id, token)
             .then(res => console.log(res))
             .catch(err => console.log(err));
     }

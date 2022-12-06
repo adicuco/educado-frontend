@@ -81,12 +81,12 @@ const SectionEdit = () => {
                 <div className="navbar bg-base-100">
                     <div className='flex-1'>
                         <Link to={`/courses/edit/${cid}`} className="btn btn-square btn-ghost normal-case text-xl"><ArrowLeftIcon width={24} /></Link>
-                        <a className="normal-case text-xl ml-4">{section?.parentCourse || "get back"}</a>
+                        <a className="normal-case text-xl ml-4">{section?.parentCourse || "back to course edit"}</a>
                     </div>
                 </div>
 
                 {/** Section details edit */}
-                <div className='max-w-3xl mx-auto bg-white p-4 rounded'>
+                <div className='max-w-3xl mx-auto bg-white p-4 rounded my-6'>
                     {/** Section update area */}
                     <form
                         onSubmit={handleSectionUpdate(onSectionSave)}
