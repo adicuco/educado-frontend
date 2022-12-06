@@ -35,39 +35,55 @@ const Profile = () => {
 
     const token = useAuthStore(state => state.token);
 
-    useEffect(() => {
-        AccountServices.getProfileInfo(token)
-            .then(response => {
-                setValue('firstName', response.data.firstName)
-                setValue('lastName', response.data.lastName)
-            })
-            .catch(error => console.log(error))
-    }, [])
-
     // response errors
     const [changePasswordResponseError, setChangePasswordResponseError] = useState<ResponseError.RootObject | null>(null);
 
     // password show toggles
     const [showOldPassword, setShowOldPassword] = useState(false)
     const [showNewPassword, setShowNewPassword] = useState(false)
-
+    
+    
     // use-form setup
-    const { register: changePasswordRegister, handleSubmit: changePasswordHandleSubmit, formState: { errors: changePasswordErrors } } = useForm<ChangePasswordInputs>();
-    const { register: profileInfoRegister, handleSubmit: profileInfoHandleSubmit, formState: { errors: profileInfoErrors }, setValue } = useForm<ProfileInfoInputs>();
-
-    // success on submit handler
+    const { 
+        register: changePasswordRegister, 
+        handleSubmit: changePasswordHandleSubmit, 
+        formState: { errors: changePasswordErrors, isSubmitSuccessful: changePasswordSubmitSuccessful },
+        reset: resetChangePasswordForm
+    } = useForm<ChangePasswordInputs>();
+    const { 
+        register: profileInfoRegister, 
+        handleSubmit: profileInfoHandleSubmit, 
+        formState: { errors: profileInfoErrors }, 
+        setValue 
+    } = useForm<ProfileInfoInputs>();
+    
+    
+    // submit handlers
     const onProfileInfoSubmit: SubmitHandler<ProfileInfoInputs> = async (data) => {
         AccountServices.updateProfileInfo(data, token)
-            .then(() => toast.success('Profile updated successfully'))
-            .catch((err) => toast.error('Failed to update profile info. Try again or refresh page'))
+        .then(() => toast.success('Profile updated successfully'))
+        .catch((err) => toast.error('Failed to update profile info. Try again or refresh page'))
     };
-
+        
     const onChangePasswordSubmit: SubmitHandler<ChangePasswordInputs> = async (data) => {
         AccountServices.changePassword(data, token)
-            .then(() => toast.success('Password have been changed. Please remember it, as there is no way we can restore it (as of now)'))
-            .catch((err) => setChangePasswordResponseError(err.response.data))
+        .then(() => toast.success('Password have been changed'))
+        .catch((err) => setChangePasswordResponseError(err.response.data))
     };
+    
+    
+    useEffect(() => {
+        if (changePasswordSubmitSuccessful)     resetChangePasswordForm()
 
+        AccountServices.getProfileInfo(token)
+            .then(response => {
+                setValue('firstName', response.data.firstName)
+                setValue('lastName', response.data.lastName)
+            })
+            .catch(error => console.log(error))
+    }, [changePasswordSubmitSuccessful])
+    
+    
     return (
         <Layout meta='Profile'>
 
