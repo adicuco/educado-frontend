@@ -21,6 +21,7 @@ const Login = () => {
     const location = useLocation();
 
     const [error, setError] = useState<LoginReponseError.RootObject | null>(null); // store http error objects
+    
     // states
     const setToken = useAuthStore(state => state.setToken);  // zustand store for key storage
     const setRefresh = useAuthStore(state => state.setRefresh); // zustand store for key storage
