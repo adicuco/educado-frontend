@@ -1,31 +1,33 @@
-import { make_authenticated_axios } from "./axios.wrappers";
+import axios from "axios";
 
 // Intefaces
 import { Section } from "../interfaces/CourseDetail";
 
 const backend_url = import.meta.env.VITE_BACKEND_URL + 'api';
 
-// Create dynamic axios with authorization header set
-const axios = make_authenticated_axios();
-
-export const getSectionDetail = (url: string) => {
-    return axios.get(url).then(res => res.data.data)
+export const getSectionDetail = (url: string, token: string) => {
+    return axios.get(url, { headers: { Authorization: `Bearer ${token}` } })
+        .then(res => res.data.data)
 }
 
-// boilerplate
-export const getExerciseDetail = (url: string) => {
-    return axios.get(url).then(res => res.data.data)
+// boilerplate FIXME: should this be en Exercise.services ??
+export const getExerciseDetail = (url: string, token: string) => {
+    return axios.get(url, { headers: { Authorization: `Bearer ${token}` } })
+        .then(res => res.data.data)
 }
 
-export const saveSection = async (props: Section, sid: string | null | undefined) => {
+export const saveSection = async (props: Section, sid: string | null | undefined, token: string) => {
     // Send the info to caller
-    return axios.put(`${backend_url}/sections/${sid}`);
+    return axios.put(
+        `${backend_url}/sections/${sid}`,
+        { headers: { Authorization: `Bearer ${token}` } }
+    );
 };
 
-const SectionServices = {
+const SectionServices = Object.freeze({
     getSectionDetail,
     getExerciseDetail,
     saveSection
-};
+});
 
 export default SectionServices;

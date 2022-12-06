@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 // Contexts
 import useAuthStore from '../contexts/useAuthStore';
@@ -17,7 +17,7 @@ const useToken = (initialState: string = ""): string => {
         }
         fetchToken()
             .then(res => setToken(res))
-            .catch(_ => navigate("/login"));
+            .catch(_ => navigate("/login", { state: { from: useLocation() }}));
     }, []);
 
     return token

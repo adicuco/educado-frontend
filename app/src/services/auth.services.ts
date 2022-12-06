@@ -32,22 +32,14 @@ const GetSingleUserApplication = async (url: string): Promise<CCApp.Datum> => {
 const PostDelcineContentCreator = async (id: string): Promise<unknown> => {
   return await axios.put(
     `http://127.0.0.1:8888/api/applications/${id}?action=reject`,
-    {
-      data: {
-        reason: "No",
-      },
-    }
+    { data: { reason: "No" } }
   );
 };
 
 const PostAcceptContentCreator = async (id: string): Promise<unknown> => {
   return await axios.put(
     `http://127.0.0.1:8888/api/applications/${id}?action=approve`,
-    {
-      data: {
-        reason: "Yes",
-      },
-    }
+    { data: { reason: "Yes" } }
   );
 };
 

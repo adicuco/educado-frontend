@@ -7,10 +7,10 @@ export interface CourseInterface {
 }
 
 // Create a new course
-const createCourse = async (props: CourseInterface, token: string) => {
+const createCourse = async ({ title, description}: CourseInterface, token: string) => {
   return await axios.post("/api/courses", {
-    title: props.title,
-    description: props.description,
+    title: title,
+    description: description,
   }, {
     headers: {
       Authorization: `Bearer ${token}`
@@ -38,22 +38,29 @@ const getCourseCategories = (url: string, token: string) => {
 
 // Updating a specific course
 const updateCourseDetail = (data: any, id: any, token: string) => {
-  return axios.put(`/api/courses/${id}`, data, { headers: { Authorization: `Bearer ${token}` } })
-    .then(res => res.data);
+  return axios.put(
+    `${import.meta.env.VITE_BACKEND_URL}api/courses/${id}`, // TODO: change backend url to not include final /
+    data,
+    { headers: { Authorization: `Bearer ${token}` } }
+  ).then(res => res.data);
 }
 
-// Create a new section for a course
+// Create a new section for a course FIXME: should this be in section.services ??
 const createSection = async (data: any, id: any, token: string) => {
-  return await axios.post(`/api/courses/${id}/sections`, data, { headers: { Authorization: `Bearer ${token}` } });
+  return await axios.post(
+    `/api/courses/${id}/sections`,
+    data,
+    { headers: { Authorization: `Bearer ${token}` } }
+  );
 }
 
-const CourseServices = {
+const CourseServices = Object.freeze({
   createCourse,
   getAllCourses,
   getCourseDetail,
   getCourseCategories,
   updateCourseDetail,
   createSection
-};
+});
 
 export default CourseServices;

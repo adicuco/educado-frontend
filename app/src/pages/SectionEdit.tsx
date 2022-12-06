@@ -2,11 +2,11 @@ import useSWR from 'swr';
 import { useState } from 'react'
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Link, useParams } from 'react-router-dom'
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 
 // Contexts
-import useAuthStore from '../contexts/useAuthStore';
+import useToken from '../hooks/useToken';
 
 // Services
 import SectionServices from '../services/section.services';
@@ -23,12 +23,11 @@ import { Exercise } from '../interfaces/Exercise'
 // Icons
 import ArrowLeftIcon from '@heroicons/react/24/outline/ArrowLeftIcon';
 
-
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL + "api";
 
 const SectionEdit = () => {
     const { cid, sid } = useParams();
-    const token = useAuthStore(state => state.token);
+    const token = useToken();
 
     // Component state
     const [section, setSection] = useState<Section>();
@@ -36,7 +35,7 @@ const SectionEdit = () => {
 
     // Fetch section details
     const { data: sectionData, error: sectionError } = useSWR(
-        [`${BACKEND_URL}/sections/${sid}`, token],
+        token ? [`${BACKEND_URL}/sections/${sid}`, token] : null,
         SectionServices.getSectionDetail
     );
 

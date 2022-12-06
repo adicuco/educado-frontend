@@ -67,6 +67,7 @@ const CourseEdit = () => {
             description: data.description
         }
 
+        // TODO: Fix TS interface errors
         if (coverImg) {
             changes.coverImg = {
                 path: `${id}/coverImg`,
@@ -107,81 +108,86 @@ const CourseEdit = () => {
         <Layout meta={`Course: ${123}`}>
 
             {/** Course navigation */}
-            <div className="navbar bg-base-100">
-                <div className='flex-1'>
-                    <Link to="/courses" className="btn btn-square btn-ghost normal-case text-xl"><ArrowLeftIcon width={24} /></Link>
-                    <a className="normal-case text-xl ml-4">{data.title}</a>
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <div className="navbar bg-base-100">
+                    <div className='flex-1'>
+                        <Link to="/courses" className="btn btn-square btn-ghost normal-case text-xl"><ArrowLeftIcon width={24} /></Link>
+                        <a className="normal-case text-xl ml-4">{data.title}</a>
+                    </div>
+                    <div className="flex-none space-x-2">
+                        <button onClick={() => toast.success("Course published")} className='btn btn-sm bg-blue-500 text-white border-0'>Unpublish</button>
+                        <button type="submit" className='btn btn-sm bg-blue-700 text-white border-0'>Update Course</button>
+                    </div>
                 </div>
-                <div className="flex-none space-x-2">
-                    <button onClick={() => toast.success("Course published")} className='btn btn-sm bg-blue-500 text-white border-0'>Unpublish</button>
-                    <button type="submit" className='btn btn-sm bg-blue-700 text-white border-0'>Update Course</button>
-                </div>
-            </div>
 
-            {/** Course details edit */}
-            <div className="container mx-auto flex flex-row space-x-4 p-6">
-                <div className='w-full max-w-5xl mx-auto bg-white rounded p-6'>
-                    <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-1 lg:grid-cols-1 gap-6">
-                        <div className='flex flex-col space-y-6 divide'>
-                            <h1 className='text-xl font-medium'>Course Content</h1>
+                {/** Course details edit */}
+                <div className="container mx-auto flex flex-row space-x-4 my-6">
+                    <div className='w-full max-w-5xl mx-auto bg-white rounded p-6'>
+                        <div className="grid grid-cols-1 lg:grid-cols-1 gap-6">
+                            <div className='flex flex-col space-y-6 divide'>
+                                <h1 className='text-xl font-medium'>Course Details</h1>
 
-                            {/** Course Title Field */}
-                            <div className="flex flex-col space-y-2">
-                                <label htmlFor='title'>Title</label>
-                                <input type="text" defaultValue={data.data.title}
-                                    className="form-field focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
-                                    {...register("title", { required: true })}
-                                />
-                                {errors.title && <span>This field is required</span>}
-                            </div>
-
-                            {/** Course Description Field */}
-                            <div className="flex flex-col space-y-2">
-                                <label htmlFor='description'>Description</label>
-                                <textarea rows={4} defaultValue={data.data.description} placeholder={data.data.description}
-                                    className="resize-none form-field focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
-                                    {...register("description", { required: true })}
-                                />
-                                {errors.description && <span>This field is required</span>}
-                            </div>
-
-                            {/** Cover Image Field */}
-                            <div className="flex flex-col">
-                                <div className='relative'>
-                                    <div className='p-0 rounded-b-none rounded-t border-gray-300 border-x border-t h-[240px] overflow-hidden'>
-                                        {data.data.coverImg ?
-                                            <img src={coverImgPreview || data.data.coverImg} alt={data.data.title} className="w-full h-max rounded object-cover" /> :
-                                            <div className='h-full w-full oceanic-gradient flex justify-center items-center text-2xl text-white'>No Cover Image</div>
-                                        }
-
-                                    </div>
-                                    {/* Cover image upload */}
-                                    <input type="file" accept='.jpg,.jpeg,.png'
-                                        {...register("coverImg")}
-                                        onChange={onCoverImgChange}
-                                        className='file-input w-full input-bordered rounded-b rounded-t-none focus:outline-none'
-                                    >
-                                    </input>
+                                {/** Course Title Field */}
+                                <div className="flex flex-col space-y-2">
+                                    <label htmlFor='title'>Title</label>
+                                    <input type="text" defaultValue={data.data.title}
+                                        className="form-field focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
+                                        {...register("title", { required: true })}
+                                    />
+                                    {errors.title && <span>This field is required</span>}
                                 </div>
-                            </div>
 
-                            {/** Category Pills */}
-                            <div className="flex flex-col space-y-2">
-                                <label htmlFor='categories'>Categories</label>
-                                <div className='flex flex-row space-x-2'>
-                                    <select className="select select-bordered rounded focus:outline-none w-full">
-                                        <option disabled>Pick a category for the course</option>
-                                        {categories.data.map((category: any, key: number) =>
-                                            <option value={category} key={key}>{category.name}</option>)
-                                        }
-                                    </select>
+                                {/** Course Description Field */}
+                                <div className="flex flex-col space-y-2">
+                                    <label htmlFor='description'>Description</label>
+                                    <textarea rows={4} defaultValue={data.data.description} placeholder={data.data.description}
+                                        className="resize-none form-field focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
+                                        {...register("description", { required: true })}
+                                    />
+                                    {errors.description && <span>This field is required</span>}
+                                </div>
+
+                                {/** Cover Image Field */}
+                                <div className="flex flex-col">
+                                    <div className='relative'>
+                                        <div className='p-0 rounded-b-none rounded-t border-gray-300 border-x border-t h-[240px] overflow-hidden'>
+                                            {data.data.coverImg ?
+                                                <img src={coverImgPreview || data.data.coverImg} alt={data.data.title} className="w-full h-max rounded object-cover" /> :
+                                                <div className='h-full w-full oceanic-gradient flex justify-center items-center text-2xl text-white'>No Cover Image</div>
+                                            }
+
+                                        </div>
+                                        {/* Cover image upload */}
+                                        <input type="file" accept='.jpg,.jpeg,.png'
+                                            {...register("coverImg")}
+                                            onChange={onCoverImgChange}
+                                            className='file-input w-full input-bordered rounded-b rounded-t-none focus:outline-none'
+                                        >
+                                        </input>
+                                    </div>
+                                </div>
+
+                                {/** Category Pills */}
+                                <div className="flex flex-col space-y-2">
+                                    <label htmlFor='categories'>Categories</label>
+                                    <div className='flex flex-row space-x-2'>
+                                        {/** TODO: Register to Form */}
+                                        <select className="select select-bordered rounded focus:outline-none w-full">
+                                            <option disabled>Pick a category for the course</option>
+                                            {categories.data.map((category: any, key: number) =>
+                                                <option value={category} key={key}>{category.name}</option>)
+                                            }
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </form>
+                    </div>
+                </div>
+            </form>
 
-                    <div className='divider' />
-
+            <div className="container mx-auto flex flex-row space-x-4 my-6">
+                <div className='w-full max-w-5xl mx-auto bg-white rounded p-6'>
                     {/** Course Sections area  */}
                     <div className='flex flex-col space-y-2 divide'>
                         <h1 className='text-xl font-medium mb-4'>Course Sections</h1>
