@@ -17,6 +17,7 @@ import useAuthStore from "../contexts/useAuthStore";
 // Video Player
 import ReactPlayer from "react-player";
 import { toast } from "react-toastify";
+import useToken from "../hooks/useToken";
 
 export const ExerciseDetail = ({ exercise, eid }: { exercise: Exercise, eid: string }) => {
 
@@ -27,7 +28,8 @@ export const ExerciseDetail = ({ exercise, eid }: { exercise: Exercise, eid: str
     const { register, handleSubmit: handleExerciseSave, formState: { errors } } = useForm();
     const onExerciseSave: SubmitHandler<any> = data => saveExercise(data);
 
-    const token = useAuthStore(state => state.token);
+    //const token = useAuthStore(state => state.token);
+    const token = useToken();
 
     const saveExercise = (data: any) => {
 
@@ -64,7 +66,7 @@ export const ExerciseDetail = ({ exercise, eid }: { exercise: Exercise, eid: str
         <form onSubmit={handleExerciseSave(onExerciseSave)}
             className="flex flex-col space-y-6 divide py-2"
         >
-            <div className=" rounded-md cursor-pointer  focus:outline-none bg-base-100 border ">
+            <div className=" rounded-md cursor-pointer p-2 focus:outline-none bg-base-100 border ">
                 <div className="flex flex-col form-control align-items justify-content w-full">
                     <label className="label">
                         <span className="label-text">Exercise title</span>
@@ -91,39 +93,38 @@ export const ExerciseDetail = ({ exercise, eid }: { exercise: Exercise, eid: str
             </div>
 
             {/* Content video */}
-            <div className="rounded-md cursor-pointer  focus:outline-none bg-base-100 border ">
-
-                <div>
-                    {exercise.content ?
-                        <h1 className='text-md font-medium mt-2'>Content video</h1> :
-                        <h1 className='text-md font-medium mt-2'>Content video not uploaded</h1>
-                    }
-                    <ReactPlayer url={exercise.content} controls={true} light={true} />
-                </div>
+            <div className="rounded-md cursor-pointer p-2 focus:outline-none bg-base-100 border ">
+                {exercise.content ?
+                    <div>
+                        <h1 className='text-md font-medium'>Content video</h1>
+                        <ReactPlayer url={exercise.content} controls={true} light={true} />
+                    </div> :
+                    <h1 className='text-md font-medium'>Content video not uploaded</h1>
+                }
 
                 <DropZoneComponent update={setMainContentFile} storageKey={`${exercise.id}/mainContent`} />
             </div>
 
+            {/* divider */}
             <div className="flex flex-col w-full">
                 <div className="divider"></div>
             </div>
 
             {/* feedback Video */}
-            <div className="rounded-md cursor-pointer  focus:outline-none bg-base-100 border ">
-                <div>
-                    {exercise.onWrongFeedback ?
-                        <h1 className='text-md font-medium mt-2'>Feedback video (on wrong answer)</h1> :
-                        <h1 className='text-md font-medium mt-2'>Feedback video (on wrong answer) not uploaded</h1>
-                    }
-                    <ReactPlayer url={exercise.onWrongFeedback} controls={true} light={true} />
-                </div>
-
+            <div className="rounded-md cursor-pointer p-2 focus:outline-none bg-base-100 border ">
+                {exercise.onWrongFeedback ?
+                    <div>
+                        <h1 className='text-md font-medium'>Feedback video (on wrong answer)</h1>
+                        <ReactPlayer url={exercise.onWrongFeedback} controls={true} light={true} />
+                    </div> :
+                    <h1 className='text-md font-medium'>Feedback video (on wrong answer) not uploaded</h1>
+                }
                 <DropZoneComponent update={setonWrongFeedbackFile} storageKey={`${exercise.id}/feedbackContent`} />
             </div>
 
             {/* Answers */}
-            <div className="rounded-md cursor-pointer focus:outline-none bg-base-100 border ">
-                <h1 className='text-md font-medium mb-2'>Answers</h1>
+            <div className="rounded-md cursor-pointer p-2 focus:outline-none bg-base-100 border ">
+                <h1 className='text-md font-medium'>Answers</h1>
                 <AnswerCards update={setAnswers} initialAnswers={answers} />
             </div>
             <button type='submit' className="std-button ml-auto py-2 px-4">Save Exercise</button>
