@@ -44,8 +44,8 @@ const CourseEdit = () => {
     const token = useToken();
     const { id } = useParams(); // Get path params
 
-    const [coverImg, setCoverImg] = useState();
-    const [coverImgPreview, setCoverImgPreview] = useState();
+    const [coverImg, setCoverImg] = useState<File | null>();
+    const [coverImgPreview, setCoverImgPreview] = useState<string>("");
 
     // Fetch Course Data
     const { data, error } = useSWR(
@@ -67,7 +67,6 @@ const CourseEdit = () => {
             description: data.description
         }
 
-        // TODO: Fix TS interface errors
         if (coverImg) {
             changes.coverImg = {
                 path: `${id}/coverImg`,
@@ -87,8 +86,6 @@ const CourseEdit = () => {
         const image = e.target.files[0];
 
         // Enables us to preview the image file before storing it
-        // Using coverImage from useState variable instead of regular form field
-        // as useForm handles files a little inconsistent
         setCoverImgPreview(URL.createObjectURL(image));
         setCoverImg(image);
 
@@ -100,9 +97,8 @@ const CourseEdit = () => {
         }
     }
 
-    if (error) return <NotFound />;
-    if (!data) return <p>"Loading..."</p>;
-    // if (!data && !categories) return <p>"Loading..."</p>;
+    if (error || categoriesError) return <NotFound />;
+    if (!data || !categories || (!data && !categories)) return <p>"Loading..."</p>;
 
     return (
         <Layout meta={`Course: ${123}`}>

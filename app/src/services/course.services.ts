@@ -51,7 +51,7 @@ const updateCourseDetail = (data: any, id: any, token: string) => {
 // Create a new section for a course FIXME: should this be in section.services ??
 const createSection = async (data: any, id: any, token: string) => {
   return await axios.post(
-    `/api/courses/${id}/sections`,
+    `${backend_route}/api/courses/${id}/sections`,
     data,
     { headers: { Authorization: `Bearer ${token}` } }
   );
