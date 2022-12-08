@@ -9,7 +9,7 @@ export const CourseListCard = ({ course }: { course: Course }) => {
       <Link to={`/courses/edit/${course.id}`} className="w-full block h-full">
         {course.coverImg == "" ?
           <div className='h-40 max-h-40 w-full oceanic-gradient'></div> :
-          <img src={course.coverImg} alt="blog photo" className="max-h-40 w-full object-cover" />
+          <img src={course.coverImg} alt="blog photo" className=" h-40 max-h-40 w-full object-cover bg-white border-b" />
         }
         <div className="bg-white w-full">
           <div className='p-4'>
