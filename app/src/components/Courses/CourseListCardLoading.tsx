@@ -1,5 +1,3 @@
-import React from 'react'
-
 export const CourseListCardLoading = () => {
     return (
         <div className="overflow-hidden shadow-lg rounded h-90 w-full cursor-pointer m-auto">

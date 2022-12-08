@@ -1,43 +1,40 @@
-import * as React from 'react';
-import { Routes, Route, useParams, useNavigate } from 'react-router-dom';
-import useSWR from 'swr';
-import AuthServices from '../services/auth.services';
-import { useState } from 'react';
-import Layout from '../components/Layout';
+import { useParams, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import useSWR from 'swr';
 
+// Services
+import AuthServices from '../services/auth.services';
+
+// Components
+import Layout from '../components/Layout';
 
 function SingleApplicantView() {
     const { id } = useParams();
     const navigate = useNavigate();
 
-
-    // TODO: Not finished
-    const handleAccept = () => {
-        console.log(`Accepted: ${id}`);
-        AuthServices.PostAcceptContentCreator(id!)
-            .then(res => { console.log(res) })
-            .catch(err => toast.error(`Failed to Approve: ${id}`));
-    }
-
-    // TODO: Not finished
-    const handleReject = () => {
-        console.log(`Rejected: ${id}`);
-        AuthServices.PostDelcineContentCreator(id!)
-            .then(() => {
-                toast.success(`Rejected: ${id}`);
-                navigate("/educado_admin");
-            })
-            .catch(() => toast.error(`Failed to Reject: ${id}`));
-    }
-
-    // Data Fetching
+    // Fetch Application Details
     const { data, error } = useSWR(
         [`http://127.0.0.1:8888/api/applications/${id}`],
         AuthServices.GetSingleUserApplication
     );
 
-    console.log(data);
+    // TODO: Not finished
+    const handleAccept = () => {
+        AuthServices.PostAcceptContentCreator(id!)
+            .then(res => { console.log(res) })
+            .catch(_ => toast.error(`Failed to Approve: ${id}`));
+    }
+
+    // TODO: Not finished
+    const handleReject = () => {
+        AuthServices.PostDelcineContentCreator(id!)
+            .then(_ => {
+                toast.success(`Rejected: ${id}`);
+                navigate("/educado_admin");
+            })
+            .catch(_ => toast.error(`Failed to Reject: ${id}`));
+    }
+
 
 
     if (!data) { <>Loading...</>; }
@@ -88,7 +85,7 @@ function SingleApplicantView() {
                                     Applied at:
                                 </dt>
                                 <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                    {data?.createdAt}
+                                    {data?.createdAt} {/** FIXME: Date object is not a valid child of HTML element */}
                                 </dd>
                             </div>
                         </dl>

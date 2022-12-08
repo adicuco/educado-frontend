@@ -20,6 +20,7 @@ export const saveSection = async (props: Section, sid: string | null | undefined
     // Send the info to caller
     return axios.put(
         `${backend_url}/sections/${sid}`,
+        props,
         { headers: { Authorization: `Bearer ${token}` } }
     );
 };

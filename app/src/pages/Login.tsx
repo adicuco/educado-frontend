@@ -20,7 +20,7 @@ const Login = () => {
     // Location
     const location = useLocation();
 
-    const [error, setError] = useState<LoginReponseError.RootObject | null>(null); // store http error objects
+    const [error, setError] = useState<LoginReponseError.RootObject | null>(null); // store http error objects TODO: get the error text from server instead of reponse code
     
     // states
     const setToken = useAuthStore(state => state.setToken);  // zustand store for key storage

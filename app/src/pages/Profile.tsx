@@ -45,18 +45,18 @@ const Profile = () => {
     
     // use-form setup
     const { 
-        register: changePasswordRegister, 
-        handleSubmit: changePasswordHandleSubmit, 
-        formState: { errors: changePasswordErrors, isSubmitSuccessful: changePasswordSubmitSuccessful },
-        reset: resetChangePasswordForm
-    } = useForm<ChangePasswordInputs>();
-    const { 
         register: profileInfoRegister, 
         handleSubmit: profileInfoHandleSubmit, 
         formState: { errors: profileInfoErrors }, 
         setValue 
     } = useForm<ProfileInfoInputs>();
-    
+
+    const { 
+        register: changePasswordRegister, 
+        handleSubmit: changePasswordHandleSubmit, 
+        formState: { errors: changePasswordErrors, isSubmitSuccessful: changePasswordSubmitSuccessful },
+        reset: resetChangePasswordForm
+    } = useForm<ChangePasswordInputs>();
     
     // submit handlers
     const onProfileInfoSubmit: SubmitHandler<ProfileInfoInputs> = async (data) => {

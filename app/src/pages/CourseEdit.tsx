@@ -94,9 +94,9 @@ const CourseEdit = () => {
 
         try {
             await StorageService.uploadFile({ file: image, key: `${data.data.id}/coverImg` })
-            console.log('success!');
+            toast.success('Image uploaded successfully');
         } catch (error) {
-            console.log(error);
+            toast.error('Image could not be uploaded, try again.');
         }
     }
 

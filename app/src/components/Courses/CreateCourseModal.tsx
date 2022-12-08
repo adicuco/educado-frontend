@@ -1,10 +1,18 @@
-import { getScrollElementRect } from '@dnd-kit/core/dist/utilities';
-import { PencilSquareIcon } from '@heroicons/react/24/outline'
-import React, { useState } from 'react'
-
+import { useState } from 'react'
 import { useForm, SubmitHandler } from "react-hook-form";
-import useAuthStore from '../../contexts/useAuthStore';
+
+// Contexts
+// import useAuthStore from '../../contexts/useAuthStore';
+
+// Hooks
+import useToken from '../../hooks/useToken';
+
+// Services
 import CourseServices from '../../services/course.services';
+
+
+// Icons
+import { PencilSquareIcon } from '@heroicons/react/24/outline'
 
 type Inputs = {
     title: string,
@@ -13,8 +21,9 @@ type Inputs = {
 
 export const CreateCourseModal = () => {
     const [isLoading, setIsLoading] = useState(false);
+    //const token = useAuthStore(state => state.token);
+    const token = useToken()
 
-    const token = useAuthStore(state => state.token);
     // use-form setup
     const { register, handleSubmit, formState: { errors } } = useForm<Inputs>();
 
@@ -23,8 +32,8 @@ export const CreateCourseModal = () => {
         setIsLoading(true);
         CourseServices.createCourse({
             title: data.title,
-            description: data.description
-        })
+            description: data.description,
+        }, token)
             .then(res => console.log(res))
             .catch(err => console.log(err));
     };
@@ -61,8 +70,9 @@ export const CreateCourseModal = () => {
                             <label htmlFor='description'>Description</label>
                             <textarea rows={4} defaultValue={""}
                                 className="resize-none form-field focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
-                                {...register("description")}
+                                {...register("description", { required: true})}
                             />
+                            {errors.description && <span>This field is required</span>}
                         </div>
 
                         <div className='modal-action'>

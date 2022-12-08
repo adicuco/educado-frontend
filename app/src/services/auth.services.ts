@@ -1,4 +1,6 @@
 import axios from "axios";
+
+// Interfaces
 import { CCApp } from "../interfaces/CCApp";
 
 export interface ContentCreatorApplication {
@@ -25,7 +27,6 @@ const GetCCApplications = async (): Promise<CCApp.RootObject> => {
 
 const GetSingleUserApplication = async (url: string): Promise<CCApp.Datum> => {
   const response = await axios.get(url);
-
   return response.data.data;
 };
 

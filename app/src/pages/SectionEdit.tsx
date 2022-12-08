@@ -4,7 +4,6 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { Link, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify';
 
-
 // Contexts
 import useToken from '../hooks/useToken';
 
@@ -58,7 +57,7 @@ const SectionEdit = () => {
     // SubmitHandler: Save section update
     const saveSection = async (data: Section) => {
         const toSave = { ...sectionData, ...data };
-        const response = await SectionServices.saveSection(toSave, sid);
+        const response = await SectionServices.saveSection(toSave, sid, token);
         const status = response.status
 
         if (status >= 200 && status <= 299) {
