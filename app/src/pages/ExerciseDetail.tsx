@@ -5,24 +5,36 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import DropZoneComponent from "../components/Exercise/dropZone";
 import AnswerCards from "../components/Exercise/AnswerCards";
 
+// Interfaces
 import { Answer } from "../interfaces/Answer";
+import { Exercise } from "../interfaces/Exercise"
 
 // Helpers
-import { Exercise } from "../interfaces/Exercise"
 import ExerciseServices from "../services/exercise.services";
-
-// Auth
-import useAuthStore from "../contexts/useAuthStore";
 
 // Video Player
 import ReactPlayer from "react-player";
 import { toast } from "react-toastify";
+
+// Hooks
 import useToken from "../hooks/useToken";
+
+export interface ExercisePartial {
+    id: string,
+    sectionId: string,
+    title: string,
+    description: string,
+    exerciseNumber: number,
+    content?: any,
+    onWrongFeedback?: any,
+    answers: Answer[]
+}
+
 
 export const ExerciseDetail = ({ exercise, eid }: { exercise: Exercise, eid: string }) => {
 
-    const [onWrongFeedbackFile, setonWrongFeedbackFile] = useState({});
-    const [mainContentFile, setMainContentFile] = useState({});
+    const [onWrongFeedbackFile, setonWrongFeedbackFile] = useState<any>();
+    const [mainContentFile, setMainContentFile] = useState<any>();
     const [answers, setAnswers] = useState<Answer[]>(exercise.answers);
 
     const { register, handleSubmit: handleExerciseSave, formState: { errors } } = useForm();
@@ -33,31 +45,29 @@ export const ExerciseDetail = ({ exercise, eid }: { exercise: Exercise, eid: str
 
     const saveExercise = (data: any) => {
 
-        try {
-
-            {/** (3.12.22) Current version of mobile app requires exactly 4 answers */ }
-            if (answers.length < 4 || answers.length > 4) {
-                throw Error("Please set 4 answers before saving exercise")
-            }
-
-            const exerciseToSave: Exercise = {
-                id: exercise.id,
-                sectionId: exercise.sectionId || "",
-                title: data.title,
-                description: data.description,
-                exerciseNumber: exercise.exerciseNumber,
-                content: mainContentFile || {},
-                onWrongFeedback: onWrongFeedbackFile || {},
-                answers: answers
-            }
-
-            ExerciseServices.saveExercise(exerciseToSave, token)
-                .then(() => toast.success(`Successfully saved exercise`))
-                .catch((e) => toast.error("Failed to save exercise due to error: " + e));
+        {/** (3.12.22) Current version of mobile app requires exactly 4 answers */ }
+        if (answers.length < 4 || answers.length > 4) {
+            toast.error("Please set 4 answers before saving exercise")
+            return
         }
-        catch (err) {
-            toast.error(`${err}`)
+
+        const exerciseToSave: ExercisePartial = {
+            id: exercise.id,
+            sectionId: exercise.sectionId || "",
+            title: data.title,
+            description: data.description,
+            exerciseNumber: exercise.exerciseNumber,
+            answers: answers
         }
+
+        if (mainContentFile) exerciseToSave.content = mainContentFile;
+        if (onWrongFeedbackFile) exerciseToSave.onWrongFeedback = onWrongFeedbackFile;
+
+        console.log(exerciseToSave);
+
+        ExerciseServices.saveExercise(exerciseToSave, token)
+            .then(() => toast.success(`Successfully saved exercise`))
+            .catch((e) => toast.error("Failed to save exercise due to error: " + e));
 
     }
 
@@ -122,11 +132,16 @@ export const ExerciseDetail = ({ exercise, eid }: { exercise: Exercise, eid: str
                 <DropZoneComponent update={setonWrongFeedbackFile} storageKey={`${exercise.id}/feedbackContent`} />
             </div>
 
-            {/* Answers */}
-            <div className="rounded-md cursor-pointer p-2 focus:outline-none bg-base-100 border ">
-                <h1 className='text-md font-medium'>Answers</h1>
-                <AnswerCards update={setAnswers} initialAnswers={answers} />
-            </div>
+            {/* Answers. Answers sometimes doesn't get loaded hence the conditional rendering ... */}
+            {answers ?
+                <div className="rounded-md cursor-pointer p-2 focus:outline-none bg-base-100 border ">
+                    <h1 className='text-md font-medium'>Answers</h1>
+                    <AnswerCards update={setAnswers} initialAnswers={answers} />
+                </div>
+                :
+                <p>Loading ...</p>
+            }
+
             <button type='submit' className="std-button ml-auto py-2 px-4">Save Exercise</button>
         </form>
 

@@ -30,13 +30,18 @@ type Inputs = {
     coverImg: FileList
     title: string,
     description: string,
+    category: string
 };
 
 type CoursePartial = {
     coverImg?: StorageFile | {}
     title: string,
     description: string,
+    category: string
 }
+
+// Hardcoded based on database id
+const OTHER_CATEGORY_ID = '639208a0f467689fde25b5fa'
 
 const CourseEdit = () => {
     // States and Hooks
@@ -59,12 +64,16 @@ const CourseEdit = () => {
         CourseServices.getCourseCategories
     );
 
+
+
     // React useForm setup
     const { register, handleSubmit, formState: { errors } } = useForm<Inputs>();
+
     const onSubmit: SubmitHandler<Inputs> = (data) => {
         const changes: CoursePartial = {
             title: data.title,
-            description: data.description
+            description: data.description,
+            category: data.category
         }
 
         if (coverImg) {
@@ -76,8 +85,10 @@ const CourseEdit = () => {
             }
         }
 
+        console.log(changes);
+
         CourseServices.updateCourseDetail(changes, id, token)
-            .then(res => toast.success(res))
+            .then(res => toast.success('Updated course'))
             .catch(err => toast.error(err));
     }
 
@@ -111,7 +122,7 @@ const CourseEdit = () => {
                         <a className="normal-case text-xl ml-4">{data.title}</a>
                     </div>
                     <div className="flex-none space-x-2">
-                        <button onClick={() => toast.success("Course published")} className='btn btn-sm bg-blue-500 text-white border-0'>Unpublish</button>
+                        {/* <button onClick={() => toast.success("Course published")} className='btn btn-sm bg-blue-500 text-white border-0'>Unpublish</button> */}
                         <button type="submit" className='btn btn-sm bg-blue-700 text-white border-0'>Update Course</button>
                     </div>
                 </div>
@@ -168,11 +179,24 @@ const CourseEdit = () => {
                                     <label htmlFor='categories'>Categories</label>
                                     <div className='flex flex-row space-x-2'>
                                         {/** TODO: Register to Form */}
-                                        <select className="select select-bordered rounded focus:outline-none w-full">
+                                        <select
+                                            defaultValue={data.data.category.id}
+                                            className="select select-bordered rounded focus:outline-none w-full"
+                                            {...register("category", { required: true })}
+                                        >
                                             <option disabled>Pick a category for the course</option>
-                                            {categories.data.map((category: any, key: number) =>
-                                                <option value={category} key={key}>{category.name}</option>)
+                                            {categories.data
+                                                .filter((category: any) => category.name !== 'Other')
+                                                .map((category: any, key: number) =>
+                                                <option 
+                                                    selected={data.data.category.id === category.id} 
+                                                    value={category.id} 
+                                                    key={key}
+                                                >
+                                                    {category.name}
+                                                </option>)
                                             }
+                                            <option value={OTHER_CATEGORY_ID} key={"other_category"}>Other</option>
                                         </select>
                                     </div>
                                 </div>

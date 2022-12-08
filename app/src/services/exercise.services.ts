@@ -2,6 +2,9 @@ import axios, { AxiosRequestConfig } from "axios";
 
 // Interfaces
 import { Exercise } from "../interfaces/Exercise";
+import { Answer } from "../interfaces/Answer";
+
+
 
 // Send the info to exercise service
 const addExercise = async (props: Exercise, token: string, sid: string | null | undefined) => {
@@ -15,7 +18,7 @@ const addExercise = async (props: Exercise, token: string, sid: string | null | 
 };
 
 // Send the info to exercise service
-const saveExercise = async (props: Exercise, token: string) => {
+const saveExercise = async (props: any, token: string) => {
   const response = await axios.put(
     `http://127.0.0.1:8888/api/exercises/${props.id}`,
     props,
