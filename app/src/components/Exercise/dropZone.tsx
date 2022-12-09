@@ -1,7 +1,7 @@
 
 import { Video } from 'aws-sdk/clients/rekognition';
 import { useCallback, useState } from 'react';
-import { useDropzone } from 'react-dropzone'
+import { useDropzone } from 'react-dropzone';
 import StorageService from '../../services/storage.services';
 
 function DropZoneComponent({ update: updateFile, storageKey }) {

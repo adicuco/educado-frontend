@@ -19,6 +19,7 @@ import {
     EyeIcon,
     EyeSlashIcon,
 } from "@heroicons/react/24/outline";
+import useToken from '../hooks/useToken';
 
 type ChangePasswordInputs = {
     oldPassword: string,
@@ -32,8 +33,8 @@ type ProfileInfoInputs = {
 
 
 const Profile = () => {
-
-    const token = useAuthStore(state => state.token);
+    //const token = useAuthStore(state => state.token);
+    const token = useToken();
 
     // response errors
     const [changePasswordResponseError, setChangePasswordResponseError] = useState<ResponseError.RootObject | null>(null);
@@ -74,7 +75,6 @@ const Profile = () => {
     
     useEffect(() => {
         if (changePasswordSubmitSuccessful)     resetChangePasswordForm()
-
         AccountServices.getProfileInfo(token)
             .then(response => {
                 setValue('firstName', response.data.firstName)

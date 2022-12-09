@@ -1,3 +1,4 @@
+
 import { useForm } from "react-hook-form";
 import { useNavigate } from 'react-router-dom';
 import { Link } from "react-router-dom"
@@ -41,7 +42,7 @@ const Signup = () => {
 
   // onSubmit Handler
   const onSubmit = async (data: any) => {
-    const response = await AuthServices.postUserApplication({
+    await AuthServices.postUserApplication({
       firstName: data.firstName,
       lastName: data.lastName,
       email: data.email,
