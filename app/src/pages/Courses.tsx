@@ -12,6 +12,8 @@ import Layout from '../components/Layout'
 import { CourseListCard } from '../components/Courses/CourseListCard'
 import { CreateCourseModal } from '../components/Courses/CreateCourseModal';
 import { PageDescriptor } from '../components/PageDescriptor';
+import { useState } from 'react';
+import { CubeTransparentIcon } from '@heroicons/react/24/outline';
 
 const Courses = () => {
   // States and Hooks
@@ -62,9 +64,18 @@ const Courses = () => {
       </div>
 
       {/** Page content real data from backend */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6 p-6">
-        {data.data.map((course: any, key: number) => <CourseListCard course={course} key={key} />)}
-      </div>
+      {data.data.length ?
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6 p-6">
+          {data.data.map((course: any, key: number) => <CourseListCard course={course} key={key} />)}
+        </div> :
+        <div className='flex flex-col space-y-8 justify-center items-center p-6'>
+          <CubeTransparentIcon width={44} className="lg:mt-24 text-primary"/>
+          <div className='flex flex-col text-center space-y-4'>
+            <h2 className='text-2xl'>Seems like you haven't created a course yet</h2>
+            <h2 className='text-sm'>You can use the 'CREATE NEW COURSE' button to get started</h2>
+          </div>
+        </div>
+      }
     </Layout>
   )
 }
