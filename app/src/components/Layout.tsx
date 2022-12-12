@@ -22,7 +22,7 @@ const Layout = ({ children, meta }: { children: Array<ReactNode> | ReactNode, me
 
                     <footer className="footer footer-center p-4 bg-base-100 border-t text-base-content">
                         <div>
-                            <p>Copyright © 2022 - All rights reserved by Educardo</p>
+                            <p>Copyright © 2022 - All rights reserved by Educado</p>
                         </div>
                     </footer>
                 </div>

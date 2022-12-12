@@ -42,7 +42,7 @@ export const Navbar = () => {
                 </div>
 
                 <Link to="/" className="flex flex-shrink-0 items-center space-x-3 normal-case text-xl" >
-                    <img src={Logo} alt="ecs-logo" className='h-6' /><p className='font-semibold'>Educardo</p>
+                    <img src={Logo} alt="ecs-logo" className='h-6' /><p className='font-semibold'>Educado</p>
                 </Link>
             </div>
 
