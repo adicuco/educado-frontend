@@ -1,9 +1,7 @@
-import axios, { AxiosRequestConfig } from "axios";
+import axios from "axios";
 
 // Interfaces
 import { Exercise } from "../interfaces/Exercise";
-import { Answer } from "../interfaces/Answer";
-
 
 
 // Send the info to exercise service

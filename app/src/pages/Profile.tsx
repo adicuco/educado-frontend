@@ -68,20 +68,22 @@ const Profile = () => {
         
     const onChangePasswordSubmit: SubmitHandler<ChangePasswordInputs> = async (data) => {
         AccountServices.changePassword(data, token)
-        .then(() => toast.success('Password have been changed'))
+        .then(() => toast.success('Password has been changed'))
         .catch((err) => setChangePasswordResponseError(err.response.data))
     };
     
     
     useEffect(() => {
         if (changePasswordSubmitSuccessful)     resetChangePasswordForm()
-        AccountServices.getProfileInfo(token)
+        token && AccountServices.getProfileInfo(token)
             .then(response => {
                 setValue('firstName', response.data.firstName)
                 setValue('lastName', response.data.lastName)
             })
             .catch(error => console.log(error))
-    }, [changePasswordSubmitSuccessful])
+        
+    }, [changePasswordSubmitSuccessful, token])
+    
     
     
     return (
@@ -180,18 +182,18 @@ const Profile = () => {
 
                                         <div className="grid grid-cols-6 gap-6">
                                             <div className="col-span-6">
-                                                <label htmlFor="first-name" className="block text-sm font-medium text-gray-700 mb-2">
+                                                <label htmlFor="old-password" className="block text-sm font-medium text-gray-700 mb-2">
                                                     Old password
                                                     <div className='flex space-x-2 pt-2'>
                                                         <InformationCircleIcon width={20} />
-                                                        <p className='text-xs'>if you are changing your password for the first time then the old password is the one-time password that was send to you by email</p>
+                                                        <p className='text-xs'>if you are changing your password for the first time then the old password is the one-time password that was sent to you by email</p>
                                                     </div>
                                                 </label>
                                                 <div className='flex flex-row'>
                                                     <input
                                                         type={showOldPassword ? 'text' : 'password'}
-                                                        id="first-name"
-                                                        autoComplete="given-name"
+                                                        id="old-password"
+                                                        autoComplete="old-password"
                                                         className="form-field focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
                                                         {...changePasswordRegister("oldPassword", { required: true })}
                                                     />
@@ -210,15 +212,15 @@ const Profile = () => {
                                             </div>
 
                                             <div className="col-span-6">
-                                                <label htmlFor="last-name" className="block text-sm font-medium text-gray-700 mb-2">
+                                                <label htmlFor="new-password" className="block text-sm font-medium text-gray-700 mb-2">
                                                     New password
                                                     <p className='pt-2 text-xs'>* password should be atleast 8 letters long and contain a capital letter</p>
                                                 </label>
                                                 <div className='flex flex-row'>
                                                     <input
                                                         type={showNewPassword ? 'text' : 'password'}
-                                                        id="last-name"
-                                                        autoComplete="family-name"
+                                                        id="new-password"
+                                                        autoComplete="new-password"
                                                         className="form-field focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
                                                         {...changePasswordRegister("newPassword", { required: true })}
                                                     />

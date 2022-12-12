@@ -12,7 +12,6 @@ import { StorageFile } from '../interfaces/File';
 
 // Services
 import CourseServices from '../services/course.services';
-import useAuthStore from '../contexts/useAuthStore';
 import StorageService from '../services/storage.services';
 
 // Pages
@@ -45,7 +44,7 @@ const OTHER_CATEGORY_ID = '639208a0f467689fde25b5fa'
 
 const CourseEdit = () => {
     // States and Hooks
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
     const token = useToken();
     const { id } = useParams(); // Get path params
 

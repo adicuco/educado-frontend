@@ -1,5 +1,3 @@
-import { StorageFile } from "./File";
-
 export interface Main {
   status:  number;
   success: boolean;
@@ -31,21 +29,3 @@ export interface Category {
   name:  string;
   icon?: string;
 }
-
-
-
-/* reference from backend
-const courseSchema = new Schema({
-      sections: string[];
-      id: string;
-      title: string;
-      description: string;
-      category: string;
-      _user: string;
-      dateCreated: Date;
-      dateUpdated: Date;
-      __v: number;
-      coverImg: string;
-      published: boolean;
-});
-*/

@@ -2,7 +2,6 @@ import { Exercise } from "../interfaces/Exercise";
 import ExerciseDetail from "../pages/ExerciseDetail";
 
 export const ExerciseArea = ({ exercises }: { exercises: Array<Exercise> }) => {
-  let errors = { title: "some section", description: "bad error" };
   
   return (
     <div className="flex-start flex-col space-y-4">

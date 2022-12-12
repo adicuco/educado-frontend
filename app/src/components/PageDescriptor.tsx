@@ -1,5 +1,3 @@
-import React from 'react'
-
 export const PageDescriptor = ({ title, desc }: { title: string, desc: string }) => {
     return (
         <div className="header flex items-end justify-between p-6 border-b bg-white">

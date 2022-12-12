@@ -46,7 +46,7 @@ const Courses = () => {
           <CreateCourseModal />
         </div>
 
-        <div className="flex-none">
+        {/* NOT IMPLEMENTED <div className="flex-none">
           <form className="flex flex-col md:flex-row w-3/4 md:w-full max-w-sm md:space-x-3 space-y-3 md:space-y-0 justify-center">
             <div className=" relative ">
               <input
@@ -60,7 +60,7 @@ const Courses = () => {
               Filter
             </button>
           </form>
-        </div>
+        </div> */}
       </div>
 
       {/** Page content real data from backend */}

@@ -1,5 +1,3 @@
-import React, { useState } from 'react'
-
 //icons 
 import { TrashIcon } from "@heroicons/react/24/outline"
 

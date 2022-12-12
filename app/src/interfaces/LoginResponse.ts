@@ -1,4 +1,4 @@
-declare module LoginResponse {
+export declare module LoginResponse {
 
     export interface Data {
         success: boolean;
