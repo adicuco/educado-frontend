@@ -6,6 +6,7 @@ import useSWR from 'swr';
 import AuthServices from '../services/auth.services';
 
 // Components
+import Loading from './Loading';
 import Layout from '../components/Layout';
 
 function SingleApplicantView() {
@@ -35,10 +36,8 @@ function SingleApplicantView() {
             .catch(_ => toast.error(`Failed to Reject: ${id}`));
     }
 
-
-
-    if (!data) { <>Loading...</>; }
     if (error) { <>Error...</>; }
+    if (!data) return <Loading />
 
     return (
         <Layout meta={`Applicant: ${id?.slice(0, 10)}...`}>
@@ -85,7 +84,7 @@ function SingleApplicantView() {
                                     Applied at:
                                 </dt>
                                 <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                                    {data?.createdAt} {/** FIXME: Date object is not a valid child of HTML element */}
+                                    <>{data?.createdAt}</> {/** FIXME: Date object is not a valid child of HTML element */}
                                 </dd>
                             </div>
                         </dl>

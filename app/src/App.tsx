@@ -11,11 +11,9 @@ import CourseEdit from "./pages/CourseEdit";
 import SectionEdit from "./pages/SectionEdit";
 import Profile from "./pages/Profile";
 
-//Educado Admin tables for reviewing the Content Creator Applicants
+// Educado Admin
 import EducadoAdmin from "./pages/EducadoAdmin";
 import SingleApplicantView from "./pages/SingleApplicantView";
-
-
 
 function App() {
 

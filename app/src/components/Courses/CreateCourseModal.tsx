@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useForm, SubmitHandler } from "react-hook-form";
+import { useSWRConfig } from 'swr';
 
 // Contexts
 // import useAuthStore from '../../contexts/useAuthStore';
@@ -13,6 +14,7 @@ import CourseServices from '../../services/course.services';
 
 // Icons
 import { PencilSquareIcon } from '@heroicons/react/24/outline'
+import { Navigate, useNavigate } from 'react-router-dom';
 
 type Inputs = {
     title: string,
@@ -21,8 +23,9 @@ type Inputs = {
 
 export const CreateCourseModal = () => {
     const [isLoading, setIsLoading] = useState(false);
-    //const token = useAuthStore(state => state.token);
-    const token = useToken()
+    const token = useToken();
+    const navigate = useNavigate();
+    const { mutate } = useSWRConfig();
 
     // use-form setup
     const { register, handleSubmit, formState: { errors } } = useForm<Inputs>();
@@ -35,12 +38,9 @@ export const CreateCourseModal = () => {
             description: data.description,
         }, token)
             .then(res => console.log(res))
-            .catch(err => console.log(err));
+            .catch(err => console.log(err))
+            .finally(() => { mutate("http://127.0.0.1:8888/api/courses/"); navigate("/courses") });
     };
-
-    // failure on submit handler
-    // const onError: SubmitHandler<Inputs> = error => console.log(error);
-
     return (
         <>
             {/* The button to open modal */}
@@ -70,7 +70,7 @@ export const CreateCourseModal = () => {
                             <label htmlFor='description'>Description</label>
                             <textarea rows={4} defaultValue={""}
                                 className="resize-none form-field focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
-                                {...register("description", { required: true})}
+                                {...register("description", { required: true })}
                             />
                             {errors.description && <span>This field is required</span>}
                         </div>

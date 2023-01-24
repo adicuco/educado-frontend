@@ -18,6 +18,7 @@ import StorageService from '../services/storage.services';
 import NotFound from './NotFound';
 
 // components
+import Loading from './Loading';
 import Layout from '../components/Layout'
 import { SectionList } from '../components/dnd/SectionList';
 import { SectionForm } from '../components/dnd/SectionForm';
@@ -43,8 +44,6 @@ type CoursePartial = {
 const OTHER_CATEGORY_ID = '639208a0f467689fde25b5fa'
 
 const CourseEdit = () => {
-    // States and Hooks
-    // const navigate = useNavigate();
     const token = useToken();
     const { id } = useParams(); // Get path params
 
@@ -62,8 +61,6 @@ const CourseEdit = () => {
         token ? [`http://127.0.0.1:8888/api/categories`, token] : null,
         CourseServices.getCourseCategories
     );
-
-
 
     // React useForm setup
     const { register, handleSubmit, formState: { errors } } = useForm<Inputs>();
@@ -108,7 +105,7 @@ const CourseEdit = () => {
     }
 
     if (error || categoriesError) return <NotFound />;
-    if (!data || !categories || (!data && !categories)) return <p>"Loading..."</p>;
+    if (!data || !categories || (!data && !categories)) return <Loading/>;
 
     return (
         <Layout meta={`Course: ${123}`}>

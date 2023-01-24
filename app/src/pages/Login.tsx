@@ -18,8 +18,6 @@ type Inputs = {
 
 const Login = () => {
     // Location
-    const location = useLocation();
-
     const [error, setError] = useState<LoginReponseError.RootObject | null>(null); // store http error objects TODO: get the error text from server instead of reponse code
     
     // states

@@ -43,7 +43,6 @@ const Profile = () => {
     const [showOldPassword, setShowOldPassword] = useState(false)
     const [showNewPassword, setShowNewPassword] = useState(false)
     
-    
     // use-form setup
     const { 
         register: profileInfoRegister, 

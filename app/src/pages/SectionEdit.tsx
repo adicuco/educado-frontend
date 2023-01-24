@@ -12,6 +12,7 @@ import SectionServices from '../services/section.services';
 import ExerciseServices from '../services/exercise.services';
 
 // Components
+import Loading from './Loading';
 import Layout from '../components/Layout';
 import { ExerciseArea } from '../components/ExerciseArea'
 
@@ -70,7 +71,7 @@ const SectionEdit = () => {
 
     // Render onError and onLoading
     if (sectionError) return <p>"An error has occurred."</p>;
-    if (!sectionData) return <p>"Loading..."</p>;
+    if (!sectionData) return <Loading/>;
 
     return (
         <Layout meta='Section edit page'>

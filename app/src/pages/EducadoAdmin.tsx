@@ -1,3 +1,4 @@
+import { useState } from "react";
 import useSWR from "swr";
 import { useNavigate, Link, useLocation } from 'react-router-dom';
 
@@ -8,9 +9,11 @@ import AuthServices from "../services/auth.services";
 import { CCApp } from '../interfaces/CCApp'
 
 // Components
+import Loading from "./Loading";
 import Layout from "../components/Layout";
 import { PageDescriptor } from "../components/PageDescriptor";
-import { useState } from "react";
+
+
 
 const EducadoAdmin = () => {
     const [searchTerm, setSearchTerm] = useState('')
@@ -24,8 +27,8 @@ const EducadoAdmin = () => {
         AuthServices.GetCCApplications
     );
 
-    if (!data) { <>Loading...</>; }
     if (error) { <>Error...</>; }
+    if (!data) return <Loading/>
 
     return (
         <Layout meta="Educado Admin">

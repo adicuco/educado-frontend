@@ -9,10 +9,10 @@ import CourseServices from '../services/course.services';
 
 // Components
 import Layout from '../components/Layout'
+import Loading from './Loading';
 import { CourseListCard } from '../components/Courses/CourseListCard'
 import { CreateCourseModal } from '../components/Courses/CreateCourseModal';
 import { PageDescriptor } from '../components/PageDescriptor';
-import { useState } from 'react';
 import { CubeTransparentIcon } from '@heroicons/react/24/outline';
 
 const Courses = () => {
@@ -28,7 +28,7 @@ const Courses = () => {
 
   // useSWR built in loaders
   if (error) return navigate("/login");
-  if (!data) return <p>"Loading..."</p>;
+  if (!data) return <Loading/>;
 
   return (
     <Layout meta="Course overview">
@@ -36,7 +36,7 @@ const Courses = () => {
       {/** Page Descriptor */}
       <PageDescriptor
         title="Courses"
-        desc="All courses are verified by 2 experts and validated by an Educado Admin. Allegedly."
+        desc="All courses are verified and validated by experts or an Educado Admin."
       />
 
       {/** Page Navbar */}
@@ -45,22 +45,6 @@ const Courses = () => {
           {/** Create new courses */}
           <CreateCourseModal />
         </div>
-
-        {/* NOT IMPLEMENTED <div className="flex-none">
-          <form className="flex flex-col md:flex-row w-3/4 md:w-full max-w-sm md:space-x-3 space-y-3 md:space-y-0 justify-center">
-            <div className=" relative ">
-              <input
-                type="text"
-                className="input input-bordered rounded w-full max-w-xs"
-                placeholder="Looking for a course?"
-                onChange={() => console.log("Heyo")}
-              />
-            </div>
-            <button className="btn btn-primary space-x-2">
-              Filter
-            </button>
-          </form>
-        </div> */}
       </div>
 
       {/** Page content real data from backend */}
