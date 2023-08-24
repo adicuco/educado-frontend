@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.204.0",
+    "@aws-sdk/client-s3": "^3.398.0",
     "@aws-sdk/lib-storage": "^3.204.0",
     "@dnd-kit/core": "^6.0.5",
     "@dnd-kit/modifiers": "^6.0.0",
@@ -17,7 +17,7 @@
     "@heroicons/react": "^2.0.11",
     "@hookform/resolvers": "^2.9.8",
     "@tippyjs/react": "^4.2.6",
-    "aws-sdk": "^2.1249.0",
+    "aws-sdk": "^2.1443.0",
     "axios": "^0.27.2",
     "daisyui": "^2.38.1",
     "jwt-decode": "^3.1.2",
@@ -45,6 +45,6 @@
     "postcss": "^8.4.16",
     "tailwindcss": "^3.1.8",
     "typescript": "^4.6.4",
-    "vite": "^3.1.0"
+    "vite": "^3.2.7"
   }
 }
