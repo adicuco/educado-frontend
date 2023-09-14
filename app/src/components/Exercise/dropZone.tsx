@@ -84,6 +84,6 @@ function DropZoneComponent({ update: updateFile, storageKey }) {
         //  */}
 
     );
-};
+}
 
 export default DropZoneComponent;

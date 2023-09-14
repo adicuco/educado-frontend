@@ -19,8 +19,8 @@ const EducadoAdmin = () => {
     const [searchTerm, setSearchTerm] = useState('')
 
     // Used to navigate to the detailed view for the single applicant
-    let navigate = useNavigate();
-    let location = useLocation();
+    const navigate = useNavigate();
+    const location = useLocation();
 
     const { data, error } = useSWR(
         "http://127.0.0.1:8888/api/applications?approved=false",
@@ -97,7 +97,7 @@ const EducadoAdmin = () => {
                                         return application;
                                     }
                                 }).map((application: CCApp.Datum, key: number) => {
-                                    let date = new Date(application.createdAt); // TODO: Format Time
+                                    const date = new Date(application.createdAt); // TODO: Format Time
                                     // let dateString = new Intl.DateTimeFormat('en-US').format(date);
                                     return (
                                         <tr key={key} className="px-5 py-5 border-b border-gray-200 bg-white text-sm">

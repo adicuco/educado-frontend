@@ -27,7 +27,7 @@ const Courses = () => {
   );
 
   // useSWR built in loaders
-  // if (error) return navigate("/login");
+  if (error) return navigate("/login");
   if (!data) return <Loading />;
 
   return (
