@@ -1,0 +1,51 @@
+name: ⚙️ CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    name: 🚦 Lint
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: ⬇️ Checkout repo
+        uses: actions/checkout@v3
+
+      - name: ⎔ Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      # ESLint and Prettier must be in `package.json`
+      - name: 📥 Install dependencies
+        run: cd app && npm ci
+
+      - name: 🔎 Run linter
+        run: cd app && npm run lint
+
+  typecheck:
+    name: 👮‍♂️ Typecheck
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: ⬇️ Checkout repo
+        uses: actions/checkout@v3
+
+      - name: ⎔ Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: 📥 Install dependencies
+        run: cd app && npm ci
+
+      - name: 🚦 Run typecheck
+        run: cd app && npm run typecheck

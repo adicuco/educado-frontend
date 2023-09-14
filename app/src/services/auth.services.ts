@@ -4,10 +4,10 @@ import axios from "axios";
 import { CCApp } from "../interfaces/CCApp";
 
 export interface ContentCreatorApplication {
-  firstName: String;
-  lastName: String;
-  email: String;
-  motivation: String;
+  firstName: string;
+  lastName: string;
+  email: string;
+  motivation: string;
 }
 
 // Authenticate with JWT login

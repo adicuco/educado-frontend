@@ -33,7 +33,7 @@ const SignupSchema = Yup.object().shape({
 });
 
 const Signup = () => {
-  let navigate = useNavigate(); // navigation hook
+  const navigate = useNavigate(); // navigation hook
 
   // use-hook-form setup
   const { register, handleSubmit, formState: { errors } } = useForm<ApplicationInputs>({
